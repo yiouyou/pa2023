@@ -2,13 +2,11 @@ from ._faiss import get_faiss_ST, pretty_print_docs
 
 def get_faiss_vdb_retriever(_db_name):
     _db = get_faiss_ST(_db_name)
-    # _vdb_retriever = _db.as_retriever(search_type="mmr")
     # _vdb_retriever = _db.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": .5})
     _vdb_retriever = _db.as_retriever(search_type="mmr", search_kwargs={"k": 3})
-    # print(_vdb_retriever)
     return _vdb_retriever
 
-def qa_faiss_retriever_vdber_vdb(_query, _db_name):
+def qa_faiss_retriever_vdb(_query, _db_name):
     from langchain.chat_models import ChatOpenAI
     from dotenv import load_dotenv
     load_dotenv()
@@ -35,7 +33,7 @@ def qa_faiss_vdb(_query, _db):
     _faiss_path = _pwd.parent.parent.parent
     _db_name = str(_faiss_path / "vdb" / _db)
     print(f"db_name: {_db_name}")
-    _ans = qa_faiss_retriever_vdber_vdb(_query, _db_name)
+    _ans = qa_faiss_retriever_vdb(_query, _db_name)
     return _ans
 
 def qa_faiss_vdb_azure(_query):
