@@ -163,13 +163,13 @@ if __name__ == "__main__":
     # _azure_vm = str(_faiss_path / "vdb" / _db_azure_vm)
     # md_dir_to_faiss("./vm", _azure_vm)
 
-    _db_azure = txt2name("Azure Virtual Machines Plus")
-    print(_db_azure)
-    _links = str(_faiss_path / "vdb" / "azure_vm.link")
-    _azure = str(_faiss_path / "vdb" / _db_azure)
-    _md_dir = "./md"
+    # _db_azure = txt2name("Azure Virtual Machines Plus")
+    # print(_db_azure)
+    # _links = str(_faiss_path / "vdb" / "azure_vm.link")
+    # _azure = str(_faiss_path / "vdb" / _db_azure)
+    # _md_dir = "./md"
     # weblinks_to_link_md(_links, _md_dir)
-    link_md_to_faiss(_md_dir, _azure)
+    # link_md_to_faiss(_md_dir, _azure)
 
     # _db_azure = txt2name("Introduction to Azure managed disks")
     # print(_db_azure)
