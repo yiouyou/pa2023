@@ -1,6 +1,6 @@
 from ._chroma import get_chroma_ST, pretty_print_docs
 
-def get_contextual_compress_retriever(_db_name):
+def get_chroma_contextual_compress_retriever(_db_name):
     from langchain.embeddings import HuggingFaceEmbeddings
     from langchain.retrievers.document_compressors import EmbeddingsFilter
     from langchain.document_transformers import EmbeddingsRedundantFilter
@@ -33,14 +33,14 @@ def get_contextual_compress_retriever(_db_name):
 
     return _compression_retriever
 
-def qa_retriever_contextual_compress(_query, _db_name):
+def qa_chroma_retriever_contextual_compress(_query, _db_name):
     from langchain.chains import RetrievalQA
     from langchain.chat_models import ChatOpenAI
     from dotenv import load_dotenv
     load_dotenv()
     import os
     llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
-    _retriever = get_contextual_compress_retriever(_db_name)
+    _retriever = get_chroma_contextual_compress_retriever(_db_name)
     # _docs = _retriever.get_relevant_documents(_query)
     # pretty_print_docs(_docs)
     _qa_chain = RetrievalQA.from_chain_type(llm, retriever=_retriever)
@@ -54,7 +54,7 @@ def qa_chroma_contextual_compress(_query, _db):
     _chroma_path = _pwd.parent.parent.parent
     _db_name = str(_chroma_path / "vdb" / _db)
     print(f"db_name: {_db_name}")
-    _ans = qa_retriever_contextual_compress(_query, _db_name)
+    _ans = qa_chroma_retriever_contextual_compress(_query, _db_name)
     return _ans
 
 def qa_chroma_contextual_compress_azure(_query):
@@ -70,6 +70,8 @@ def qa_chroma_contextual_compress_langchain(_query):
 
 if __name__ == "__main__":
 
+    from _faiss import get_faiss_ST, pretty_print_docs
+
     _qa = [
         "how to save money on disk?",
         "how many disk types are billed per actually allocated disk size?",
@@ -78,7 +80,7 @@ if __name__ == "__main__":
     ]
     for _q in _qa:
         _re= qa_chroma_contextual_compress_langchain(_q)
-        print(f"\n###'{_q}'\n>>>'{_re[0]}'\n")
+        print(f"\n>>>'{_q}'\n<<<'{_re[0]}'\n")
 
     _qa = [
         "what's the difference between Agent and Chain in Langchain?"
@@ -86,5 +88,5 @@ if __name__ == "__main__":
     for _q in _qa:
         print(_q)
         _re= qa_chroma_contextual_compress_langchain(_q)
-        print(f"\n###'{_q}'\n>>>'{_re[0]}'\n")
+        print(f"\n>>>'{_q}'\n<<<'{_re[0]}'\n")
 

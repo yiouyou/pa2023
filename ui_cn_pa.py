@@ -36,8 +36,7 @@ from module.voice import txt_to_mp3
 from module.auto_programming import auto_py
 
 ##### QA Azure managed disks
-from module.query_vdb import qa_faiss_vdb_azure
-# from module.query_vdb import qa_faiss_multi_retrievers
+from module.query_vdb import qa_faiss_multi_query_azure
 
 ##### UI
 _description = """
@@ -48,18 +47,18 @@ with gr.Blocks(title=_description) as demo:
     dh_user_question = gr.State("")
     gr.Markdown(_description)
 
-    with gr.Tab(label = "QA Azure managed disks"):
+    with gr.Tab(label = "Azure VM +"):
         qa_query = gr.Textbox(label="Query", placeholder="Query", lines=3, max_lines=3, interactive=True, visible=True)
         qa_start_btn = gr.Button("Start", variant="secondary", visible=True)
         qa_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        qa_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=False)
+        qa_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
         qa_query.change(
             chg_btn_color_if_input,
             [qa_query],
             [qa_start_btn]
         )
         qa_start_btn.click(
-            qa_faiss_vdb_azure,
+            qa_faiss_multi_query_azure,
             [qa_query],
             [qa_ans, qa_steps]
         )

@@ -2,7 +2,7 @@ from ._faiss import get_faiss_ST, pretty_print_docs
 
 def get_faiss_vdb_retriever(_db_name):
     _db = get_faiss_ST(_db_name)
-    # _vdb_retriever = _db.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": .5})
+    # _vdb_retriever = _db.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.3})
     _vdb_retriever = _db.as_retriever(search_type="mmr", search_kwargs={"k": 3})
     return _vdb_retriever
 
@@ -49,6 +49,8 @@ def qa_faiss_vdb_langchain(_query):
 
 if __name__ == "__main__":
 
+    from _faiss import get_faiss_ST, pretty_print_docs
+
     _qa = [
         # "how to save money on disk?",
         # "how disk types are billed?",
@@ -66,7 +68,7 @@ if __name__ == "__main__":
     ]
     for _q in _qa:
         _re= qa_faiss_vdb_azure(_q)
-        print(f"\n###'{_q}'\n>>>'{_re[0]}'\n")
+        print(f"\n>>>'{_q}'\n<<<'{_re[0]}'\n")
 
     # _qa = [
     #     "what's the difference between Agent and Chain in Langchain?"
@@ -74,5 +76,5 @@ if __name__ == "__main__":
     # for _q in _qa:
     #     print(_q)
     #     _re= qa_faiss_vdb_langchain(_q)
-    #     print(f"\n###'{_q}'\n>>>'{_re[0]}'\n")
+    #     print(f"\n>>>'{_q}'\n<<<'{_re[0]}'\n")
 

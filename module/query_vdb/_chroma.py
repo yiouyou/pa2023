@@ -32,20 +32,20 @@ def get_chroma_multi_retrievers_chain():
     from pathlib import Path
     _pwd = Path(__file__).absolute()
     _chroma_path = _pwd.parent.parent.parent
-    _db_azure = get_chroma_ST(str(_chroma_path / "vdb" / "introduction_to_azure_managed_disks"))
+    _db_azure = get_chroma_ST(str(_chroma_path / "vdb" / "azure_virtual_machines_plus"))
     _retriever_azure = _db_azure.as_retriever()
-    _db_azure_tables = get_chroma_ST(str(_chroma_path / "vdb" / "tables_of_azure_managed_disks"))
-    _retriever_azure_tables = _db_azure_tables.as_retriever()
+    _db_langchain = get_chroma_ST(str(_chroma_path / "vdb" / "langchain_python_documents"))
+    _retriever_langchain = _db_langchain.as_retriever()
     _retrievers = [
         {
-            "name": "introduction to azure managed disks", 
-            "description": "Good for answering general infomation about Azure Disks", 
+            "name": "azure virtual machines plus", 
+            "description": "Good for answering general infomation about Azure virtual machines", 
             "retriever": _retriever_azure
         },
         {
-            "name": "tables of azure managed disks", 
-            "description": "Good for answering specific performance, number realted questions about Azure Disks", 
-            "retriever": _retriever_azure_tables
+            "name": "langchain python documents", 
+            "description": "Good for answering general infomation about Langchain", 
+            "retriever": _retriever_langchain
         }
     ]
     from langchain.chains.router import MultiRetrievalQAChain
@@ -79,5 +79,5 @@ if __name__ == "__main__":
     ]
     for _q in _qa:
         _re = qa_chroma_multi_retrievers(_q)
-        print(f"\n###'{_q}'\n>>>'{_re}'\n")
+        print(f"\n>>>'{_q}'\n<<<'{_re[0]}'\n")
 
