@@ -1,0 +1,62 @@
+The core classes, functions, and methods that will be necessary for this CLI tool are:
+
+1. `ImageResizer`: This class will handle the resizing of the images. It will have the following methods:
+   - `resize_image`: Resizes the image based on the specified width and height.
+   - `save_image`: Saves the resized image to the specified output file.
+
+2. `CLI`: This class will handle the command-line interface. It will have the following methods:
+   - `parse_arguments`: Parses the command-line arguments and returns the input file, output file, width, and height.
+   - `run`: Runs the CLI tool by calling the necessary methods from the `ImageResizer` class.
+
+Now, let's create the necessary files and implement the code.
+
+**main.py**
+```python
+import argparse
+from image_resizer import ImageResizer
+
+class CLI:
+    def parse_arguments(self):
+        parser = argparse.ArgumentParser(description='Image Resizer')
+        parser.add_argument('input_file', help='Input image file')
+        parser.add_argument('output_file', help='Output image file')
+        parser.add_argument('width', type=int, help='Desired width')
+        parser.add_argument('height', type=int, help='Desired height')
+        return parser.parse_args()
+
+    def run(self):
+        args = self.parse_arguments()
+        resizer = ImageResizer()
+        resizer.resize_image(args.input_file, args.output_file, args.width, args.height)
+
+if __name__ == '__main__':
+    cli = CLI()
+    cli.run()
+```
+
+**image_resizer.py**
+```python
+from PIL import Image
+
+class ImageResizer:
+    def resize_image(self, input_file, output_file, width, height):
+        image = Image.open(input_file)
+        resized_image = image.resize((width, height))
+        self.save_image(resized_image, output_file)
+
+    def save_image(self, image, output_file):
+        image.save(output_file)
+```
+
+**requirements.txt**
+```
+Pillow
+```
+
+This is the basic structure of the CLI tool. The `CLI` class handles the command-line interface and calls the necessary methods from the `ImageResizer` class to resize and save the image. The `ImageResizer` class uses the Pillow library to perform the image manipulation.
+
+To use the tool, you can run the following command:
+```
+python main.py input.jpg output.jpg 800 600
+```
+This will resize the `input.jpg` image to a width of 800 pixels and a height of 600 pixels, and save the resized image as `output.jpg`.

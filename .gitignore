@@ -1,3 +1,33 @@
+# md
+module/generate_vdb/md/
+module/generate_vdb/vm/
+
+# vdb
+vdb/*
+!vdb/.gitkeep
+!vdb/azure_vm.link
+
+# test
+test/*.csv
+test/*.md
+
+# tmp
+tmp/mp3/*.mp3
+tmp/project/memory/*
+!tmp/project/memory/.gitkeep
+tmp/project/workspace/*
+!tmp/project/workspace/.gitkeep
+tmp/project/*
+!tmp/project/.gitkeep
+
+# ssl
+ssl/*
+!ssl/.gitkeep
+
+# log
+log/*
+!log/.gitkeep
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

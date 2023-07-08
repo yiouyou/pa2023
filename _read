@@ -1,0 +1,18 @@
+## torch + torchvision
+pip install torch==2.0.1+cpu torchvision==0.15.2+cpu -f https://download.pytorch.org/whl/torch_stable.html
+
+
+## https ssl
+
+1) mkdir ssl
+cd ssl
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes
+> ssl/key.pem, ssl/cert.pem
+
+2) mkcert localhost 127.0.0.1 ::1
+> localhost+2-key.pem, localhost+2.pem
+
+
+## ffmpeg + ffprobe
+sudo apt install ffmpeg -y
+

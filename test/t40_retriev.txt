@@ -1,0 +1,287 @@
+query='save money on disk' filter=None limit=None
+Document 1:
+
+Understand reservations discount for Azure disk storage - Microsoft Cost Management | Microsoft Learn
+Skip to main content
+This browser is no longer supported.
+Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+
+Download Microsoft Edge
+
+More info about Internet Explorer and Microsoft Edge
+
+Table of contents
+Exit focus mode
+Read in English
+Save
+Table of contents
+Read in English
+Save
+Edit
+Print
+Twitter
+LinkedIn
+Facebook
+Email
+Table of contents
+Understand how your reservation discount is applied to Azure disk storage
+
+Article
+12/07/2022
+
+																	3 contributors
+Feedback
+In this article
+After you purchase Azure disk reserved capacity, a reservation discount is automatically applied to disk resources that match the terms of your reservation. The reservation discount applies to disk SKUs only. Disk snapshots are charged at pay-as-you-go rates.
+----------------------------------------------------------------------------------------------------
+Document 2:
+
+Understand reservations discount for Azure disk storage - Microsoft Cost Management | Microsoft Learn
+
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to main content
+
+
+
+This browser is no longer supported.
+Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+
+
+Download Microsoft Edge					
+
+More info about Internet Explorer and Microsoft Edge					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+Table of contents						
+
+
+
+Exit focus mode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Read in English
+
+
+
+
+
+Save
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Table of contents
+
+
+
+
+
+Read in English
+
+
+
+
+
+Save
+
+
+
+
+
+Edit
+
+
+
+
+
+Print
+
+
+
+
+
+
+Twitter
+
+
+
+
+
+LinkedIn
+
+
+
+
+
+Facebook
+
+
+
+
+
+Email
+
+
+
+
+
+
+
+
+
+
+
+
+Table of contents
+
+
+
+
+Understand how your reservation discount is applied to Azure disk storage
+
+
+
+
+Article													
+
+12/07/2022
+
+
+
+																	3 contributors
+															
+
+
+
+
+
+
+
+
+Feedback
+
+
+
+
+
+In this article
+----------------------------------------------------------------------------------------------------
+Document 3:
+
+Freeze all the disks.
+
+Flush all the pending writes.
+
+Create a blob snapshot for all the disks.
+----------------------------------------------------------------------------------------------------
+Document 4:
+
+Enable on-demand disk bursting - Azure Virtual Machines | Microsoft Learn
+Skip to main content
+This browser is no longer supported.
+Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+
+Download Microsoft Edge
+
+More info about Internet Explorer and Microsoft Edge
+
+Table of contents
+Exit focus mode
+Read in English
+Save
+Table of contents
+Read in English
+Save
+Edit
+Print
+Twitter
+LinkedIn
+Facebook
+Email
+Table of contents
+Enable on-demand bursting
+
+Article
+05/03/2023
+
+																	3 contributors
+Feedback
+In this article
+Premium solid-state drives (SSD) have two available bursting models; credit-based bursting and on-demand bursting. This article covers how to switch to on-demand bursting. Disks that use the on-demand model can burst beyond their original provisioned targets. On-demand bursting occurs as often as needed by the workload, up to the maximum burst target. On-demand bursting incurs additional charges.

@@ -1,0 +1,77 @@
+首先，我们需要创建一个入口文件来处理命令行参数和调用相应的函数。我们将使用`argparse`库来解析命令行参数。让我们创建一个名为`image_resizer.py`的文件。
+
+```python
+import argparse
+from image_processor import resize_image
+
+def main():
+    parser = argparse.ArgumentParser(description='Image Resizer CLI')
+    parser.add_argument('image_path', type=str, help='path to the image file')
+    parser.add_argument('--width', type=int, help='desired width of the image')
+    parser.add_argument('--height', type=int, help='desired height of the image')
+    args = parser.parse_args()
+
+    if not args.width and not args.height:
+        print('Please specify either width or height.')
+        return
+
+    resize_image(args.image_path, args.width, args.height)
+
+if __name__ == '__main__':
+    main()
+```
+
+接下来，我们将创建一个名为`image_processor.py`的文件，其中包含一个`resize_image`函数来调整图像大小。我们将使用Pillow库来处理图像。让我们添加以下代码：
+
+```python
+from PIL import Image
+
+def resize_image(image_path, width, height):
+    try:
+        image = Image.open(image_path)
+        original_width, original_height = image.size
+
+        if not width:
+            width = int(original_width * (height / original_height))
+        elif not height:
+            height = int(original_height * (width / original_width))
+
+        resized_image = image.resize((width, height))
+        resized_image.save('resized_image.jpg')
+        print('Image resized successfully.')
+    except FileNotFoundError:
+        print('Image file not found.')
+    except Exception as e:
+        print(f'An error occurred: {str(e)}')
+```
+
+现在我们已经完成了代码的编写。接下来，我们需要创建一个`requirements.txt`文件来指定我们的依赖项。在项目的根目录下创建一个名为`requirements.txt`的文件，并添加以下内容：
+
+```
+Pillow
+```
+
+最后，我们的项目结构如下所示：
+
+```
+image_resizer/
+  ├── image_resizer.py
+  ├── image_processor.py
+  └── requirements.txt
+```
+
+现在我们可以使用以下命令来安装所需的依赖项：
+
+```
+pip install -r requirements.txt
+```
+
+然后，我们可以使用以下命令来调整图像大小：
+
+```
+python image_resizer.py <image_path> --width <desired_width> --height <desired_height>
+```
+
+其中`<image_path>`是要调整大小的图像文件的路径，`<desired_width>`和`<desired_height>`是所需的宽度和高度。如果只指定了宽度或高度，则会根据图像的纵横比自动计算另一个维度。
+
+这就是我们的CLI工具的实现。希望对你有所帮助！
