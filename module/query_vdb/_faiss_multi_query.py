@@ -62,7 +62,7 @@ def qa_faiss_retriever_multi_query(_query, _db_name):
     _pretty = pretty_print_docs(_docs)
     _qa_chain = RetrievalQA.from_chain_type(llm, retriever=_retriever)
     _ans = _qa_chain.run(_query)
-    _steps = "\n".join(_retriever.generate_queries(_query, _run_manager)) + f"\n\n{'-' * 100}" + _pretty
+    _steps = "\n".join(_retriever.generate_queries(_query, _run_manager)) + f"\n\n{'-' * 100}\n" + _pretty
     return [_ans, _steps]
 
 def qa_faiss_multi_query(_query, _db):
