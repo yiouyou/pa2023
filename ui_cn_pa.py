@@ -47,20 +47,37 @@ with gr.Blocks(title=_description) as demo:
     dh_user_question = gr.State("")
     gr.Markdown(_description)
 
-    with gr.Tab(label = "Azure VM +"):
-        qa_query = gr.Textbox(label="Query", placeholder="Query", lines=3, max_lines=3, interactive=True, visible=True)
-        qa_start_btn = gr.Button("Start", variant="secondary", visible=True)
-        qa_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        qa_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        qa_query.change(
+    with gr.Tab(label = "OpenAI"):
+        op_query = gr.Textbox(label="Prompt", placeholder="Prompt", lines=15, max_lines=315, interactive=True, visible=True)
+        op_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        op_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        op_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        op_query.change(
             chg_btn_color_if_input,
-            [qa_query],
-            [qa_start_btn]
+            [op_query],
+            [op_start_btn]
         )
-        qa_start_btn.click(
+        op_start_btn.click(
             qa_faiss_multi_query_azure,
-            [qa_query],
-            [qa_ans, qa_steps]
+            [op_query],
+            [op_ans, op_steps]
+        )
+
+
+    with gr.Tab(label = "Azure VM +"):
+        az_query = gr.Textbox(label="Query", placeholder="Query", lines=3, max_lines=3, interactive=True, visible=True)
+        az_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_query.change(
+            chg_btn_color_if_input,
+            [az_query],
+            [az_start_btn]
+        )
+        az_start_btn.click(
+            qa_faiss_multi_query_azure,
+            [az_query],
+            [az_ans, az_steps]
         )
 
 
