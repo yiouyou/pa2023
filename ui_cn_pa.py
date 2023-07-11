@@ -24,7 +24,17 @@ from module.chatbot import retry_bot
 from module.chatbot import create_chatopenai
 chatagent_openai = create_chatopenai()
 
-##### 搜索
+
+##### 语音
+from module.voice import txt_to_mp3
+
+##### 自动编程
+from module.auto_programming import auto_py
+
+##### QA + 搜索
+from module.query_vdb import qa_faiss_multi_query_azure
+from module.agents import agent_plan_execute
+
 from module.tools import tools_faiss_azure_googleserp_math
 from module.tools import tools_faiss_azure_langchain_googleserp_math
 from module.tools import tools_react_docstore_azure_googleserp
@@ -33,16 +43,6 @@ from module.tools import tools_selfask_azure
 from module.agents import agent_react_zeroshot
 from module.agents import agent_react_docstore
 from module.agents import agent_selfask_search
-from module.agents import agent_plan_execute
-
-##### 语音
-from module.voice import txt_to_mp3
-
-##### 自动编程
-from module.auto_programming import auto_py
-
-##### QA Azure managed disks
-from module.query_vdb import qa_faiss_multi_query_azure
 
 def run_selected_agent_retriever(_query, _radio):
     _ans, _steps = "", ""
