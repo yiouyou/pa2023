@@ -13,7 +13,6 @@ google-search-results
 wikipedia
 python-dotenv
 nest_asyncio
-chromadb
 faiss-cpu
 torch
 torchvision
@@ -22,3 +21,5 @@ sentence_transformers
 lxml
 tabulate
 markdownify
+chromadb==0.3.26
+pydantic==1.10.8

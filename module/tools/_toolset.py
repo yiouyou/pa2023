@@ -4,27 +4,31 @@ from ._tools import search_serp
 from ._tools import docstore_wiki
 from ._tools import retriev_azure
 from ._tools import retriev_langchain
-
+from ._tools import llm_math_chain
 from langchain.agents import Tool
 
 
-tools_search_serp = [
+all_tools = [
     Tool(
-        name = "Current Search",
-        func=search_serp.run,
-        description="useful for when you need to answer questions about current events or the current state of the world"
+        name="Intermediate Answer",
+        description="useful for when you need to ask with search",
+        func=search_google_serp.run
     ),
-]
-
-tools_zeroshot_google = [
     Tool(
-        name="Search",
-        func=search_goolge.run,
-        description="useful for when you need to answer questions about current events",
-    )
-]
-
-tools_react_docstore_wiki = [
+        name="Search google serp",
+        description="useful for when you need to answer questions about current events or the current state of the world",
+        func=search_google_serp.run,
+    ),
+    Tool(
+        name = "Search serp",
+        description="useful for when you need to answer questions about current events or the current state of the world",
+        func=search_serp.run
+    ),
+    Tool(
+        name="Search google",
+        description="useful for when you need to answer questions about current events or the current state of the world",
+        func=search_goolge.run
+    ),
     Tool(
         name="Search",
         description="useful for when you need to ask with search",
@@ -34,49 +38,55 @@ tools_react_docstore_wiki = [
         name="Lookup",
         description="useful for when you need to ask with lookup",
         func=docstore_wiki.lookup
+    ),
+    Tool(
+        name="QA for Azure",
+        description="useful for when you need to query information about Azure virtual machine and disks",
+        func=retriev_azure.run,
+        return_direct=True
+    ),
+    Tool(
+        name="QA for Langchain",
+        description="useful for when you need to query information about langchain. Input should be a fully formed question.",
+        func=retriev_langchain.run,
+        return_direct=True
+    ),
+    Tool(
+        name="Calculator",
+        description="useful for when you need to answer questions about math",
+        func=llm_math_chain.run
     )
 ]
 
-tools_self_ask_with_search = [
+
+tools_selfask_search = [all_tools[0]]
+tools_selfask_azure = [
     Tool(
         name="Intermediate Answer",
         description="useful for when you need to ask with search",
-        func=search_google_serp.run
+        func=retriev_azure.run
     )
 ]
 
-tools_faiss_azure_langchain = [
-    Tool(
-        name="QA for Azure",
-        func=retriev_azure.run,
-        description="useful for when you need to query information about Azure disks. Input should be a fully formed question.",
-        return_direct=True,
-    ),
-    Tool(
-        name="QA for Langchain",
-        func=retriev_langchain.run,
-        description="useful for when you need to query information about langchain. Input should be a fully formed question.",
-        return_direct=True,
-    )
-]
+tools_search_serp = [all_tools[2]]
+tools_search_google = [all_tools[3]]
 
-tools_faiss_azure_langchain_googleserp = [
+tools_react_docstore_wiki = [all_tools[4], all_tools[5]]
+tools_react_docstore_azure_googleserp = [
     Tool(
-        name="QA for Azure",
+        name="Search",
+        description="useful for when you need to ask with search",
         func=retriev_azure.run,
-        description="useful for when you need to query general information about Azure disks.",
-        return_direct=True,
     ),
     Tool(
-        name="QA for Langchain",
-        func=retriev_langchain.run,
-        description="useful for when you need to query information about langchain. Input should be a fully formed question.",
-        return_direct=True,
-    ),
-    Tool(
-        name="Search for other information",
+        name="Lookup",
+        description="useful for when you need to ask with lookup",
         func=search_google_serp.run,
-        description="useful for when you need to query about current events and information other than Azure disks and langchain.",
     )
 ]
+
+tools_faiss_azure_math = [all_tools[6], all_tools[8]]
+tools_faiss_azure_langchain = [all_tools[6], all_tools[7]]
+tools_faiss_azure_googleserp_math = [all_tools[6], all_tools[1], all_tools[8]]
+tools_faiss_azure_langchain_googleserp_math = [all_tools[6], all_tools[7], all_tools[1], all_tools[8]]
 

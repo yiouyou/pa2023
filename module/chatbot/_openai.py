@@ -60,13 +60,17 @@ class ChatAgent:
         self.chain = chain
 
 def create_chatopenai(seed_memory=None):
-    from module.tools import tools_faiss_azure_langchain_googleserp
-    tools = tools_faiss_azure_langchain_googleserp
+    from module.tools import tools_faiss_azure_langchain_googleserp_math
     memory = seed_memory if seed_memory is not None else ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     import os
     model_name = os.getenv('OPENAI_MODEL')
     _chatopenai = ChatOpenAI(temperature=0, model_name=model_name)
-    chain = initialize_agent(tools, _chatopenai, agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION, verbose=True, memory=memory)
+    chain = initialize_agent(
+        tools_faiss_azure_langchain_googleserp_math,
+        _chatopenai,
+        agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION, verbose=True,
+        memory=memory
+    )
     return ChatAgent(memory, chain)
 
 def predict(chatagent_openai, _ask, _chatbot, _history):

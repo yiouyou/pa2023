@@ -44,6 +44,7 @@ Original question: {question}""",
 def qa_faiss_retriever_multi_query(_query, _db_name):
     _ans, _steps = "", ""
     from pprint import pprint
+    from langchain.callbacks import get_openai_callback
     from langchain.callbacks.manager import (
         AsyncCallbackManagerForRetrieverRun,
         CallbackManagerForRetrieverRun,
@@ -54,15 +55,18 @@ def qa_faiss_retriever_multi_query(_query, _db_name):
     load_dotenv()
     import os
     llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
-    _retriever = get_faiss_multi_query_retriever(_db_name)
-    _run_manager = CallbackManagerForRetrieverRun.get_noop_manager()
-    _generated_queries = _retriever.generate_queries(_query, _run_manager)
-    pprint(_generated_queries)
-    _docs = _retriever.get_relevant_documents(_query)
-    _pretty = pretty_print_docs(_docs)
-    _qa_chain = RetrievalQA.from_chain_type(llm, retriever=_retriever)
-    _ans = _qa_chain.run(_query)
-    _steps = "\n".join(_retriever.generate_queries(_query, _run_manager)) + f"\n\n{'-' * 100}\n" + _pretty
+    with get_openai_callback() as cb:
+        _retriever = get_faiss_multi_query_retriever(_db_name)
+        _run_manager = CallbackManagerForRetrieverRun.get_noop_manager()
+        _generated_queries = _retriever.generate_queries(_query, _run_manager)
+        pprint(_generated_queries)
+        _docs = _retriever.get_relevant_documents(_query)
+        _pretty = pretty_print_docs(_docs)
+        _qa_chain = RetrievalQA.from_chain_type(llm, retriever=_retriever)
+        _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
+        print(_token_cost)
+        _ans = _qa_chain.run(_query)
+        _steps = f"{_token_cost}\n\n"+ "\n".join(_retriever.generate_queries(_query, _run_manager)) + f"\n\n{'-' * 100}\n" + _pretty
     return [_ans, _steps]
 
 def qa_faiss_multi_query(_query, _db):
