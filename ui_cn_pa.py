@@ -35,31 +35,38 @@ from module.auto_programming import auto_py
 from module.query_vdb import qa_faiss_multi_query_azure
 from module.agents import agent_plan_execute
 
-from module.tools import tools_faiss_azure_googleserp
 from module.tools import tools_faiss_azure_googleserp_math
-from module.tools import tools_faiss_azure_langchain_googleserp_math
 from module.tools import tools_react_docstore_azure_googleserp
-from module.tools import tools_react_docstore_wiki
 from module.tools import tools_selfask_azure
+from module.tools import tools_faiss_azure_googleserp
+from module.tools import tools_googleserp
+from module.tools import tools_react_docstore_wiki
+from module.tools import tools_selfask_googleserp
 from module.agents import agent_react_zeroshot
 from module.agents import agent_react_docstore
 from module.agents import agent_selfask_search
+from module.agents import agent_openai_multifunc
 
-def run_selected_agent_retriever(_query, _radio):
+def azure_selected_agent_retriever(_query, _radio):
     _ans, _steps = "", ""
     if _radio == "react_zeroshot":
         _ans, _steps = agent_react_zeroshot(
             tools_faiss_azure_googleserp_math,
             _query
         )
-    elif _radio == "react_docstore":
-        _ans, _steps = agent_react_docstore(
-            tools_react_docstore_azure_googleserp,
+    elif _radio == "openai_multifunc":
+        _ans, _steps = agent_openai_multifunc(
+            tools_faiss_azure_googleserp,
             _query
         )
     elif _radio == "selfask_search":
         _ans, _steps = agent_selfask_search(
             tools_selfask_azure,
+            _query
+        )
+    elif _radio == "react_docstore":
+        _ans, _steps = agent_react_docstore(
+            tools_react_docstore_azure_googleserp,
             _query
         )
     elif _radio == "plan_execute":
@@ -74,6 +81,38 @@ def run_selected_agent_retriever(_query, _radio):
     return [_ans, _steps]
 
 
+def search_selected_agent_retriever(_query, _radio):
+    _ans, _steps = "", ""
+    if _radio == "react_zeroshot":
+        _ans, _steps = agent_react_zeroshot(
+            tools_googleserp,
+            _query
+        )
+    elif _radio == "openai_multifunc":
+        _ans, _steps = agent_openai_multifunc(
+            tools_googleserp,
+            _query
+        )
+    elif _radio == "selfask_search":
+        _ans, _steps = agent_selfask_search(
+            tools_selfask_googleserp,
+            _query
+        )
+    elif _radio == "react_docstore_wiki":
+        _ans, _steps = agent_react_docstore(
+            tools_react_docstore_wiki,
+            _query
+        )
+    elif _radio == "plan_execute":
+        _ans, _steps = agent_plan_execute(
+            tools_googleserp,
+            _query
+        )
+    else:
+        _ans = f"ERROR: not supported agent or retriever: {_radio}"
+    return [_ans, _steps]
+
+
 ##### UI
 _description = """
 # 个人助理
@@ -83,27 +122,35 @@ with gr.Blocks(title=_description) as demo:
     dh_user_question = gr.State("")
     gr.Markdown(_description)
 
-    # with gr.Tab(label = "OpenAI"):
-    #     op_query = gr.Textbox(label="Prompt", placeholder="Prompt", lines=15, max_lines=315, interactive=True, visible=True)
-    #     op_start_btn = gr.Button("Start", variant="secondary", visible=True)
-    #     op_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-    #     op_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-    #     op_query.change(
-    #         chg_btn_color_if_input,
-    #         [op_query],
-    #         [op_start_btn]
-    #     )
-    #     op_start_btn.click(
-    #         qa_faiss_multi_query_azure,
-    #         [op_query],
-    #         [op_ans, op_steps]
-    #     )
+
+    with gr.Tab(label = "Search"):
+        sh_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
+        sh_radio = gr.Radio(
+            ["react_zeroshot", "openai_multifunc", "selfask_search", "react_docstore_wiki", "plan_execute"],
+            label="Agent & Retriever",
+            info="What agent or retriever to use?",
+            type="value",
+            value="react_zeroshot"
+        )
+        sh_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        sh_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        sh_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        sh_query.change(
+            chg_btn_color_if_input,
+            [sh_query],
+            [sh_start_btn]
+        )
+        sh_start_btn.click(
+            search_selected_agent_retriever,
+            [sh_query, sh_radio],
+            [sh_ans, sh_steps]
+        )
 
 
     with gr.Tab(label = "Azure VM +"):
-        az_query = gr.Textbox(label="Query", placeholder="Query", lines=3, max_lines=3, interactive=True, visible=True)
+        az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
         az_radio = gr.Radio(
-            ["react_zeroshot", "qa_multiquery", "selfask_search", "react_docstore", "plan_execute"],
+            ["react_zeroshot", "openai_multifunc", "selfask_search", "react_docstore", "plan_execute", "qa_multiquery"],
             label="Agent & Retriever",
             info="What agent or retriever to use?",
             type="value",
@@ -118,7 +165,7 @@ with gr.Blocks(title=_description) as demo:
             [az_start_btn]
         )
         az_start_btn.click(
-            run_selected_agent_retriever,
+            azure_selected_agent_retriever,
             [az_query, az_radio],
             [az_ans, az_steps]
         )
@@ -233,48 +280,48 @@ with gr.Blocks(title=_description) as demo:
         )
 
 
-    with gr.Tab(label = "搜索"):
-        with gr.Row(equal_height=True):
-            with gr.Column(scale=5):
-                with gr.Row():
-                    gzl_search_ask = gr.Textbox(label="提问", placeholder="提问", lines=3, max_lines=3, interactive=True, visible=True)
-                with gr.Row():
-                    gzl_search_ans = gr.Textbox(label="回答", placeholder="...", lines=3, max_lines=3, interactive=False, visible=True)
-            gzl_search_zero_btn = gr.Button("搜索 zero", variant="secondary", visible=True)
-            gzl_search_wiki_btn = gr.Button("搜索 wiki", variant="secondary", visible=True)
-            # gzl_search_serp_btn = gr.Button("搜索 web", variant="secondary", visible=True)
-            with gr.Column(scale=3):
-                gzl_search_steps = gr.Textbox(label="中间步骤", placeholder="...", lines=10, max_lines=10, interactive=False, visible=True)
-        gzl_search_ask.change(
-            chg_btn_color_if_input,
-            [gzl_search_ask],
-            [gzl_search_zero_btn]
-        )
-        # gzl_search_ask.change(
-        #     chg_btn_color_if_input,
-        #     [gzl_search_ask],
-        #     [gzl_search_serp_btn]
-        # )
-        gzl_search_ask.change(
-            chg_btn_color_if_input,
-            [gzl_search_ask],
-            [gzl_search_wiki_btn]
-        )
-        gzl_search_zero_btn.click(
-            partial(agent_react_zeroshot, tools_faiss_azure_langchain_googleserp_math),
-            [gzl_search_ask],
-            [gzl_search_ans, gzl_search_steps]
-        )
-        # gzl_search_serp_btn.click(
-        #     partial(agent_selfask_search, tools_selfask_search),
-        #     [gzl_search_ask],
-        #     [gzl_search_ans, gzl_search_steps]
-        # )
-        gzl_search_wiki_btn.click(
-            partial(agent_react_docstore, tools_react_docstore_wiki),
-            [gzl_search_ask],
-            [gzl_search_ans, gzl_search_steps]
-        )
+    # with gr.Tab(label = "搜索"):
+    #     with gr.Row(equal_height=True):
+    #         with gr.Column(scale=5):
+    #             with gr.Row():
+    #                 gzl_search_ask = gr.Textbox(label="提问", placeholder="提问", lines=3, max_lines=3, interactive=True, visible=True)
+    #             with gr.Row():
+    #                 gzl_search_ans = gr.Textbox(label="回答", placeholder="...", lines=3, max_lines=3, interactive=False, visible=True)
+    #         gzl_search_zero_btn = gr.Button("搜索 zero", variant="secondary", visible=True)
+    #         gzl_search_wiki_btn = gr.Button("搜索 wiki", variant="secondary", visible=True)
+    #         # gzl_search_serp_btn = gr.Button("搜索 web", variant="secondary", visible=True)
+    #         with gr.Column(scale=3):
+    #             gzl_search_steps = gr.Textbox(label="中间步骤", placeholder="...", lines=10, max_lines=10, interactive=False, visible=True)
+    #     gzl_search_ask.change(
+    #         chg_btn_color_if_input,
+    #         [gzl_search_ask],
+    #         [gzl_search_zero_btn]
+    #     )
+    #     # gzl_search_ask.change(
+    #     #     chg_btn_color_if_input,
+    #     #     [gzl_search_ask],
+    #     #     [gzl_search_serp_btn]
+    #     # )
+    #     gzl_search_ask.change(
+    #         chg_btn_color_if_input,
+    #         [gzl_search_ask],
+    #         [gzl_search_wiki_btn]
+    #     )
+    #     gzl_search_zero_btn.click(
+    #         partial(agent_react_zeroshot, tools_faiss_azure_langchain_googleserp_math),
+    #         [gzl_search_ask],
+    #         [gzl_search_ans, gzl_search_steps]
+    #     )
+    #     # gzl_search_serp_btn.click(
+    #     #     partial(agent_selfask_search, tools_selfask_search),
+    #     #     [gzl_search_ask],
+    #     #     [gzl_search_ans, gzl_search_steps]
+    #     # )
+    #     gzl_search_wiki_btn.click(
+    #         partial(agent_react_docstore, tools_react_docstore_wiki),
+    #         [gzl_search_ask],
+    #         [gzl_search_ans, gzl_search_steps]
+    #     )
 
 
     with gr.Tab(label = "语音"):

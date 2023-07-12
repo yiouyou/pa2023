@@ -102,6 +102,32 @@ def agent_plan_execute(_loaded_tools, _ask):
         _steps = f"{_token_cost}\n\n"
     return [_ans, _steps]
 
+def agent_openai_multifunc(_loaded_tools, _ask):
+    from langchain.callbacks import get_openai_callback
+    from langchain.agents import initialize_agent
+    from langchain.agents import AgentType
+    from langchain.chat_models import ChatOpenAI
+    from module.util import parse_intermediate_steps
+    llm = ChatOpenAI(temperature=0)
+    agent = initialize_agent(
+        _loaded_tools,
+        llm,
+        agent=AgentType.OPENAI_MULTI_FUNCTIONS, # OPENAI_FUNCTIONS
+        verbose=True,
+        return_intermediate_steps=True,
+        max_iterations=10,
+        max_execution_time=20,
+        early_stopping_method="generate" # "force"
+    )
+    _ans, _steps = "", ""
+    with get_openai_callback() as cb:
+        _re = agent({"input": _ask})
+        _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
+        print(_token_cost)
+        _ans = _re["output"]
+        _steps = f"{_token_cost}\n\n" + parse_intermediate_steps(_re["intermediate_steps"])
+    return [_ans, _steps]
+
 
 
 if __name__ == "__main__":
@@ -122,10 +148,10 @@ if __name__ == "__main__":
     from module.tools import tools_faiss_azure_langchain_googleserp_math
     from module.tools import tools_react_docstore_wiki
     from module.tools import tools_selfask_search
-    from module.tools import tools_search_google
+    from module.tools import tools_google
     
     _re1 = agent_react_zeroshot(
-        tools_search_google,
+        tools_google,
         "How many people live in canada as of 2023?"
     )
     print(_re1)

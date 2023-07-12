@@ -42,14 +42,12 @@ all_tools = [
     Tool(
         name="QA for Azure",
         description="useful for when you need to query information about Azure virtual machine and disks",
-        func=retriev_azure.run,
-        return_direct=True
+        func=retriev_azure.run
     ),
     Tool(
         name="QA for Langchain",
         description="useful for when you need to query information about langchain. Input should be a fully formed question.",
-        func=retriev_langchain.run,
-        return_direct=True
+        func=retriev_langchain.run
     ),
     Tool(
         name="Calculator",
@@ -59,7 +57,7 @@ all_tools = [
 ]
 
 
-tools_selfask_search = [all_tools[0]]
+tools_selfask_googleserp = [all_tools[0]]
 tools_selfask_azure = [
     Tool(
         name="Intermediate Answer",
@@ -68,8 +66,9 @@ tools_selfask_azure = [
     )
 ]
 
-tools_search_serp = [all_tools[2]]
-tools_search_google = [all_tools[3]]
+tools_googleserp = [all_tools[1]]
+tools_serp = [all_tools[2]]
+tools_google = [all_tools[3]]
 
 tools_react_docstore_wiki = [all_tools[4], all_tools[5]]
 tools_react_docstore_azure_googleserp = [
