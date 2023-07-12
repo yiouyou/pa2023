@@ -13,7 +13,7 @@ def agent_react_zeroshot(_loaded_tools, _ask):
         return_intermediate_steps=True,
         max_iterations=10,
         max_execution_time=20,
-        early_stopping_method="generate" # "force"
+        early_stopping_method="force" # "force/generate"
     )
     _ans, _steps = "", ""
     with get_openai_callback() as cb:
@@ -39,7 +39,7 @@ def agent_react_docstore(_loaded_tools, _ask):
         return_intermediate_steps=True,
         max_iterations=10,
         max_execution_time=20,
-        early_stopping_method="generate" # "force"
+        early_stopping_method="force" # "force/generate"
     )
     _ans, _steps = "", ""
     with get_openai_callback() as cb:
@@ -65,7 +65,7 @@ def agent_selfask_search(_loaded_tools, _ask):
         return_intermediate_steps=True,
         max_iterations=10,
         max_execution_time=20,
-        early_stopping_method="generate" # "force"
+        early_stopping_method="force" # "force/generate"
     )
     _ans, _steps = "", ""
     with get_openai_callback() as cb:
@@ -117,7 +117,7 @@ def agent_openai_multifunc(_loaded_tools, _ask):
         return_intermediate_steps=True,
         max_iterations=10,
         max_execution_time=20,
-        early_stopping_method="generate" # "force"
+        early_stopping_method="force" # "force/generate"
     )
     _ans, _steps = "", ""
     with get_openai_callback() as cb:
