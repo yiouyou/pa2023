@@ -80,7 +80,6 @@ def azure_selected_agent_retriever(_query, _radio):
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
     return [_ans, _steps]
 
-
 def search_selected_agent_retriever(_query, _radio):
     _ans, _steps = "", ""
     if _radio == "react_zeroshot":

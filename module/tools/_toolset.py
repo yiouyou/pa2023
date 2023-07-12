@@ -1,10 +1,18 @@
-from ._tools import search_goolge
 from ._tools import search_google_serp
 from ._tools import search_serp
+from ._tools import search_goolge
+from ._tools import search_duck
 from ._tools import docstore_wiki
+from ._tools import wiki_query
+from ._tools import wolfram_alpha
+from ._tools import llm_math
 from ._tools import retriev_azure
 from ._tools import retriev_langchain
-from ._tools import llm_math_chain
+from ._tools import pubmed_query
+from ._tools import youtube_search
+from ._tools import human_input
+from ._tools import weather_map
+from ._tools import cp_file, del_file, search_file, mv_file, read_file, write_file, list_dir
 from langchain.agents import Tool
 
 
@@ -52,7 +60,7 @@ all_tools = [
     Tool(
         name="Calculator",
         description="useful for when you need to answer questions about math",
-        func=llm_math_chain.run
+        func=llm_math.run
     )
 ]
 
