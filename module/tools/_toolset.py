@@ -85,8 +85,15 @@ tools_react_docstore_azure_googleserp = [
     )
 ]
 
+tools_faiss_azure = [all_tools[6]]
 tools_faiss_azure_math = [all_tools[6], all_tools[8]]
+
 tools_faiss_azure_langchain = [all_tools[6], all_tools[7]]
+tools_faiss_azure_langchain_math = [all_tools[6], all_tools[7], all_tools[8]]
+
+tools_faiss_azure_googleserp = [all_tools[6], all_tools[1]]
 tools_faiss_azure_googleserp_math = [all_tools[6], all_tools[1], all_tools[8]]
+
+tools_faiss_azure_langchain_googleserp = [all_tools[6], all_tools[7], all_tools[1]]
 tools_faiss_azure_langchain_googleserp_math = [all_tools[6], all_tools[7], all_tools[1], all_tools[8]]
 

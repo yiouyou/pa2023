@@ -35,6 +35,7 @@ from module.auto_programming import auto_py
 from module.query_vdb import qa_faiss_multi_query_azure
 from module.agents import agent_plan_execute
 
+from module.tools import tools_faiss_azure_googleserp
 from module.tools import tools_faiss_azure_googleserp_math
 from module.tools import tools_faiss_azure_langchain_googleserp_math
 from module.tools import tools_react_docstore_azure_googleserp
@@ -63,7 +64,7 @@ def run_selected_agent_retriever(_query, _radio):
         )
     elif _radio == "plan_execute":
         _ans, _steps = agent_plan_execute(
-            tools_faiss_azure_googleserp_math,
+            tools_faiss_azure_googleserp,
             _query
         )
     elif _radio == "qa_multiquery":
