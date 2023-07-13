@@ -111,6 +111,9 @@ def search_selected_agent_retriever(_query, _radio):
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
     return [_ans, _steps]
 
+from module.azure_rules_code import llm_azure_rules
+from module.azure_rules_code import llm_azure_code
+
 
 ##### UI
 _description = """
@@ -122,27 +125,33 @@ with gr.Blocks(title=_description) as demo:
     gr.Markdown(_description)
 
 
-    with gr.Tab(label = "Search"):
-        sh_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
-        sh_radio = gr.Radio(
-            ["react_zeroshot", "openai_multifunc", "selfask_search", "react_docstore_wiki", "plan_execute"],
-            label="Agent & Retriever",
-            info="What agent or retriever to use?",
-            type="value",
-            value="react_zeroshot"
-        )
-        sh_start_btn = gr.Button("Start", variant="secondary", visible=True)
-        sh_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        sh_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        sh_query.change(
+    with gr.Tab(label = "Azure Rules/Code"):
+        ru_text = gr.Textbox(label="Text", placeholder="Text", lines=10, max_lines=10, interactive=True, visible=True)
+        ru_rules_btn = gr.Button("Generate Rules", variant="secondary", visible=True)
+        ru_rules = gr.Textbox(label="Rules", placeholder="...", lines=10, max_lines=10, interactive=True, visible=True)
+        ru_rules_steps = gr.Textbox(label="Info", placeholder="...", lines=5, max_lines=5, interactive=False, visible=True)
+        ru_code_btn = gr.Button("Generate Code", variant="secondary", visible=True)
+        ru_code = gr.Textbox(label="Code", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        ru_code_steps = gr.Textbox(label="Info", placeholder="...", lines=10, max_lines=10, interactive=False, visible=True)
+        ru_text.change(
             chg_btn_color_if_input,
-            [sh_query],
-            [sh_start_btn]
+            [ru_text],
+            [ru_rules_btn]
         )
-        sh_start_btn.click(
-            search_selected_agent_retriever,
-            [sh_query, sh_radio],
-            [sh_ans, sh_steps]
+        ru_rules_btn.click(
+            llm_azure_rules,
+            [ru_text],
+            [ru_rules, ru_rules_steps]
+        )
+        ru_rules.change(
+            chg_btn_color_if_input,
+            [ru_rules],
+            [ru_code_btn]
+        )
+        ru_code_btn.click(
+            llm_azure_code,
+            [ru_rules],
+            [ru_code, ru_code_steps]
         )
 
 
@@ -170,20 +179,48 @@ with gr.Blocks(title=_description) as demo:
         )
 
 
+    with gr.Tab(label = "Search"):
+        sh_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
+        sh_radio = gr.Radio(
+            ["react_zeroshot", "openai_multifunc", "selfask_search", "react_docstore_wiki", "plan_execute"],
+            label="Agent & Retriever",
+            info="What agent or retriever to use?",
+            type="value",
+            value="react_zeroshot"
+        )
+        sh_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        sh_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        sh_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        sh_query.change(
+            chg_btn_color_if_input,
+            [sh_query],
+            [sh_start_btn]
+        )
+        sh_start_btn.click(
+            search_selected_agent_retriever,
+            [sh_query, sh_radio],
+            [sh_ans, sh_steps]
+        )
+
+
     with gr.Tab(label = "Auto-Programming"):
         # with gr.Row():
         #     openai_api_key = gr.Textbox(label="OpenAI API Key", placeholder="sk-**********, will much better if use gpt-4", lines=1, visible=True)
-        with gr.Row(equal_height=True):
-            with gr.Column(scale=4):
-                with gr.Row():
-                    ap_task = gr.Textbox(label="Task", placeholder="Task", lines=3, max_lines=3, interactive=True, visible=True)
-                # with gr.Row():
-                #     ap_ans = gr.Textbox(label="Ans", placeholder="...", lines=3, max_lines=3, interactive=False, visible=True)
-                with gr.Row():
-                    ap_generated = gr.File(label="Generated Files", file_count="multiple", type="file", interactive=False, visible=True)
-            ap_start_btn = gr.Button("Start", variant="secondary", visible=True)
-            with gr.Column(scale=4):
-                ap_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=16, interactive=False, visible=True)
+        # with gr.Row(equal_height=True):
+        #     with gr.Column(scale=4):
+        #         with gr.Row():
+        #             ap_task = gr.Textbox(label="Task", placeholder="Task", lines=3, max_lines=3, interactive=True, visible=True)
+        #         # with gr.Row():
+        #         #     ap_ans = gr.Textbox(label="Ans", placeholder="...", lines=3, max_lines=3, interactive=False, visible=True)
+        #         with gr.Row():
+        #             ap_generated = gr.File(label="Generated Files", file_count="multiple", type="file", interactive=False, visible=True)
+        #     ap_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        #     with gr.Column(scale=4):
+        #         ap_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=16, interactive=False, visible=True)
+        ap_task = gr.Textbox(label="Task", placeholder="Task", lines=10, max_lines=10, interactive=True, visible=True)
+        ap_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        ap_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        ap_generated = gr.File(label="Generated Files", file_count="multiple", type="file", interactive=False, visible=True)
         ap_task.change(
             chg_btn_color_if_input,
             [ap_task],
