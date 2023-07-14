@@ -114,6 +114,22 @@ def search_selected_agent_retriever(_query, _radio):
 from module.azure_rules_code import llm_azure_rules
 from module.azure_rules_code import llm_azure_code
 
+from module.auto_task import run_babyagi
+from module.auto_task import run_autogpt
+from module.auto_task import run_metaprompt
+
+def auto_selected_agent(_task, _radio):
+    _ans, _steps = "", ""
+    if _radio == "babyagi":
+        _ans, _steps = run_babyagi(_task)
+    elif _radio == "autogpt":
+        _ans, _steps = run_autogpt(_task)
+    elif _radio == "metaprompt":
+        _ans, _steps = run_metaprompt(_task)
+    else:
+        _ans = f"ERROR: not supported agent: {_radio}"
+    return [_ans, _steps]
+
 
 ##### UI
 _description = """
@@ -123,6 +139,30 @@ with gr.Blocks(title=_description) as demo:
     dh_history = gr.State([])
     dh_user_question = gr.State("")
     gr.Markdown(_description)
+
+
+    with gr.Tab(label = "Auto-task"):
+        ao_query = gr.Textbox(label="Task", placeholder="Task", lines=5, max_lines=5, interactive=True, visible=True)
+        ao_radio = gr.Radio(
+            ["babyagi", "autogpt", "metaprompt"],
+            label="Autonomous agents",
+            info="What agent to use?",
+            type="value",
+            value="babyagi"
+        )
+        ao_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        ao_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        ao_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        ao_query.change(
+            chg_btn_color_if_input,
+            [ao_query],
+            [ao_start_btn]
+        )
+        ao_start_btn.click(
+            auto_selected_agent,
+            [ao_query, ao_radio],
+            [ao_ans, ao_steps]
+        )
 
 
     with gr.Tab(label = "Azure Rules/Code"):

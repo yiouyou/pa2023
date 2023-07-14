@@ -18,3 +18,6 @@ from ._faiss_multi_query import qa_faiss_multi_query_azure
 from ._faiss_multi_query import qa_faiss_multi_query_langchain
 from ._faiss_multi_query import get_faiss_multi_query_retriever
 
+from ._faiss import get_faiss_ST
+from ._faiss import get_faiss_OpenAI
+
