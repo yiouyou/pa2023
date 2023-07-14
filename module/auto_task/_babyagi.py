@@ -71,7 +71,7 @@ def run_babyagi(_task):
         _re = _babyagi({"objective": _task})
         _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
         print(_token_cost)
-        print(type(_re), _re)
+        print(_re)
         _ans = _re
         _steps = f"{_token_cost}\n\n"
     

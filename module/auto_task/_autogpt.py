@@ -39,6 +39,7 @@ def run_autogpt(_task):
         _re = _autogpt.run([_task])
         _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
         print(_token_cost)
+        print(_re)
         _ans = _re
         _steps = f"{_token_cost}\n\n"
     
