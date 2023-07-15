@@ -1,3 +1,4 @@
+arxiv
 azure-cognitiveservices-speech
 chromadb==0.3.26
 duckduckgo-search

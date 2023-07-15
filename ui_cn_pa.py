@@ -117,6 +117,8 @@ from module.azure_rules_code import llm_azure_code
 from module.auto_task import run_babyagi
 from module.auto_task import run_autogpt
 from module.auto_task import run_metaprompt
+from module.auto_task import run_camel
+from module.auto_task import run_debate
 
 def auto_selected_agent(_task, _radio):
     _ans, _steps = "", ""
@@ -126,6 +128,10 @@ def auto_selected_agent(_task, _radio):
         _ans, _steps = run_autogpt(_task)
     elif _radio == "metaprompt":
         _ans, _steps = run_metaprompt(_task)
+    elif _radio == "camel":
+        _ans, _steps = run_camel(_task)
+    elif _radio == "debate":
+        _ans, _steps = run_debate(_task)
     else:
         _ans = f"ERROR: not supported agent: {_radio}"
     return [_ans, _steps]
@@ -144,7 +150,7 @@ with gr.Blocks(title=_description) as demo:
     with gr.Tab(label = "Auto-task"):
         ao_query = gr.Textbox(label="Task", placeholder="Task", lines=5, max_lines=5, interactive=True, visible=True)
         ao_radio = gr.Radio(
-            ["babyagi", "autogpt", "metaprompt"],
+            ["babyagi", "autogpt", "metaprompt", "camel", "debate"],
             label="Autonomous agents",
             info="What agent to use?",
             type="value",
