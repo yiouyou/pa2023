@@ -3,7 +3,7 @@ from ._web import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
 def embedding_to_chroma_ST(_docs, _db_name):
     from langchain.vectorstores import Chroma
     from langchain.embeddings import HuggingFaceEmbeddings
-    _embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    _embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2") # all-mpnet-base-v2
     if len(_docs) > 0:
         print(0)
         db = Chroma.from_documents([_docs[0]], _embedding_function, persist_directory=_db_name)

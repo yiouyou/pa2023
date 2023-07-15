@@ -3,7 +3,7 @@ from ._md import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
 def embedding_to_faiss_ST(_docs, _db_name):
     from langchain.vectorstores import FAISS
     from langchain.embeddings import HuggingFaceEmbeddings
-    _embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    _embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2") # all-mpnet-base-v2
     _db = FAISS.from_documents(_docs, _embeddings)
     _db.save_local(_db_name)
     print(_db_name)

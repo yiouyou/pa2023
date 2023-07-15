@@ -11,7 +11,7 @@ def pretty_print_docs(docs):
 def get_faiss_ST(_db_name):
     from langchain.vectorstores import FAISS
     from langchain.embeddings import HuggingFaceEmbeddings
-    _embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    _embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2") # all-mpnet-base-v2
     _db = FAISS.load_local(_db_name, _embeddings)
     return _db
 
