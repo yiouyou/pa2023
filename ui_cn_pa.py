@@ -34,7 +34,6 @@ from module.auto_programming import auto_py
 ##### QA + 搜索
 from module.query_vdb import qa_faiss_multi_query_azure
 from module.agents import agent_plan_execute
-
 from module.tools import tools_faiss_azure_googleserp_math
 from module.tools import tools_react_docstore_azure_googleserp
 from module.tools import tools_selfask_azure

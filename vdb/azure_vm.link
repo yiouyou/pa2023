@@ -534,7 +534,6 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/custom-domain
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/multiple-nics
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/multiple-nics
 https://learn.microsoft.com/en-us/azure/virtual-machines/create-fqdn
-https://learn.microsoft.com/en-us/azure/virtual-machines/create-fqdn
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/azure-dns
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/static-dns-name-resolution-for-linux-on-azure
 https://learn.microsoft.com/en-us/azure/security/fundamentals/virtual-machines-overview?toc=/azure/virtual-machines/toc.json
@@ -683,4 +682,7 @@ https://learn.microsoft.com/en-us/previous-versions/azure/virtual-machines/windo
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/faq
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/faq
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-support-help
-https://azure.microsoft.com/en-us/pricing/details/managed-disks/
+https://azure.microsoft.com/en-us/pricing/details/managed-disks
+https://azure.microsoft.com/en-us/pricing/details/storage/page-blobs
+https://azure.microsoft.com/en-us/pricing/details/bandwidth
+https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy

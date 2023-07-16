@@ -12,10 +12,8 @@
 # from ._chroma_multi_query import get_chroma_multi_query_retriever
 
 from ._faiss_vdb import qa_faiss_vdb_azure
-from ._faiss_vdb import qa_faiss_vdb_langchain
 from ._faiss_vdb import get_faiss_vdb_retriever
 from ._faiss_multi_query import qa_faiss_multi_query_azure
-from ._faiss_multi_query import qa_faiss_multi_query_langchain
 from ._faiss_multi_query import get_faiss_multi_query_retriever
 
 from ._faiss import get_faiss_ST

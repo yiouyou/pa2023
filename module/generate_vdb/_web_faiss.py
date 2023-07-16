@@ -3,7 +3,7 @@ from ._web import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
 def embedding_to_faiss_ST(_docs, _db_name):
     from langchain.vectorstores import FAISS
     from langchain.embeddings import HuggingFaceEmbeddings
-    _embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2") # all-mpnet-base-v2
+    _embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L12-v2") # all-mpnet-base-v2/all-MiniLM-L6-v2/all-MiniLM-L12-v2
     _db = FAISS.from_documents(_docs, _embeddings)
     _db.save_local(_db_name)
     print(_db_name)
@@ -53,6 +53,8 @@ def url_recursive_to_faiss(_url, _exclude, _db_name):
 
 def weblinks_to_link_md(_links, _dir):
     import re, os, json
+    if not os.path.exists(_dir):
+        os.makedirs(_dir)
     import requests
     from markdownify import markdownify
     with open(_links, "r") as lf:
@@ -88,7 +90,7 @@ def link_md_to_faiss(_dir, _db_name):
         ("#", "Header 1"),
         ("##", "Header 2"),
         ("###", "Header 3"),
-        ("####", "Header 4"),
+        # ("####", "Header 4"),
     ]
     markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
     _docs = []
@@ -119,19 +121,21 @@ if __name__ == "__main__":
     _pwd = Path(__file__).absolute()
     _faiss_path = _pwd.parent.parent.parent
 
-    # _db_azure = txt2name("Azure Virtual Machines Plus")
+    # _db_azure = txt2name("azure test doc")
     # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_vm.link")
+    # _links = str(_faiss_path / "vdb" / "azure_test.link")
     # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md"
+    # _md_dir = "./md_test"
     # weblinks_to_link_md(_links, _md_dir)
     # link_md_to_faiss(_md_dir, _azure)
 
-    # _db_azure = txt2name("Introduction to Azure managed disks")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_disk.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # weblinks_to_faiss(_links, _azure)
+    _db_azure = txt2name("Azure VM")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_vm.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_vm"
+    weblinks_to_link_md(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
 
     # _db_langchain = txt2name("Langchain Python Documents")
     # print(_db_langchain)

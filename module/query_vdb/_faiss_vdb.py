@@ -38,13 +38,13 @@ def qa_faiss_vdb(_query, _db):
 
 def qa_faiss_vdb_azure(_query):
     _ans, _steps = "", ""
-    _ans = qa_faiss_vdb(_query, "azure_virtual_machines_plus")
+    _ans = qa_faiss_vdb(_query, "azure_vm")
     return [_ans, _steps]
 
-def qa_faiss_vdb_langchain(_query):
-    _ans, _steps = "", ""
-    _ans = qa_faiss_vdb(_query, "langchain_python_documents")
-    return [_ans, _steps]
+# def qa_faiss_vdb_langchain(_query):
+#     _ans, _steps = "", ""
+#     _ans = qa_faiss_vdb(_query, "langchain_python_documents")
+#     return [_ans, _steps]
 
 
 if __name__ == "__main__":

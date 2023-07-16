@@ -46,7 +46,7 @@ _pwd = Path(__file__).absolute()
 _vdb_path = _pwd.parent.parent.parent
 
 ### faiss_azure
-_azure = str(_vdb_path / "vdb" / "azure_virtual_machines_plus")
+_azure = str(_vdb_path / "vdb" / "azure_vm")
 # _retriever_azure = get_faiss_vdb_retriever(_azure)
 _retriever_azure = get_faiss_multi_query_retriever(_azure)
 retriev_azure = RetrievalQA.from_chain_type(
@@ -55,13 +55,13 @@ retriev_azure = RetrievalQA.from_chain_type(
 )
 
 ### faiss_langchain
-_langchain = str(_vdb_path / "vdb" / "langchain_python_documents")
-# _retriever_langchain = get_faiss_vdb_retriever(_langchain)
-_retriever_langchain = get_faiss_multi_query_retriever(_langchain)
-retriev_langchain = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(temperature=0),
-    retriever=_retriever_langchain
-)
+# _langchain = str(_vdb_path / "vdb" / "langchain_python_documents")
+# # _retriever_langchain = get_faiss_vdb_retriever(_langchain)
+# _retriever_langchain = get_faiss_multi_query_retriever(_langchain)
+# retriev_langchain = RetrievalQA.from_chain_type(
+#     llm=ChatOpenAI(temperature=0),
+#     retriever=_retriever_langchain
+# )
 
 
 ##### pubmed

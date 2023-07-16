@@ -7,7 +7,6 @@ from ._tools import wiki_query
 from ._tools import wolfram_alpha
 from ._tools import llm_math
 from ._tools import retriev_azure
-from ._tools import retriev_langchain
 from ._tools import pubmed_query
 from ._tools import youtube_search
 from ._tools import human_input
@@ -48,19 +47,14 @@ all_tools = [
         func=docstore_wiki.lookup
     ),
     Tool(
-        name="QA for Azure",
-        description="useful for when you need to query information about Azure virtual machine and disks",
-        func=retriev_azure.run
-    ),
-    Tool(
-        name="QA for Langchain",
-        description="useful for when you need to query information about langchain. Input should be a fully formed question.",
-        func=retriev_langchain.run
-    ),
-    Tool(
         name="Calculator",
         description="useful for when you need to answer questions about math",
         func=llm_math.run
+    ),
+    Tool(
+        name="QA for Azure",
+        description="useful for when you need to query information about Azure virtual machine and disks",
+        func=retriev_azure.run
     )
 ]
 
@@ -92,15 +86,9 @@ tools_react_docstore_azure_googleserp = [
     )
 ]
 
-tools_faiss_azure = [all_tools[6]]
-tools_faiss_azure_math = [all_tools[6], all_tools[8]]
+tools_faiss_azure = [all_tools[7]]
+tools_faiss_azure_math = [all_tools[7], all_tools[6]]
 
-tools_faiss_azure_langchain = [all_tools[6], all_tools[7]]
-tools_faiss_azure_langchain_math = [all_tools[6], all_tools[7], all_tools[8]]
-
-tools_faiss_azure_googleserp = [all_tools[6], all_tools[1]]
-tools_faiss_azure_googleserp_math = [all_tools[6], all_tools[1], all_tools[8]]
-
-tools_faiss_azure_langchain_googleserp = [all_tools[6], all_tools[7], all_tools[1]]
-tools_faiss_azure_langchain_googleserp_math = [all_tools[6], all_tools[7], all_tools[1], all_tools[8]]
+tools_faiss_azure_googleserp = [all_tools[7], all_tools[1]]
+tools_faiss_azure_googleserp_math = [all_tools[7], all_tools[1], all_tools[6]]
 

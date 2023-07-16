@@ -81,13 +81,13 @@ def qa_faiss_multi_query(_query, _db):
 
 def qa_faiss_multi_query_azure(_query):
     _ans, _steps = "", ""
-    _ans, _steps = qa_faiss_multi_query(_query, "azure_virtual_machines_plus")
+    _ans, _steps = qa_faiss_multi_query(_query, "azure_vm")
     return [_ans, _steps]
 
-def qa_faiss_multi_query_langchain(_query):
-    _ans, _steps = "", ""
-    _ans, _steps = qa_faiss_multi_query(_query, "langchain_python_documents")
-    return [_ans, _steps]
+# def qa_faiss_multi_query_langchain(_query):
+#     _ans, _steps = "", ""
+#     _ans, _steps = qa_faiss_multi_query(_query, "langchain_python_documents")
+#     return [_ans, _steps]
 
 
 if __name__ == "__main__":
