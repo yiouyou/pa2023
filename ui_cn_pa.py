@@ -10,41 +10,47 @@ import gradio as gr
 from functools import partial
 
 
-##### 对话
-from module.voice import audio_transcribe
-from module.gradio_func import chg_btn_color_if_input
-from module.gradio_func import clear_audio_microphone_if_transcribe
-from module.gradio_func import transfer_input
-from module.gradio_func import reset_status
-from module.gradio_func import reset_textbox
-from module.gradio_func import cancel_output
-from module.gradio_func import delete_last_conversation
-from module.chatbot import predict
-from module.chatbot import retry_bot
-from module.chatbot import create_chatopenai
-chatagent_openai = create_chatopenai()
+##### Auto-task
+from module.auto_task import run_babyagi
+from module.auto_task import run_autogpt
+from module.auto_task import run_metaprompt
+from module.auto_task import run_camel
+from module.auto_task import run_debate
+
+def auto_selected_agent(_task, _radio):
+    _ans, _steps = "", ""
+    if _radio == "babyagi":
+        _ans, _steps = run_babyagi(_task)
+    elif _radio == "autogpt":
+        _ans, _steps = run_autogpt(_task)
+    elif _radio == "metaprompt":
+        _ans, _steps = run_metaprompt(_task)
+    elif _radio == "camel":
+        _ans, _steps = run_camel(_task)
+    elif _radio == "debate":
+        _ans, _steps = run_debate(_task)
+    else:
+        _ans = f"ERROR: not supported agent: {_radio}"
+    return [_ans, _steps]
 
 
-##### 语音
-from module.voice import txt_to_mp3
+##### Azure Rules/Code
+from module.azure_rules_code import llm_azure_rules
+from module.azure_rules_code import llm_azure_code
 
-##### 自动编程
-from module.auto_programming import auto_py
 
-##### QA + 搜索
+##### Azure VM +
 from module.query_vdb import qa_faiss_multi_query_azure
-from module.agents import agent_plan_execute
-from module.tools import tools_faiss_azure_googleserp_math
-from module.tools import tools_react_docstore_azure_googleserp
-from module.tools import tools_selfask_azure
-from module.tools import tools_faiss_azure_googleserp
-from module.tools import tools_googleserp
-from module.tools import tools_react_docstore_wiki
-from module.tools import tools_selfask_googleserp
 from module.agents import agent_react_zeroshot
-from module.agents import agent_react_docstore
-from module.agents import agent_selfask_search
 from module.agents import agent_openai_multifunc
+from module.agents import agent_selfask_search
+from module.agents import agent_react_docstore
+from module.agents import agent_plan_execute
+
+from module.tools import tools_faiss_azure_googleserp_math
+from module.tools import tools_faiss_azure_googleserp
+from module.tools import tools_selfask_azure
+from module.tools import tools_react_docstore_azure_googleserp
 
 def azure_selected_agent_retriever(_query, _radio):
     _ans, _steps = "", ""
@@ -79,6 +85,12 @@ def azure_selected_agent_retriever(_query, _radio):
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
     return [_ans, _steps]
 
+
+##### Search
+from module.tools import tools_googleserp
+from module.tools import tools_selfask_googleserp
+from module.tools import tools_react_docstore_wiki
+
 def search_selected_agent_retriever(_query, _radio):
     _ans, _steps = "", ""
     if _radio == "react_zeroshot":
@@ -110,30 +122,28 @@ def search_selected_agent_retriever(_query, _radio):
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
     return [_ans, _steps]
 
-from module.azure_rules_code import llm_azure_rules
-from module.azure_rules_code import llm_azure_code
 
-from module.auto_task import run_babyagi
-from module.auto_task import run_autogpt
-from module.auto_task import run_metaprompt
-from module.auto_task import run_camel
-from module.auto_task import run_debate
+##### Auto-Programming
+from module.auto_programming import auto_py
 
-def auto_selected_agent(_task, _radio):
-    _ans, _steps = "", ""
-    if _radio == "babyagi":
-        _ans, _steps = run_babyagi(_task)
-    elif _radio == "autogpt":
-        _ans, _steps = run_autogpt(_task)
-    elif _radio == "metaprompt":
-        _ans, _steps = run_metaprompt(_task)
-    elif _radio == "camel":
-        _ans, _steps = run_camel(_task)
-    elif _radio == "debate":
-        _ans, _steps = run_debate(_task)
-    else:
-        _ans = f"ERROR: not supported agent: {_radio}"
-    return [_ans, _steps]
+
+##### 对话
+from module.voice import audio_transcribe
+from module.gradio_func import chg_btn_color_if_input
+from module.gradio_func import clear_audio_microphone_if_transcribe
+from module.gradio_func import transfer_input
+from module.gradio_func import reset_status
+from module.gradio_func import reset_textbox
+from module.gradio_func import cancel_output
+from module.gradio_func import delete_last_conversation
+from module.chatbot import predict
+from module.chatbot import retry_bot
+from module.chatbot import create_chatopenai
+chatagent_openai = create_chatopenai()
+
+
+##### 语音
+from module.voice import txt_to_mp3
 
 
 ##### UI
