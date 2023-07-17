@@ -128,9 +128,10 @@ def run_camel(_task):
         word_limit=50  # word limit for task brainstorming
     )[0]
     from langchain.callbacks import get_openai_callback
+    import os
     with get_openai_callback() as cb:
         task_specifier_sys_msg = SystemMessage(content="You can make a task more specific.")
-        task_specify_agent = CAMELAgent(task_specifier_sys_msg, ChatOpenAI(temperature=1.0))
+        task_specify_agent = CAMELAgent(task_specifier_sys_msg, ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=1.0))
         specified_task_msg = task_specify_agent.step(task_specifier_msg)
         specified_task = specified_task_msg.content
         print(f"Specified task: {specified_task_msg.content}")
@@ -138,8 +139,8 @@ def run_camel(_task):
         assistant_sys_msg, user_sys_msg = get_sys_msgs(
             assistant_role_name, user_role_name, specified_task
         )
-        assistant_agent = CAMELAgent(assistant_sys_msg, ChatOpenAI(temperature=0.2))
-        user_agent = CAMELAgent(user_sys_msg, ChatOpenAI(temperature=0.2))
+        assistant_agent = CAMELAgent(assistant_sys_msg, ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0.2))
+        user_agent = CAMELAgent(user_sys_msg, ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0.2))
         assistant_agent.reset()
         user_agent.reset()
         ##### init chat

@@ -1,6 +1,7 @@
 from ._chroma import get_chroma_ST, pretty_print_docs
 
 def get_chroma_contextual_compress_retriever(_db_name):
+    import os
     from langchain.embeddings import HuggingFaceEmbeddings
     from langchain.retrievers.document_compressors import EmbeddingsFilter
     from langchain.document_transformers import EmbeddingsRedundantFilter
@@ -23,7 +24,7 @@ def get_chroma_contextual_compress_retriever(_db_name):
     # from langchain.retrievers import ContextualCompressionRetriever
     # from langchain.retrievers.document_compressors import LLMChainExtractor
 
-    # llm = OpenAI(temperature=0)
+    # llm = OpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     # _compressor = LLMChainExtractor.from_llm(llm)
     # _compression_retriever = ContextualCompressionRetriever(base_compressor=_compressor, base_retriever=_base_retriever)
 

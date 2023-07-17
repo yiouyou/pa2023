@@ -8,6 +8,7 @@ def get_faiss_multi_query_retriever(_db_name):
     from langchain import LLMChain
     from langchain.prompts import PromptTemplate
     from langchain.output_parsers import PydanticOutputParser
+    import os
 
     class LineList(BaseModel):
         # "lines" is the key (attribute name) of the parsed output
@@ -30,7 +31,7 @@ the user overcome some of the limitations of the distance-based similarity searc
 Provide these alternative questions seperated by newlines.
 Original question: {question}""",
     )
-    llm = ChatOpenAI(temperature=0)
+    llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     llm_chain = LLMChain(llm=llm,prompt=QUERY_PROMPT,output_parser=output_parser)
     _db = get_faiss_ST(_db_name)
     _base_retriever = _db.as_retriever()

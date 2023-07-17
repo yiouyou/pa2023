@@ -7,6 +7,7 @@ def llm_azure_code(_text):
     from langchain.prompts.prompt import PromptTemplate
     from langchain.llms import OpenAI
     from langchain import LLMChain
+    import os
     full_template = """{introduction}
 
 {info}
@@ -34,7 +35,7 @@ def llm_azure_code(_text):
     pipeline_prompt = PipelinePromptTemplate(final_prompt=full_prompt, pipeline_prompts=input_prompts)
     # print(pipeline_prompt.input_variables)
     with get_openai_callback() as cb:
-        llm = OpenAI(temperature=0.1)
+        llm = OpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0.1)
         chain = LLMChain(llm=llm, prompt=pipeline_prompt)
         _re = chain.run(
             rule_list=_text
@@ -66,6 +67,7 @@ def chat_azure_code(_text):
     )
     from langchain.chat_models import ChatOpenAI
     from langchain import LLMChain
+    import os
     sys_template="""
 You are a helpful assistant that translates {input_language} to {output_language}.
 """
@@ -89,12 +91,12 @@ You are a helpful assistant that translates {input_language} to {output_language
     # print(_ChatPromptValue)
     # _messages = _ChatPromptValue.to_messages()
     # print(_messages)
-    # chat = ChatOpenAI(temperature=0)
+    # chat = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     # _re = chat([HumanMessage(content="Translate this sentence from English to Chinese: I love programming.")])
     # _ans = _re.content
 
     with get_openai_callback() as cb:
-        chat = ChatOpenAI(temperature=0)
+        chat = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
         chain = LLMChain(llm=chat, prompt=chat_prompt)
         _re = chain.run(
             input_language="English",

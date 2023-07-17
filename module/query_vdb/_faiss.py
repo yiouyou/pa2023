@@ -4,7 +4,11 @@ def name2txt(_name):
     return _txt
 
 def pretty_print_docs(docs):
-    _pretty = f"\n{'-' * 100}\n".join([f"Document {i+1}:\n\n" + d.page_content for i, d in enumerate(docs)])
+    # _pretty = f"\n{'-' * 100}\n".join([f"Document {i+1}:\n\n" + d.page_content for i, d in enumerate(docs)])
+    _doc = []
+    for i, doc in enumerate(docs):
+        _doc.append(f"Document {i+1}:\n\n" + str(doc.metadata) + "\n\n" + doc.page_content)
+    _pretty = f"\n{'-' * 100}\n".join(_doc)
     print(_pretty)
     return _pretty
 

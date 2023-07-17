@@ -18,7 +18,8 @@ def autogpt():
     from langchain.experimental import AutoGPT
     from langchain.chat_models import ChatOpenAI
     from langchain.memory.chat_message_histories import FileChatMessageHistory
-    _llm = ChatOpenAI(temperature=0)
+    import os
+    _llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     _agent = AutoGPT.from_llm_and_tools(
         ai_name="Zack",
         ai_role="Assistant",

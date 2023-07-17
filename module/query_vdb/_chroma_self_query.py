@@ -1,9 +1,10 @@
 from ._chroma import name2txt, get_chroma_ST
 
 def get_chroma_self_query_retriever(_db_name):
-    from langchain.llms import OpenAI
+    import os
     from dotenv import load_dotenv
     load_dotenv()
+    from langchain.llms import OpenAI
     from langchain.retrievers.self_query.base import SelfQueryRetriever
     from langchain.chains.query_constructor.base import AttributeInfo
 
@@ -29,7 +30,7 @@ def get_chroma_self_query_retriever(_db_name):
         #     type="string",
         # ),
     ]
-    llm = OpenAI(temperature=0)
+    llm = OpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     _db = get_chroma_ST(_db_name)
     _document_contents = name2txt(_db_name)
     _retriever = SelfQueryRetriever.from_llm(llm, _db, _document_contents, _metadata_field_info, verbose=True)

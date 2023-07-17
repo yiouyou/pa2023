@@ -63,8 +63,7 @@ def create_chatopenai(seed_memory=None):
     from module.tools import tools_faiss_azure_googleserp_math
     memory = seed_memory if seed_memory is not None else ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     import os
-    model_name = os.getenv('OPENAI_MODEL')
-    _chatopenai = ChatOpenAI(temperature=0, model_name=model_name)
+    _chatopenai = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     chain = initialize_agent(
         tools_faiss_azure_googleserp_math,
         _chatopenai,

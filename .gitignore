@@ -1,6 +1,5 @@
 # md
-module/generate_vdb/md_test/
-module/generate_vdb/md_azure_vm/
+module/generate_vdb/md*
 module/generate_vdb/vm/
 
 # vdb
@@ -11,6 +10,7 @@ vdb/*
 # test
 test/*.csv
 test/*.md
+test/tmp_*
 
 # tmp
 tmp/mp3/*.mp3

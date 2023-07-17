@@ -28,6 +28,7 @@ wolfram_alpha = WolframAlphaAPIWrapper()
 
 
 ##### llm related
+import os
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -50,7 +51,7 @@ _azure = str(_vdb_path / "vdb" / "azure_vm")
 # _retriever_azure = get_faiss_vdb_retriever(_azure)
 _retriever_azure = get_faiss_multi_query_retriever(_azure)
 retriev_azure = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(temperature=0),
+    llm=ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0),
     retriever=_retriever_azure
 )
 
@@ -59,7 +60,7 @@ retriev_azure = RetrievalQA.from_chain_type(
 # # _retriever_langchain = get_faiss_vdb_retriever(_langchain)
 # _retriever_langchain = get_faiss_multi_query_retriever(_langchain)
 # retriev_langchain = RetrievalQA.from_chain_type(
-#     llm=ChatOpenAI(temperature=0),
+#     llm=ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0),
 #     retriever=_retriever_langchain
 # )
 

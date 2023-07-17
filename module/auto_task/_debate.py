@@ -118,6 +118,7 @@ def generate_agent_description(conversation_description, name):
         HumanMessage,
         SystemMessage,
     )
+    import os
     agent_descriptor_system_message = SystemMessage(
         content="You can add detail to the description of the conversation participant."
     )
@@ -133,7 +134,7 @@ def generate_agent_description(conversation_description, name):
         agent_descriptor_system_message,
         agent_descriptor_human_message,
     ]
-    agent_description = ChatOpenAI(temperature=0)(agent_specifier_prompt).content
+    agent_description = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)(agent_specifier_prompt).content
     return agent_description
 
 
@@ -194,8 +195,9 @@ The participants are: {', '.join(names.keys())}"""
         ),
     ]
     from langchain.callbacks import get_openai_callback
+    import os
     with get_openai_callback() as cb:
-        specified_topic = ChatOpenAI(temperature=0)(topic_specifier_prompt).content
+        specified_topic = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)(topic_specifier_prompt).content
         print(f"Original topic:\n{_topic}\n")
         print(f"Detailed topic:\n{specified_topic}\n")
         # we set `top_k_results`=2 as part of the `tool_kwargs` to prevent results from overflowing the context limit
@@ -203,7 +205,7 @@ The participants are: {', '.join(names.keys())}"""
             DialogueAgentWithTools(
                 name=name,
                 system_message=SystemMessage(content=system_message),
-                model=ChatOpenAI(model_name="gpt-4", temperature=0), # model_name="gpt-4"
+                model=ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0), # model_name="gpt-4"
                 tool_names=tools,
                 top_k_results=2,
             )

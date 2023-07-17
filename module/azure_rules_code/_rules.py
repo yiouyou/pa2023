@@ -7,6 +7,7 @@ def llm_azure_rules(_text):
     from langchain.prompts.prompt import PromptTemplate
     from langchain.llms import OpenAI
     from langchain import LLMChain
+    import os
     full_template = """{introduction}
 
 {info}
@@ -20,26 +21,21 @@ def llm_azure_rules(_text):
     introduction_prompt = PromptTemplate.from_template(introduction_template)
 
     info_template = """The following is the given information from which the rule needs to be extracted:
-------------------------------information
+------------------------------
 {given_info}
 ------------------------------"""
     info_prompt = PromptTemplate.from_template(info_template)
 
-    example_template = """The following is an example list of extracted rules:
-------------------------------example list
-#, Rule, Rule Area
-1, You can convert a managed disk from one type to another (e.g., from Standard HDD to Premium SSD or vice versa, Right-Typing
-2, The performance of a managed disk (IOPS and throughput) is directly related to its size, thus the convertion must respect the monitored need for IOPS and Throughput of the target disk, when converting type, Right-Typing
-3, Convertion betwen Standard HDD, Standard SSD and Premium SSD can be done by shutting down the VM and executing the conversion, while conversion to and from Premium SSD v2 and Ultra requires extensive downtime, Right-Typing
-4, Only Premium SSD, Standard SSD and Standard HDD can be used for Operating systems disks, All types of disks can be used for data disks, Right-Typing
-5, Not all disk types are available in all Azure regions. Therefore, the availability of certain disk types for conversion  depends on the region., Right-Typing
-6, Only select Virtual Machines supports premium storage like Ultra Disk and Premium SSD v2. If VMType=XXXX Prem. Supported then else if, Right-Typing
-7, The target disk must meet the redundancy requirements of the source disk. Ie. LRS to LRS or ZRS to ZRS, Right-Typing
-8, Only Standard SSD and Premium SSD supports ZRS, Right-Typing
+    example_template = """output in the following format:
+------------------------------
+No, Rule
+1, blabla
+2, blabla
+...
 ------------------------------"""
     example_prompt = PromptTemplate.from_template(example_template)
 
-    start_template = """Now, please generate the rules based on provided information and examples:"""
+    start_template = """Now, please generate the rules based on provided information only, nothing else:"""
     start_prompt = PromptTemplate.from_template(start_template)
 
     input_prompts = [
@@ -51,7 +47,7 @@ def llm_azure_rules(_text):
     pipeline_prompt = PipelinePromptTemplate(final_prompt=full_prompt, pipeline_prompts=input_prompts)
     # print(pipeline_prompt.input_variables)
     with get_openai_callback() as cb:
-        llm = OpenAI(temperature=0.1)
+        llm = OpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0.1)
         chain = LLMChain(llm=llm, prompt=pipeline_prompt)
         _re = chain.run(
             given_info=_text,
@@ -83,6 +79,7 @@ def chat_azure_rules(_text):
     )
     from langchain.chat_models import ChatOpenAI
     from langchain import LLMChain
+    import os
     sys_template="""
 You are a helpful assistant that translates {input_language} to {output_language}.
 """
@@ -106,12 +103,12 @@ You are a helpful assistant that translates {input_language} to {output_language
     # print(_ChatPromptValue)
     # _messages = _ChatPromptValue.to_messages()
     # print(_messages)
-    # chat = ChatOpenAI(temperature=0)
+    # chat = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     # _re = chat([HumanMessage(content="Translate this sentence from English to Chinese: I love programming.")])
     # _ans = _re.content
 
     with get_openai_callback() as cb:
-        chat = ChatOpenAI(temperature=0)
+        chat = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
         chain = LLMChain(llm=chat, prompt=chat_prompt)
         _re = chain.run(
             input_language="English",

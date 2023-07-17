@@ -1,4 +1,5 @@
 def babyagi():
+    import os
     from langchain import LLMChain, OpenAI, PromptTemplate
     from langchain.experimental import BabyAGI
     from langchain.agents import ZeroShotAgent, Tool, AgentExecutor
@@ -30,7 +31,7 @@ def babyagi():
         suffix=_suffix,
         input_variables=["objective", "task", "context", "agent_scratchpad"],
     )
-    _llm = OpenAI(temperature=0)
+    _llm = OpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     _llm_chain = LLMChain(
         llm=_llm,
         prompt=_prompt

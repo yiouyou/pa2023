@@ -1,10 +1,11 @@
 def agent_react_zeroshot(_loaded_tools, _ask):
+    import os
     from langchain.callbacks import get_openai_callback
     from langchain.agents import initialize_agent
     from langchain.agents import AgentType
     from langchain.llms import OpenAI
     from module.util import parse_intermediate_steps
-    llm = OpenAI(temperature=0)
+    llm = OpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     agent = initialize_agent(
         _loaded_tools,
         llm,
@@ -25,12 +26,13 @@ def agent_react_zeroshot(_loaded_tools, _ask):
     return [_ans, _steps]
 
 def agent_react_docstore(_loaded_tools, _ask):
+    import os
     from langchain.callbacks import get_openai_callback
     from langchain.agents import initialize_agent
     from langchain.agents import AgentType
     from langchain import OpenAI
     from module.util import parse_intermediate_steps
-    llm = OpenAI(temperature=0)
+    llm = OpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     agent = initialize_agent(
         _loaded_tools,
         llm,
@@ -51,12 +53,13 @@ def agent_react_docstore(_loaded_tools, _ask):
     return [_ans, _steps]
 
 def agent_selfask_search(_loaded_tools, _ask):
+    import os
     from langchain.callbacks import get_openai_callback
     from langchain.agents import initialize_agent
     from langchain.agents import AgentType
     from langchain import OpenAI
     from module.util import parse_intermediate_steps
-    llm = OpenAI(temperature=0)
+    llm = OpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     agent = initialize_agent(
         _loaded_tools,
         llm,
@@ -80,7 +83,8 @@ def agent_plan_execute(_loaded_tools, _ask):
     from langchain.callbacks import get_openai_callback
     from langchain.chat_models import ChatOpenAI
     from langchain.experimental.plan_and_execute import PlanAndExecute, load_agent_executor, load_chat_planner
-    model = ChatOpenAI(temperature=0)
+    import os
+    model = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     planner = load_chat_planner(model)
     executor = load_agent_executor(
         model,
@@ -108,7 +112,8 @@ def agent_openai_multifunc(_loaded_tools, _ask):
     from langchain.agents import AgentType
     from langchain.chat_models import ChatOpenAI
     from module.util import parse_intermediate_steps
-    llm = ChatOpenAI(temperature=0)
+    import os
+    llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     agent = initialize_agent(
         _loaded_tools,
         llm,
