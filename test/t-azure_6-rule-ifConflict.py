@@ -31,9 +31,9 @@ from langchain.llms import OpenAI
 from langchain import LLMChain
 _dir = 'tmp_1689564655'
 # _dir = 'tmp_1689566000'
-_info = readF(_dir, '_ans5')
+_info = readF(_dir, '_ans4')
 
-clean_template = \
+if_template = \
 """
 Giving the following list:
 --------------------
@@ -41,14 +41,14 @@ Giving the following list:
 --------------------
 Please check the logical conflicts and inconsistencies between the rules in the list. Remeber output inconsistencies and conflict only, nothing else. If there is no logical conflict at all, please output 'None confliction':
 """
-clean_prompt = PromptTemplate.from_template(clean_template)
+if_prompt = PromptTemplate.from_template(if_template)
 with get_openai_callback() as cb:
-    llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
-    chain = LLMChain(llm=llm, prompt=clean_prompt)
+    llm = ChatOpenAI(model_name='gpt-4', temperature=0)
+    chain = LLMChain(llm=llm, prompt=if_prompt)
     _re = chain.run(info=_info)
     _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
     _ans6 = _re.strip()
-    _step6 = f"{_token_cost}\n\n" + "="*20+" prompt "+"="*20+"\n" + clean_prompt.format(info=_info)
-writeF(_dir, '_ans66', _ans6)
-writeF(_dir, '_step66', _step6)
+    _step6 = f"{_token_cost}\n\n" + "="*20+" prompt "+"="*20+"\n" + if_prompt.format(info=_info)
+writeF(_dir, '_ans4_if', _ans6)
+writeF(_dir, '_step4_if', _step6)
 

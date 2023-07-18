@@ -50,22 +50,29 @@ Giving the following information:
 --------------------
 {info}
 --------------------
-What are the sufficient and necessary rules you can extract to optimize the use of Azure disks? Remember to cover as much detail as possible. Output the rules only, nothing else.
+What are necessary non-duplicative rules that you can extract to optimize the usage of Azure disks? Remember to cover as many details as possible. Only output non-duplicative, nothing else:
 """
 human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 rule_prompt = ChatPromptTemplate.from_messages(
     [system_message_prompt, human_message_prompt]
 )
-import os
+import os, re
 with get_openai_callback() as cb:
     llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
     chain = LLMChain(llm=llm, prompt=rule_prompt)
     _re = chain.run(info=_all_info)
     _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
-    _ans4 = _re.strip()
-    _step4 = f"{_token_cost}\n\n" + "="*20+" prompt "+"="*20+"\n" + rule_prompt.format(info=_all_info)
+    _ans4 = _re.strip().split("\n")
+    _step4 = f"{_token_cost}\n\n" + "="*20+" prompt "+"="*20+"\n" + rule_prompt.format(info=_all_info) + "="*20+" prompt "+"="*20+"\n" + f"{len(_ans4)} rules:\n\n" + "\n".join(_ans4)
     # print(_step4)
     # print(_ans4)
-writeF(_dir, '_ans44', _ans4)
-writeF(_dir, '_step44', _step4)
+_ans4_ = {}
+for i in _ans4:
+    i_str = re.sub('^\d+\. ', '', i)
+    # print(f"'{i_str}'")
+    _ans4_[i_str] = 1
+print(len(_ans4))
+print(len(_ans4_))
+writeF(_dir, '_ans4', "\n".join(sorted(_ans4_.keys())))
+writeF(_dir, '_step4', _step4)
 
