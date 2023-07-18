@@ -35,7 +35,7 @@ def auto_selected_agent(_task, _radio):
 
 
 ##### Azure Rules/Code
-from module.azure_rules_code import llm_azure_rules
+from module.azure_rules_code import chat_azure_rules
 from module.azure_rules_code import llm_azure_code
 
 
@@ -194,7 +194,7 @@ with gr.Blocks(title=_description) as demo:
             [ru_rules_btn]
         )
         ru_rules_btn.click(
-            llm_azure_rules,
+            chat_azure_rules,
             [ru_text],
             [ru_rules, ru_rules_steps]
         )
