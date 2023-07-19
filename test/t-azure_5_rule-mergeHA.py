@@ -96,6 +96,6 @@ with get_openai_callback() as cb:
     _ans7log_str = "\n".join(_ans7log)
 
 writeF(_dir, '_ans4_m', _ans7_str)
-writeF(_dir, '_ans4log_m.txt', _ans7log_str)
+writeF(_dir, '_ans4log_m', _ans7log_str)
 writeF(_dir, '_step4_m', _step7_str)
 
