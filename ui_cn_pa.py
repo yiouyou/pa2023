@@ -40,7 +40,7 @@ from module.azure_rules_code import llm_azure_code
 
 
 ##### Azure VM +
-from module.query_vdb import qa_faiss_multi_query_azure
+from module.query_vdb import qa_faiss_multi_query
 from module.agents import agent_react_zeroshot
 from module.agents import agent_openai_multifunc
 from module.agents import agent_selfask_search
@@ -52,7 +52,7 @@ from module.tools import tools_faiss_azure_googleserp
 from module.tools import tools_selfask_azure
 from module.tools import tools_react_docstore_azure_googleserp
 
-def azure_selected_agent_retriever(_query, _radio):
+def azure_vm_selected_agent_retriever(_query, _radio):
     _ans, _steps = "", ""
     if _radio == "react_zeroshot":
         _ans, _steps = agent_react_zeroshot(
@@ -80,7 +80,26 @@ def azure_selected_agent_retriever(_query, _radio):
             _query
         )
     elif _radio == "qa_multiquery":
-        _ans, _steps = qa_faiss_multi_query_azure(_query)
+        from pathlib import Path
+        _pwd = Path(__file__).absolute()
+        _pa_path = _pwd.parent
+        _db_name = str(_pa_path / "vdb" / "azure_sql+")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    else:
+        _ans = f"ERROR: not supported agent or retriever: {_radio}"
+    return [_ans, _steps]
+
+##### Azure SQL +
+from module.query_vdb import qa_faiss_multi_query
+
+def azure_sql_selected_agent_retriever(_query, _radio):
+    _ans, _steps = "", ""
+    if _radio == "qa_multiquery":
+        from pathlib import Path
+        _pwd = Path(__file__).absolute()
+        _pa_path = _pwd.parent
+        _db_name = str(_pa_path / "vdb" / "azure_sql+")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     else:
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
     return [_ans, _steps]
@@ -156,58 +175,58 @@ with gr.Blocks(title=_description) as demo:
     gr.Markdown(_description)
 
 
-    with gr.Tab(label = "Auto-task"):
-        ao_query = gr.Textbox(label="Task", placeholder="Task", lines=5, max_lines=5, interactive=True, visible=True)
-        ao_radio = gr.Radio(
-            ["babyagi", "autogpt", "metaprompt", "camel", "debate"],
-            label="Autonomous agents",
-            info="What agent to use?",
-            type="value",
-            value="babyagi"
-        )
-        ao_start_btn = gr.Button("Start", variant="secondary", visible=True)
-        ao_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        ao_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        ao_query.change(
-            chg_btn_color_if_input,
-            [ao_query],
-            [ao_start_btn]
-        )
-        ao_start_btn.click(
-            auto_selected_agent,
-            [ao_query, ao_radio],
-            [ao_ans, ao_steps]
-        )
+    # with gr.Tab(label = "Auto-task"):
+    #     ao_query = gr.Textbox(label="Task", placeholder="Task", lines=5, max_lines=5, interactive=True, visible=True)
+    #     ao_radio = gr.Radio(
+    #         ["babyagi", "autogpt", "metaprompt", "camel", "debate"],
+    #         label="Autonomous agents",
+    #         info="What agent to use?",
+    #         type="value",
+    #         value="babyagi"
+    #     )
+    #     ao_start_btn = gr.Button("Start", variant="secondary", visible=True)
+    #     ao_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+    #     ao_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+    #     ao_query.change(
+    #         chg_btn_color_if_input,
+    #         [ao_query],
+    #         [ao_start_btn]
+    #     )
+    #     ao_start_btn.click(
+    #         auto_selected_agent,
+    #         [ao_query, ao_radio],
+    #         [ao_ans, ao_steps]
+    #     )
 
 
-    with gr.Tab(label = "Azure Rules/Code"):
-        ru_text = gr.Textbox(label="Text", placeholder="Text", lines=10, max_lines=10, interactive=True, visible=True)
-        ru_rules_btn = gr.Button("Generate Rules", variant="secondary", visible=True)
-        ru_rules = gr.Textbox(label="Rules", placeholder="...", lines=10, max_lines=10, interactive=True, visible=True)
-        ru_rules_steps = gr.Textbox(label="Info", placeholder="...", lines=5, max_lines=5, interactive=False, visible=True)
-        ru_code_btn = gr.Button("Generate Code", variant="secondary", visible=True)
-        ru_code = gr.Textbox(label="Code", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        ru_code_steps = gr.Textbox(label="Info", placeholder="...", lines=10, max_lines=10, interactive=False, visible=True)
-        ru_text.change(
-            chg_btn_color_if_input,
-            [ru_text],
-            [ru_rules_btn]
-        )
-        ru_rules_btn.click(
-            chat_azure_rules,
-            [ru_text],
-            [ru_rules, ru_rules_steps]
-        )
-        ru_rules.change(
-            chg_btn_color_if_input,
-            [ru_rules],
-            [ru_code_btn]
-        )
-        ru_code_btn.click(
-            llm_azure_code,
-            [ru_rules],
-            [ru_code, ru_code_steps]
-        )
+    # with gr.Tab(label = "Azure Rules/Code"):
+    #     ru_text = gr.Textbox(label="Text", placeholder="Text", lines=10, max_lines=10, interactive=True, visible=True)
+    #     ru_rules_btn = gr.Button("Generate Rules", variant="secondary", visible=True)
+    #     ru_rules = gr.Textbox(label="Rules", placeholder="...", lines=10, max_lines=10, interactive=True, visible=True)
+    #     ru_rules_steps = gr.Textbox(label="Info", placeholder="...", lines=5, max_lines=5, interactive=False, visible=True)
+    #     ru_code_btn = gr.Button("Generate Code", variant="secondary", visible=True)
+    #     ru_code = gr.Textbox(label="Code", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+    #     ru_code_steps = gr.Textbox(label="Info", placeholder="...", lines=10, max_lines=10, interactive=False, visible=True)
+    #     ru_text.change(
+    #         chg_btn_color_if_input,
+    #         [ru_text],
+    #         [ru_rules_btn]
+    #     )
+    #     ru_rules_btn.click(
+    #         chat_azure_rules,
+    #         [ru_text],
+    #         [ru_rules, ru_rules_steps]
+    #     )
+    #     ru_rules.change(
+    #         chg_btn_color_if_input,
+    #         [ru_rules],
+    #         [ru_code_btn]
+    #     )
+    #     ru_code_btn.click(
+    #         llm_azure_code,
+    #         [ru_rules],
+    #         [ru_code, ru_code_steps]
+    #     )
 
 
     with gr.Tab(label = "Azure VM +"):
@@ -228,7 +247,31 @@ with gr.Blocks(title=_description) as demo:
             [az_start_btn]
         )
         az_start_btn.click(
-            azure_selected_agent_retriever,
+            azure_vm_selected_agent_retriever,
+            [az_query, az_radio],
+            [az_ans, az_steps]
+        )
+
+
+    with gr.Tab(label = "Azure SQL +"):
+        az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
+        az_radio = gr.Radio(
+            ["qa_multiquery"],
+            label="Agent & Retriever",
+            info="What agent or retriever to use?",
+            type="value",
+            value="qa_multiquery"
+        )
+        az_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_query.change(
+            chg_btn_color_if_input,
+            [az_query],
+            [az_start_btn]
+        )
+        az_start_btn.click(
+            azure_sql_selected_agent_retriever,
             [az_query, az_radio],
             [az_ans, az_steps]
         )

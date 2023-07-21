@@ -23,8 +23,10 @@ def readF(_dir, _fn):
         return rf.read()
 
 _override_rules = [
-    "Any disk type can be be converted to any disk type.",
-    "Any disk can be used for any workload, as long as IOPS and Throughput requirements of source disk has been met."
+    "A specific disk type can be converted to another disk type if necessary, but such conversion does not change anything about that disk type (features, limitations, comparisons, optimizations, applicability, etc.) other than affecting the feature of changing disk type itself.",
+    # "A specific disk type can be converted to another disk type if necessary, but such conversion feature only affect the feature of changing disk type, nothing else.",
+    # "Any disk type can be converted to any disk type.",
+    # "Any disk can be used for any workload, as long as IOPS and Throughput requirements of source disk has been met."
 ]
 
 ##### 6) check conflict rules
@@ -89,13 +91,13 @@ with get_openai_callback() as cb:
             _ans7.append(_new_rule)
             _new_rules.append(_new_rule)
         ##### reset _original_rules
-        _original_rules = _new_rules
+        # _original_rules = _new_rules
     _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
     _step7_str = f"{_token_cost}\n\n" + "\n\n".join(_step7)
     _ans7_str = "\n".join(_ans7)
     _ans7log_str = "\n".join(_ans7log)
 
-writeF(_dir, '_ans4_m', _ans7_str)
-writeF(_dir, '_ans4log_m', _ans7log_str)
-writeF(_dir, '_step4_m', _step7_str)
+writeF(_dir, '_ans4_m1', _ans7_str)
+writeF(_dir, '_ans4log_m1', _ans7log_str)
+writeF(_dir, '_step4_m1', _step7_str)
 

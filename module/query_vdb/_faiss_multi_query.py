@@ -80,10 +80,10 @@ def qa_faiss_multi_query(_query, _db):
     _ans, _steps = qa_faiss_retriever_multi_query(_query, _db_name)
     return [_ans, _steps]
 
-def qa_faiss_multi_query_azure(_query):
-    _ans, _steps = "", ""
-    _ans, _steps = qa_faiss_multi_query(_query, "azure_vm")
-    return [_ans, _steps]
+# def qa_faiss_multi_query_azure_vm(_query):
+#     _ans, _steps = "", ""
+#     _ans, _steps = qa_faiss_multi_query(_query, "azure_vm")
+#     return [_ans, _steps]
 
 # def qa_faiss_multi_query_langchain(_query):
 #     _ans, _steps = "", ""

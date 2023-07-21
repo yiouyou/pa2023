@@ -121,21 +121,29 @@ if __name__ == "__main__":
     _pwd = Path(__file__).absolute()
     _faiss_path = _pwd.parent.parent.parent
 
-    # _db_azure = txt2name("azure test doc")
+    # _db_azure = txt2name("Azure VM")
     # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_test.link")
+    # _links = str(_faiss_path / "vdb" / "azure_vm.link")
     # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_test"
+    # _md_dir = "./md_azure_vm"
     # weblinks_to_link_md(_links, _md_dir)
     # link_md_to_faiss(_md_dir, _azure)
 
-    _db_azure = txt2name("Azure VM")
+    _db_azure = txt2name("Azure SQL+")
     print(_db_azure)
-    _links = str(_faiss_path / "vdb" / "azure_vm.link")
+    _links = str(_faiss_path / "vdb" / "azure_sql+.link")
     _azure = str(_faiss_path / "vdb" / _db_azure)
-    _md_dir = "./md_azure_vm"
+    _md_dir = "./md_azure_sql+"
     weblinks_to_link_md(_links, _md_dir)
     link_md_to_faiss(_md_dir, _azure)
+
+    # _db_azure = txt2name("Azure WebApps")
+    # print(_db_azure)
+    # _links = str(_faiss_path / "vdb" / "azure_webapps.link")
+    # _azure = str(_faiss_path / "vdb" / _db_azure)
+    # _md_dir = "./md_azure_webapp"
+    # weblinks_to_link_md(_links, _md_dir)
+    # link_md_to_faiss(_md_dir, _azure)
 
     # _db_langchain = txt2name("Langchain Python Documents")
     # print(_db_langchain)
