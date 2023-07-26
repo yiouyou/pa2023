@@ -1,0 +1,67 @@
+------------------------------ run2
+8. Implement backup retention policies: Define backup retention policies based on your business requirements to avoid unnecessary storage costs. Consider using long-term retention for archival purposes.
+
+19. Regularly review and optimize data retention policies: Review and adjust data retention policies for your databases to align with your business requirements and minimize storage costs.
+
+18. Regularly review and optimize data archiving and purging: Implement data archiving and purging strategies to remove unnecessary data and optimize storage costs. Regularly review and optimize these strategies based on your data retention policies and business requirements.
+
+7. Implement auto-pause and auto-resume: If your workload has predictable periods of inactivity, enable auto-pause and auto-resume to automatically pause and resume the managed instance, saving costs during idle periods.
+
+6. Evaluate and optimize network egress costs: Understand and optimize network egress costs by minimizing data transfer between Azure SQL Managed Instance and other Azure services or external networks.
+
+12. Leverage Azure Hybrid Benefit for SQL Server: If you have existing SQL Server licenses with Software Assurance, you can take advantage of Azure Hybrid Benefit to save costs on Azure SQL Managed Instance.
+
+13. Monitor and optimize query performance: Regularly monitor and optimize your queries to improve performance and reduce resource consumption, which can help lower costs.
+
+1. Consider using Azure Reservations: Azure Reservations allow you to pre-purchase compute resources at a discounted rate. Evaluate and utilize Azure Reservations for Azure SQL Managed Instance to save costs.
+
+17. Regularly review and optimize Azure SQL Managed Instance service tier: Evaluate your workload requirements and regularly review the service tier (General Purpose, Business Critical, Hyperscale, etc.) of your Azure SQL Managed Instance. Adjust the service tier based on performance and cost considerations.
+
+2. Consider using Azure Spot VMs for non-production environments: If you have non-production environments for testing or development purposes, consider using Azure Spot VMs for cost savings. Azure Spot VMs offer significant discounts compared to regular VM pricing.
+
+29. Utilize Azure Cost Management and Billing: Leverage Azure Cost Management and Billing to gain insights into your Azure SQL Managed Instance costs, identify cost optimization opportunities, and implement cost-saving measures.
+
+28. Utilize Azure Cost Management APIs and automation: Leverage Azure Cost Management APIs and automation tools to programmatically manage and optimize your Azure SQL Managed Instance costs. Implement automated cost optimization processes to ensure ongoing cost efficiency.
+
+27. Use the vCore purchasing model: The vCore purchasing model allows you to independently choose compute and storage resources, providing flexibility and control over resource allocation.
+
+25. Use Azure Advisor recommendations: Regularly review Azure Advisor recommendations for Azure SQL Managed Instance to identify potential cost optimization opportunities and implement the recommended changes.
+
+24. Right-size your compute resources: Analyze your workload requirements and choose the appropriate compute size (vCores) for your Azure SQL Managed Instance. Avoid overprovisioning or underprovisioning to optimize cost.
+
+3. Consider using reserved storage: If you have predictable storage requirements, consider using reserved storage to save costs compared to provisioned storage.
+
+15. Optimize storage size: Determine the actual storage requirements for your databases and choose the appropriate storage size. Avoid overprovisioning storage to minimize costs.
+
+26. Use reserved instances: Consider purchasing reserved instances for Azure SQL Managed Instance to save costs compared to pay-as-you-go pricing.
+
+16. Regularly review and optimize Azure SQL Managed Instance resource utilization: Continuously monitor and analyze resource utilization metrics for your Azure SQL Managed Instance. Identify any idle or underutilized resources and take appropriate actions to optimize costs.
+
+14. Monitor and optimize storage performance: Regularly monitor storage performance and optimize storage configurations to ensure efficient utilization and minimize costs.
+
+4. Consider using serverless compute tier: If your workload has intermittent and unpredictable usage patterns, consider using the serverless compute tier to automatically scale compute resources based on demand and optimize costs.
+
+
+
+
+
+
+
+
+5. Evaluate and optimize backup storage options: Choose the appropriate backup storage option (geo-redundant, zone-redundant, or locally redundant) based on your business requirements and cost considerations.
+
+9. Implement cost alerts and budgets: Set up cost alerts and budgets to proactively monitor and control your Azure SQL Managed Instance costs. This will help you identify any unexpected cost increases and take appropriate actions.
+
+10. Implement cost allocation and chargeback: If you have multiple teams or departments using Azure SQL Managed Instance, implement cost allocation and chargeback mechanisms to track and allocate costs accurately. This can help drive accountability and optimize resource usage.
+
+11. Implement geo-replication for disaster recovery: If you require disaster recovery capabilities, consider implementing geo-replication to replicate your Azure SQL Managed Instance to a different Azure region. Regularly review and optimize the geo-replication configuration to ensure cost-effectiveness.
+
+20. Regularly review and optimize high availability configuration: Evaluate your high availability configuration and adjust the number of replicas based on your workload requirements and cost considerations.
+
+21. Regularly review and optimize licensing options: Stay up to date with the latest licensing options and discounts available for Azure SQL Managed Instance. Evaluate and optimize your licensing strategy to maximize cost savings.
+
+22. Regularly review and optimize resource group and subscription structure: Organize your Azure SQL Managed Instances, resource groups, and subscriptions in a logical and cost-effective manner. Regularly review and optimize the structure to ensure efficient resource management and cost allocation.
+
+23. Regularly review and optimize resource utilization: Monitor and analyze resource utilization metrics to identify any underutilized or overutilized resources. Optimize resource allocation to ensure efficient utilization and cost savings.
+
+30. Utilize read replicas: If your workload allows, offload read-only queries to read replicas to reduce the load on the primary instance and optimize resource utilization.

@@ -52,57 +52,78 @@ from module.tools import tools_faiss_azure_googleserp
 from module.tools import tools_selfask_azure
 from module.tools import tools_react_docstore_azure_googleserp
 
-def azure_vm_selected_agent_retriever(_query, _radio):
-    _ans, _steps = "", ""
-    if _radio == "react_zeroshot":
-        _ans, _steps = agent_react_zeroshot(
-            tools_faiss_azure_googleserp_math,
-            _query
-        )
-    elif _radio == "openai_multifunc":
-        _ans, _steps = agent_openai_multifunc(
-            tools_faiss_azure_googleserp,
-            _query
-        )
-    elif _radio == "selfask_search":
-        _ans, _steps = agent_selfask_search(
-            tools_selfask_azure,
-            _query
-        )
-    elif _radio == "react_docstore":
-        _ans, _steps = agent_react_docstore(
-            tools_react_docstore_azure_googleserp,
-            _query
-        )
-    elif _radio == "plan_execute":
-        _ans, _steps = agent_plan_execute(
-            tools_faiss_azure_googleserp,
-            _query
-        )
-    elif _radio == "qa_multiquery":
-        from pathlib import Path
-        _pwd = Path(__file__).absolute()
-        _pa_path = _pwd.parent
-        _db_name = str(_pa_path / "vdb" / "azure_sql+")
-        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
-    else:
-        _ans = f"ERROR: not supported agent or retriever: {_radio}"
-    return [_ans, _steps]
+# def azure_vm_selected_agent_retriever(_query, _radio):
+#     _ans, _steps = "", ""
+#     if _radio == "react_zeroshot":
+#         _ans, _steps = agent_react_zeroshot(
+#             tools_faiss_azure_googleserp_math,
+#             _query
+#         )
+#     elif _radio == "openai_multifunc":
+#         _ans, _steps = agent_openai_multifunc(
+#             tools_faiss_azure_googleserp,
+#             _query
+#         )
+#     elif _radio == "selfask_search":
+#         _ans, _steps = agent_selfask_search(
+#             tools_selfask_azure,
+#             _query
+#         )
+#     elif _radio == "react_docstore":
+#         _ans, _steps = agent_react_docstore(
+#             tools_react_docstore_azure_googleserp,
+#             _query
+#         )
+#     elif _radio == "plan_execute":
+#         _ans, _steps = agent_plan_execute(
+#             tools_faiss_azure_googleserp,
+#             _query
+#         )
+#     elif _radio == "qa_multiquery":
+#         from pathlib import Path
+#         _pwd = Path(__file__).absolute()
+#         _pa_path = _pwd.parent
+#         _db_name = str(_pa_path / "vdb" / "azure_sql+")
+#         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+#     else:
+#         _ans = f"ERROR: not supported agent or retriever: {_radio}"
+#     return [_ans, _steps]
 
-##### Azure SQL +
+##### Azure Doc
 from module.query_vdb import qa_faiss_multi_query
 
-def azure_sql_selected_agent_retriever(_query, _radio):
+def azure_selected_vdb(_query, _radio):
     _ans, _steps = "", ""
-    if _radio == "qa_multiquery":
-        from pathlib import Path
-        _pwd = Path(__file__).absolute()
-        _pa_path = _pwd.parent
-        _db_name = str(_pa_path / "vdb" / "azure_sql+")
+    from pathlib import Path
+    _pwd = Path(__file__).absolute()
+    _pa_path = _pwd.parent
+    if _radio == "vm_disk":
+        _db_name = str(_pa_path / "vdb" / "azure_vm")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "sql_db":
+        _db_name = str(_pa_path / "vdb" / "azure_sql_db")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "sql_mi":
+        _db_name = str(_pa_path / "vdb" / "azure_sql_mi")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "web_apps":
+        _db_name = str(_pa_path / "vdb" / "azure_webapps")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     else:
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
     return [_ans, _steps]
+
+# def azure_sql_selected_agent_retriever(_query, _radio):
+#     _ans, _steps = "", ""
+#     if _radio == "qa_multiquery":
+#         from pathlib import Path
+#         _pwd = Path(__file__).absolute()
+#         _pa_path = _pwd.parent
+#         _db_name = str(_pa_path / "vdb" / "azure_sql+")
+#         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+#     else:
+#         _ans = f"ERROR: not supported agent or retriever: {_radio}"
+#     return [_ans, _steps]
 
 
 ##### Search
@@ -167,7 +188,7 @@ from module.voice import txt_to_mp3
 
 ##### UI
 _description = """
-# 个人助理
+# Assistant
 """
 with gr.Blocks(title=_description) as demo:
     dh_history = gr.State([])
@@ -229,14 +250,38 @@ with gr.Blocks(title=_description) as demo:
     #     )
 
 
-    with gr.Tab(label = "Azure VM +"):
+    # with gr.Tab(label = "Azure VM +"):
+    #     az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
+    #     az_radio = gr.Radio(
+    #         ["react_zeroshot", "openai_multifunc", "selfask_search", "react_docstore", "plan_execute", "qa_multiquery"],
+    #         label="Agent & Retriever",
+    #         info="What agent or retriever to use?",
+    #         type="value",
+    #         value="qa_multiquery"
+    #     )
+    #     az_start_btn = gr.Button("Start", variant="secondary", visible=True)
+    #     az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+    #     az_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+    #     az_query.change(
+    #         chg_btn_color_if_input,
+    #         [az_query],
+    #         [az_start_btn]
+    #     )
+    #     az_start_btn.click(
+    #         azure_vm_selected_agent_retriever,
+    #         [az_query, az_radio],
+    #         [az_ans, az_steps]
+    #     )
+
+
+    with gr.Tab(label = "Azure Doc"):
         az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
         az_radio = gr.Radio(
-            ["react_zeroshot", "openai_multifunc", "selfask_search", "react_docstore", "plan_execute", "qa_multiquery"],
-            label="Agent & Retriever",
-            info="What agent or retriever to use?",
+            ["vm_disk", "sql_db", "sql_mi", "web_apps"],
+            label="Which Azure cloud service do you want to know about?",
+            info="",
             type="value",
-            value="qa_multiquery"
+            value="vm_disk"
         )
         az_start_btn = gr.Button("Start", variant="secondary", visible=True)
         az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
@@ -247,31 +292,7 @@ with gr.Blocks(title=_description) as demo:
             [az_start_btn]
         )
         az_start_btn.click(
-            azure_vm_selected_agent_retriever,
-            [az_query, az_radio],
-            [az_ans, az_steps]
-        )
-
-
-    with gr.Tab(label = "Azure SQL +"):
-        az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
-        az_radio = gr.Radio(
-            ["qa_multiquery"],
-            label="Agent & Retriever",
-            info="What agent or retriever to use?",
-            type="value",
-            value="qa_multiquery"
-        )
-        az_start_btn = gr.Button("Start", variant="secondary", visible=True)
-        az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        az_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        az_query.change(
-            chg_btn_color_if_input,
-            [az_query],
-            [az_start_btn]
-        )
-        az_start_btn.click(
-            azure_sql_selected_agent_retriever,
+            azure_selected_vdb,
             [az_query, az_radio],
             [az_ans, az_steps]
         )

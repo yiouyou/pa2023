@@ -1,0 +1,14 @@
+mindmap
+  root((Cloud Service Cost Saving))
+    Situation1
+      NoDirectAnswers
+        UnderstandCloudServiceTypes
+          FeaturesAndDifferences
+          WhenToChooseSpecificServiceTypes
+        ExtractCostSavingInformation
+    Situation2
+      DirectAnswersButLackDetails
+        IdentifyMajorCategories
+          SearchForRelatedSubcategories
+            IterateSearchUntilSufficientDetails
+        ExtractCostSavingInformation
