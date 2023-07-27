@@ -134,16 +134,14 @@ if __name__ == "__main__":
     import json
 
     _json = sys.argv[1]
-    _out = sys.argv[2]
-    _service = sys.argv[3]
+    _service = sys.argv[2]
     # _service = "azure sql managed instance"
 
     with open(_json, 'r', encoding='utf-8') as jf:
         _dj = json.loads(jf.read())
     _qlist = qlist_from_json(_dj, _service)
-    # from pprint import pprint
-    # print("\n")
-    # pprint(_qlist)
+    for i in _qlist:
+        print(i)
 
     import os
     from module.util import timestamp_now
@@ -161,5 +159,5 @@ if __name__ == "__main__":
     get_ans_from_qlist(_qlist, _dir, _dj, _service)
 
 
-    # python t_azure_get_qlist_from_json.py t_azure_get_qlist_from_json.json tmp_sql-mi_1689936595/_ans2 "azure sql managed instance"
+    # python t_azure_get_qlist_from_json.py t_azure_get_qlist_from_json.json "azure sql managed instance"
 
