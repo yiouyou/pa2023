@@ -129,13 +129,13 @@ if __name__ == "__main__":
     # weblinks_to_link_md(_links, _md_dir)
     # link_md_to_faiss(_md_dir, _azure)
 
-    # _db_azure = txt2name("Azure SQL DB")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_sql_db.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_azure_sql_db"
-    # weblinks_to_link_md(_links, _md_dir)
-    # link_md_to_faiss(_md_dir, _azure)
+    _db_azure = txt2name("Azure SQL DB")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_sql_db.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_sql_db"
+    weblinks_to_link_md(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
 
     # _db_azure = txt2name("Azure SQL MI")
     # print(_db_azure)
@@ -145,13 +145,13 @@ if __name__ == "__main__":
     # weblinks_to_link_md(_links, _md_dir)
     # link_md_to_faiss(_md_dir, _azure)
 
-    _db_azure = txt2name("Azure Webapps")
-    print(_db_azure)
-    _links = str(_faiss_path / "vdb" / "azure_webapps.link")
-    _azure = str(_faiss_path / "vdb" / _db_azure)
-    _md_dir = "./md_azure_webapps"
-    weblinks_to_link_md(_links, _md_dir)
-    link_md_to_faiss(_md_dir, _azure)
+    # _db_azure = txt2name("Azure Webapps")
+    # print(_db_azure)
+    # _links = str(_faiss_path / "vdb" / "azure_webapps.link")
+    # _azure = str(_faiss_path / "vdb" / _db_azure)
+    # _md_dir = "./md_azure_webapps"
+    # weblinks_to_link_md(_links, _md_dir)
+    # link_md_to_faiss(_md_dir, _azure)
 
     # _db_langchain = txt2name("Langchain Python Documents")
     # print(_db_langchain)

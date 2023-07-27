@@ -1,0 +1,41 @@
+Can you provide a step-by-step explanation of how the backup storage affect the cost of azure sql managed instance?
+Can you provide a step-by-step explanation of how the long-term retention affect the cost of azure sql managed instance?
+Can you provide a step-by-step explanation of how the storage affect the cost of azure sql managed instance?
+Can you provide a step-by-step explanation of how to use the Backup Retention as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the CPU usage as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the License Type as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Outgoing Internet Traffic as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Page-life expectancy as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the Service Tier and Compute Size as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Storage IO issues as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the Storage as one of cost drivers?
+What are the cost drivers of azure sql managed instance?
+What are the limitations of 'Business critical' in service tier?
+What are the limitations of 'General purpose' in service tier?
+What are the limitations of 'Premium-series' in hardware type?
+What are the limitations of 'Premium-series, memory-optimized' in hardware type?
+What are the limitations of 'Standard-series (Gen 5)' in hardware type?
+What are the performance metrics of azure sql managed instance?
+What are the pricing options of azure sql managed instance?
+What are the unique features of 'Business critical' in service tier?
+What are the unique features of 'General purpose' in service tier?
+What are the unique features of 'Premium-series' in hardware type?
+What are the unique features of 'Premium-series, memory-optimized' in hardware type?
+What are the unique features of 'Standard-series (Gen 5)' in hardware type?
+What's the difference between 'General purpose' in service tier and 'Business critical' in service tier?
+What's the difference between 'Premium-series' in hardware type and 'Premium-series, memory-optimized' in hardware type?
+What's the difference between 'Standard-series (Gen 5)' in hardware type and 'Premium-series' in hardware type?
+What's the difference between 'Standard-series (Gen 5)' in hardware type and 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'Business critical' in service tier over 'General purpose' in service tier?
+When should I choose 'Business critical' in service tier?
+When should I choose 'General purpose' in service tier over 'Business critical' in service tier?
+When should I choose 'General purpose' in service tier?
+When should I choose 'Premium-series' in hardware type over 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'Premium-series' in hardware type over 'Standard-series (Gen 5)' in hardware type?
+When should I choose 'Premium-series' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type over 'Premium-series' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type over 'Standard-series (Gen 5)' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'Standard-series (Gen 5)' in hardware type over 'Premium-series' in hardware type?
+When should I choose 'Standard-series (Gen 5)' in hardware type over 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'Standard-series (Gen 5)' in hardware type?

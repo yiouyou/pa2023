@@ -1,0 +1,70 @@
+Can you provide a step-by-step explanation of how to use the Disk IO, throughput, and queue depth metrics as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the Disk Size as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Disk Type as one of pricing options?
+Can you provide a step-by-step explanation of how to use the Disk bursting metrics as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the Managed Disk Size as one of pricing options?
+Can you provide a step-by-step explanation of how to use the Number of Transactions as one of pricing options?
+Can you provide a step-by-step explanation of how to use the On-Demand Bursting as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Outbound Bandwidth as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Outbound Data Transfers as one of pricing options?
+Can you provide a step-by-step explanation of how to use the Snapshot Capacity as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Snapshots as one of pricing options?
+Can you provide a step-by-step explanation of how to use the Storage IO utilization metrics as one of performance metrics?
+What are the cost drivers of azure managed disk?
+What are the disk types of azure managed disk?
+What are the limitations of 'LRS' in redundancy?
+What are the limitations of 'Premium SSD v2' in disk types?
+What are the limitations of 'Premium SSD' in disk types?
+What are the limitations of 'Standard HDD' in disk types?
+What are the limitations of 'Standard SSD' in disk types?
+What are the limitations of 'Ultra Disk' in disk types?
+What are the limitations of 'ZRS' in redundancy?
+What are the performance metrics of azure managed disk?
+What are the pricing options of azure managed disk?
+What are the unique features of 'LRS' in redundancy?
+What are the unique features of 'Premium SSD v2' in disk types?
+What are the unique features of 'Premium SSD' in disk types?
+What are the unique features of 'Standard HDD' in disk types?
+What are the unique features of 'Standard SSD' in disk types?
+What are the unique features of 'Ultra Disk' in disk types?
+What are the unique features of 'ZRS' in redundancy?
+What's the difference between 'LRS' in redundancy and 'ZRS' in redundancy?
+What's the difference between 'Premium SSD v2' in disk types and 'Premium SSD' in disk types?
+What's the difference between 'Premium SSD v2' in disk types and 'Standard HDD' in disk types?
+What's the difference between 'Premium SSD v2' in disk types and 'Standard SSD' in disk types?
+What's the difference between 'Premium SSD' in disk types and 'Standard HDD' in disk types?
+What's the difference between 'Premium SSD' in disk types and 'Standard SSD' in disk types?
+What's the difference between 'Standard SSD' in disk types and 'Standard HDD' in disk types?
+What's the difference between 'Ultra Disk' in disk types and 'Premium SSD v2' in disk types?
+What's the difference between 'Ultra Disk' in disk types and 'Premium SSD' in disk types?
+What's the difference between 'Ultra Disk' in disk types and 'Standard HDD' in disk types?
+What's the difference between 'Ultra Disk' in disk types and 'Standard SSD' in disk types?
+When should I choose 'LRS' in redundancy over 'ZRS' in redundancy?
+When should I choose 'LRS' in redundancy?
+When should I choose 'Premium SSD v2' in disk types over 'Premium SSD' in disk types?
+When should I choose 'Premium SSD v2' in disk types over 'Standard HDD' in disk types?
+When should I choose 'Premium SSD v2' in disk types over 'Standard SSD' in disk types?
+When should I choose 'Premium SSD v2' in disk types over 'Ultra Disk' in disk types?
+When should I choose 'Premium SSD v2' in disk types?
+When should I choose 'Premium SSD' in disk types over 'Premium SSD v2' in disk types?
+When should I choose 'Premium SSD' in disk types over 'Standard HDD' in disk types?
+When should I choose 'Premium SSD' in disk types over 'Standard SSD' in disk types?
+When should I choose 'Premium SSD' in disk types over 'Ultra Disk' in disk types?
+When should I choose 'Premium SSD' in disk types?
+When should I choose 'Standard HDD' in disk types over 'Premium SSD v2' in disk types?
+When should I choose 'Standard HDD' in disk types over 'Premium SSD' in disk types?
+When should I choose 'Standard HDD' in disk types over 'Standard SSD' in disk types?
+When should I choose 'Standard HDD' in disk types over 'Ultra Disk' in disk types?
+When should I choose 'Standard HDD' in disk types?
+When should I choose 'Standard SSD' in disk types over 'Premium SSD v2' in disk types?
+When should I choose 'Standard SSD' in disk types over 'Premium SSD' in disk types?
+When should I choose 'Standard SSD' in disk types over 'Standard HDD' in disk types?
+When should I choose 'Standard SSD' in disk types over 'Ultra Disk' in disk types?
+When should I choose 'Standard SSD' in disk types?
+When should I choose 'Ultra Disk' in disk types over 'Premium SSD v2' in disk types?
+When should I choose 'Ultra Disk' in disk types over 'Premium SSD' in disk types?
+When should I choose 'Ultra Disk' in disk types over 'Standard HDD' in disk types?
+When should I choose 'Ultra Disk' in disk types over 'Standard SSD' in disk types?
+When should I choose 'Ultra Disk' in disk types?
+When should I choose 'ZRS' in redundancy over 'LRS' in redundancy?
+When should I choose 'ZRS' in redundancy?

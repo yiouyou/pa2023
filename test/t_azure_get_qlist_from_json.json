@@ -1,0 +1,106 @@
+{
+  "azure sql managed instance": {
+    "vdb": "azure_sql_mi",
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "service tier": [
+            "General purpose",
+            "Business critical"
+          ],
+          "hardware type": [
+            "Standard-series (Gen 5)",
+            "Premium-series",
+            "Premium-series, memory-optimized"
+          ],
+          "storage": "",
+          "backup storage": "",
+          "long-term retention": ""
+        }
+      }
+    }
+  },
+  "azure sql database": {
+    "vdb": "azure_sql_db",
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "purchase model": [
+            "vCore",
+            "DTU"
+          ],
+          "compute tier": [
+            "Serverless",
+            "Provisioned"
+          ],
+          "service tier": [
+            "General purpose",
+            "Business critical",
+            "Hyperscale"
+          ],
+          "hardware type": [
+            "Standard-series (Gen 5)",
+            "DC-series",
+            "Fsv2-series",
+            "M-series",
+            "Premium-series",
+            "Premium-series, memory-optimized"
+          ],
+          "storage": "",
+          "backup storage": "",
+          "long-term retention": "",
+          "locally Redundant Storage": ""
+        }
+      }
+    }
+  },
+  "azure managed disk": {
+    "vdb": "azure_vm",
+    "qlist": {
+      "disk types": {},
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "redundancy": [
+            "LRS",
+            "ZRS"
+          ],
+          "disk types": [
+            "Ultra Disk",
+            "Premium SSD v2",
+            "Premium SSD",
+            "Standard SSD",
+            "Standard HDD"
+          ]
+        }
+      }
+    }
+  },
+  "azure static web apps": {
+    "vdb": "azure_webapps",
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+        }
+      }
+    }
+  },
+  "service": {
+    "vdb": "azure_service",
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+        }
+      }
+    }
+  }
+}

@@ -34,20 +34,20 @@ _ts = f"./tmp_sql-mi_1689936595/"
 
 ##### 3) get all ans from question list
 import time
-_qlist = readF(_ts, '_ans2+').split("\n")
+_qlist = readF(_ts, '_ans2').split("\n")
 # print(_qlist)
 _ans3 = []
 for i in _qlist:
     i_ans, i_step = qa_faiss_multi_query(i, _vdb)
-    writeF(_ts, '_ans3+_'+i.replace("?", ""), i_ans)
-    writeF(_ts, '_step3+_'+i.replace("?", ""), i_step)
-    time.sleep(5)
+    writeF(_ts, '_ans3_/_ans3_'+i.replace("?", ""), i_ans)
+    writeF(_ts, '_step3_/_step3_'+i.replace("?", ""), i_step)
+    time.sleep(4)
     _ans3.append(i_ans)
 
 _ans3_str = ""
 for i in range(len(_qlist)):
     _ans3_str += f"## {_qlist[i]}\n\n" + f"{_ans3[i]}\n\n"
-writeF(_ts, '_ans3+', _ans3_str)
+writeF(_ts, '_ans3', _ans3_str)
 
 # _ans3_str = ""
 # for i in _qlist:

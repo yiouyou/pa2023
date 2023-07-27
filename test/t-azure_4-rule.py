@@ -40,13 +40,13 @@ from langchain.schema import AIMessage, HumanMessage, SystemMessage
 # _dir = 'tmp_sql_1689849358'
 # _dir = 'tmp_webapps_1689850394'
 _dir = 'tmp_sql-mi_1689936595'
-_info = readF(_dir, '_ans3+')
+_info = readF(_dir, '_ans3')
 _service = 'SQL managed instance' # 'managed disk', 'SQL database', 'SQL managed instance', 'static web apps'
-_out_ans = '_ans4+'
-_out_step = '_step4+'
+_out_ans = '_ans4'
+_out_step = '_step4'
 # print(_info)
 sys_template = (
-    "You are a cost optimization expert, providing cost optimization suggestions for Azure cloud service customers. In order to achieve this goal, it is necessary to first construct a list of cost optimization rules, listing what can and cannot be done in various situations; then write python code according to the cost optimization rules, which is related to inputting the usage status of customer cloud services When using data, all feasible optimization measures can be directly calculated and recommended with priority of cost and safety."
+    "You are a cost optimization expert, providing cost optimization suggestions for Azure cloud service customers. In order to achieve this goal, it is necessary to first construct a list of cost optimization rules (assessment criteria and outcomes across different scenarios), listing what can and cannot be done in various situations; then write python code according to the cost optimization rules, which is related to inputting the usage status of customer cloud services When using data, all feasible optimization measures can be directly calculated and recommended with priority of cost and safety."
 )
 system_message_prompt = SystemMessagePromptTemplate.from_template(sys_template)
 human_template = \
@@ -55,8 +55,8 @@ Giving the following information:
 --------------------
 {info}
 --------------------
-What are the necessary, specific, detailed, non-repetitive rules you can extract to optimize the cost of using Azure {service}?""" + \
-""" In order to make the cost optimization step easier to execute, each rule should not be too complicated, usually the simpler the rule, the easier it is to be executed, the better. For each rule, output it as the format '#. rule_content' in which '#' is number of index, 'rule_content' is the rule it self. Please extract as many effective and non-repeated rules as possible. Don't talk in general terms, be specific:
+What are the necessary, specific, detailed, non-repetitive rules (assessment criteria and outcomes across different scenarios) you can extract to optimize the cost of using Azure {service}?""" + \
+""" In order to make the cost optimization steps easier to implement, each rule must not be too general, and the more specific the rule is, the easier it is to judge and execute, the better. For each assessment criteria and outcomes under certain scenario, output it as the format '#. rule_content' in which '#' is number of index, 'rule_content' is the rule it self. Please extract as many effective and non-repeated rules as possible. Don't talk in general terms, be specific:
 """
 # """ Remember to cover as many details as possible, the simpler each rule the better. Output only non-duplicative rules with numeric indices in the format '1. rule_content', nothing else:
 # """
@@ -68,7 +68,8 @@ rule_prompt = ChatPromptTemplate.from_messages(
 )
 import os, re
 with get_openai_callback() as cb:
-    llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
+    # llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
+    llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k-0613", temperature=0)
     chain = LLMChain(llm=llm, prompt=rule_prompt)
     _re = chain.run(info=_info, service=_service)
     _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"

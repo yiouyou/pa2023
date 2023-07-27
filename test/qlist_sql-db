@@ -1,0 +1,119 @@
+Can you provide a step-by-step explanation of how the backup storage affect the cost of azure sql database?
+Can you provide a step-by-step explanation of how the locally Redundant Storage affect the cost of azure sql database?
+Can you provide a step-by-step explanation of how the long-term retention affect the cost of azure sql database?
+Can you provide a step-by-step explanation of how the storage affect the cost of azure sql database?
+Can you provide a step-by-step explanation of how to use the Backup as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the CPU percentage as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the Compute Resources as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the DTU percentage as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the DTU-based purchasing model as one of pricing options?
+Can you provide a step-by-step explanation of how to use the Data IO percentage as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the Database size percentage as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the License as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Long-Term Retention as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Service Tier as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the Sessions percentage as one of performance metrics?
+Can you provide a step-by-step explanation of how to use the Storage as one of cost drivers?
+Can you provide a step-by-step explanation of how to use the vCore-based purchasing model as one of pricing options?
+What are the cost drivers of azure sql database?
+What are the limitations of 'Business critical' in service tier?
+What are the limitations of 'DC-series' in hardware type?
+What are the limitations of 'DTU' in purchase model?
+What are the limitations of 'Fsv2-series' in hardware type?
+What are the limitations of 'General purpose' in service tier?
+What are the limitations of 'Hyperscale' in service tier?
+What are the limitations of 'M-series' in hardware type?
+What are the limitations of 'Premium-series' in hardware type?
+What are the limitations of 'Premium-series, memory-optimized' in hardware type?
+What are the limitations of 'Provisioned' in compute tier?
+What are the limitations of 'Serverless' in compute tier?
+What are the limitations of 'Standard-series (Gen 5)' in hardware type?
+What are the limitations of 'vCore' in purchase model?
+What are the performance metrics of azure sql database?
+What are the pricing options of azure sql database?
+What are the unique features of 'Business critical' in service tier?
+What are the unique features of 'DC-series' in hardware type?
+What are the unique features of 'DTU' in purchase model?
+What are the unique features of 'Fsv2-series' in hardware type?
+What are the unique features of 'General purpose' in service tier?
+What are the unique features of 'Hyperscale' in service tier?
+What are the unique features of 'M-series' in hardware type?
+What are the unique features of 'Premium-series' in hardware type?
+What are the unique features of 'Premium-series, memory-optimized' in hardware type?
+What are the unique features of 'Provisioned' in compute tier?
+What are the unique features of 'Serverless' in compute tier?
+What are the unique features of 'Standard-series (Gen 5)' in hardware type?
+What are the unique features of 'vCore' in purchase model?
+What's the difference between 'Business critical' in service tier and 'Hyperscale' in service tier?
+What's the difference between 'DC-series' in hardware type and 'Fsv2-series' in hardware type?
+What's the difference between 'DC-series' in hardware type and 'M-series' in hardware type?
+What's the difference between 'DC-series' in hardware type and 'Premium-series' in hardware type?
+What's the difference between 'DC-series' in hardware type and 'Premium-series, memory-optimized' in hardware type?
+What's the difference between 'Fsv2-series' in hardware type and 'M-series' in hardware type?
+What's the difference between 'Fsv2-series' in hardware type and 'Premium-series' in hardware type?
+What's the difference between 'Fsv2-series' in hardware type and 'Premium-series, memory-optimized' in hardware type?
+What's the difference between 'General purpose' in service tier and 'Business critical' in service tier?
+What's the difference between 'General purpose' in service tier and 'Hyperscale' in service tier?
+What's the difference between 'M-series' in hardware type and 'Premium-series' in hardware type?
+What's the difference between 'M-series' in hardware type and 'Premium-series, memory-optimized' in hardware type?
+What's the difference between 'Premium-series' in hardware type and 'Premium-series, memory-optimized' in hardware type?
+What's the difference between 'Serverless' in compute tier and 'Provisioned' in compute tier?
+What's the difference between 'Standard-series (Gen 5)' in hardware type and 'DC-series' in hardware type?
+What's the difference between 'Standard-series (Gen 5)' in hardware type and 'Fsv2-series' in hardware type?
+What's the difference between 'Standard-series (Gen 5)' in hardware type and 'M-series' in hardware type?
+What's the difference between 'Standard-series (Gen 5)' in hardware type and 'Premium-series' in hardware type?
+What's the difference between 'Standard-series (Gen 5)' in hardware type and 'Premium-series, memory-optimized' in hardware type?
+What's the difference between 'vCore' in purchase model and 'DTU' in purchase model?
+When should I choose 'Business critical' in service tier over 'General purpose' in service tier?
+When should I choose 'Business critical' in service tier over 'Hyperscale' in service tier?
+When should I choose 'Business critical' in service tier?
+When should I choose 'DC-series' in hardware type over 'Fsv2-series' in hardware type?
+When should I choose 'DC-series' in hardware type over 'M-series' in hardware type?
+When should I choose 'DC-series' in hardware type over 'Premium-series' in hardware type?
+When should I choose 'DC-series' in hardware type over 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'DC-series' in hardware type over 'Standard-series (Gen 5)' in hardware type?
+When should I choose 'DC-series' in hardware type?
+When should I choose 'DTU' in purchase model over 'vCore' in purchase model?
+When should I choose 'DTU' in purchase model?
+When should I choose 'Fsv2-series' in hardware type over 'DC-series' in hardware type?
+When should I choose 'Fsv2-series' in hardware type over 'M-series' in hardware type?
+When should I choose 'Fsv2-series' in hardware type over 'Premium-series' in hardware type?
+When should I choose 'Fsv2-series' in hardware type over 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'Fsv2-series' in hardware type over 'Standard-series (Gen 5)' in hardware type?
+When should I choose 'Fsv2-series' in hardware type?
+When should I choose 'General purpose' in service tier over 'Business critical' in service tier?
+When should I choose 'General purpose' in service tier over 'Hyperscale' in service tier?
+When should I choose 'General purpose' in service tier?
+When should I choose 'Hyperscale' in service tier over 'Business critical' in service tier?
+When should I choose 'Hyperscale' in service tier over 'General purpose' in service tier?
+When should I choose 'Hyperscale' in service tier?
+When should I choose 'M-series' in hardware type over 'DC-series' in hardware type?
+When should I choose 'M-series' in hardware type over 'Fsv2-series' in hardware type?
+When should I choose 'M-series' in hardware type over 'Premium-series' in hardware type?
+When should I choose 'M-series' in hardware type over 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'M-series' in hardware type over 'Standard-series (Gen 5)' in hardware type?
+When should I choose 'M-series' in hardware type?
+When should I choose 'Premium-series' in hardware type over 'DC-series' in hardware type?
+When should I choose 'Premium-series' in hardware type over 'Fsv2-series' in hardware type?
+When should I choose 'Premium-series' in hardware type over 'M-series' in hardware type?
+When should I choose 'Premium-series' in hardware type over 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'Premium-series' in hardware type over 'Standard-series (Gen 5)' in hardware type?
+When should I choose 'Premium-series' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type over 'DC-series' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type over 'Fsv2-series' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type over 'M-series' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type over 'Premium-series' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type over 'Standard-series (Gen 5)' in hardware type?
+When should I choose 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'Provisioned' in compute tier over 'Serverless' in compute tier?
+When should I choose 'Provisioned' in compute tier?
+When should I choose 'Serverless' in compute tier over 'Provisioned' in compute tier?
+When should I choose 'Serverless' in compute tier?
+When should I choose 'Standard-series (Gen 5)' in hardware type over 'DC-series' in hardware type?
+When should I choose 'Standard-series (Gen 5)' in hardware type over 'Fsv2-series' in hardware type?
+When should I choose 'Standard-series (Gen 5)' in hardware type over 'M-series' in hardware type?
+When should I choose 'Standard-series (Gen 5)' in hardware type over 'Premium-series' in hardware type?
+When should I choose 'Standard-series (Gen 5)' in hardware type over 'Premium-series, memory-optimized' in hardware type?
+When should I choose 'Standard-series (Gen 5)' in hardware type?
+When should I choose 'vCore' in purchase model over 'DTU' in purchase model?
+When should I choose 'vCore' in purchase model?
