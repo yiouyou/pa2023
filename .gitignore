@@ -5,7 +5,10 @@ module/generate_vdb/vm/
 # vdb
 vdb/*
 !vdb/.gitkeep
+!vdb/azure_sql_db.link
+!vdb/azure_sql_mi.link
 !vdb/azure_vm.link
+!vdb/azure_webapps.link
 
 # test
 test/*.csv
