@@ -39,11 +39,12 @@ from langchain.schema import AIMessage, HumanMessage, SystemMessage
 # _dir = 'tmp_disk_1689855176'
 # _dir = 'tmp_sql_1689849358'
 # _dir = 'tmp_webapps_1689850394'
-_dir = 'tmp_sql-mi_1689936595'
-_info = readF(_dir, '_ans3')
+# _dir = 'tmp_sql-mi_1689936595'
+_dir = 'tmp_azure_sql_managed_instance_1690511951'
+_info = readF(_dir, '_ans')
 _service = 'SQL managed instance' # 'managed disk', 'SQL database', 'SQL managed instance', 'static web apps'
-_out_ans = '_ans4'
-_out_step = '_step4'
+_out_ans = '_rule'
+_out_step = '_rule_step'
 # print(_info)
 sys_template = (
     "You are a cost optimization expert, providing cost optimization suggestions for Azure cloud service customers. In order to achieve this goal, it is necessary to first construct a list of cost optimization rules (assessment criteria and outcomes across different scenarios), listing what can and cannot be done in various situations; then write python code according to the cost optimization rules, which is related to inputting the usage status of customer cloud services When using data, all feasible optimization measures can be directly calculated and recommended with priority of cost and safety."
