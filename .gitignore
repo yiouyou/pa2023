@@ -16,9 +16,11 @@ test/*.md
 test/tmp_*
 
 # frank
-frank/*.csv
-frank/*.md
 frank/tmp_*
+
+# chainlit
+chainlit/.chainlit
+chainlit/chainlit.md
 
 # tmp
 tmp/mp3/*.mp3
