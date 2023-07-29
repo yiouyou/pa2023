@@ -37,6 +37,10 @@ def parse_to_item(_ans):
                 _item.append(_ms[-1].strip())
             else:
                 _item.append(_m.strip())
+    if not _item:
+        print("\n\n###################################################")
+        print(_ans)
+        exit()
     # print(_item)
     return _item
 
@@ -234,13 +238,13 @@ if __name__ == "__main__":
     _dir = f"tmp_{_service_str}_{_ts}"
     _dir_ans_ = f"{_dir}/_ans_"
     _dir_step_ = f"{_dir}/_step_"
-    if not os.path.exists(_dir):
-        os.makedirs(_dir)
-    if not os.path.exists(_dir_ans_):
-        os.makedirs(_dir_ans_)
-    if not os.path.exists(_dir_step_):
-        os.makedirs(_dir_step_)
-    get_ans_from_qlist(_qlist, _dir, _dj, _service)
+    # if not os.path.exists(_dir):
+    #     os.makedirs(_dir)
+    # if not os.path.exists(_dir_ans_):
+    #     os.makedirs(_dir_ans_)
+    # if not os.path.exists(_dir_step_):
+    #     os.makedirs(_dir_step_)
+    # get_ans_from_qlist(_qlist, _dir, _dj, _service)
     ##### get rules
     # _ans_f = os.path.join(_dir, '_ans')
     # extract_rules(_ans_f, _dir, _service)

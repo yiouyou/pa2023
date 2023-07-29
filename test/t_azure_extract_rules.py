@@ -33,14 +33,28 @@ def _chatmodel(_ans_str, _dir, _service):
         " You are a cost optimization expert, providing cost optimization suggestions for Azure cloud service customers. In order to achieve this goal, it is necessary to first construct a list of cost optimization rules, listing what can and cannot be done in various situations; then write python code according to the cost optimization rules, which is related to inputting the usage status of customer cloud services When using data, all feasible optimization measures can be directly calculated and recommended with priority of cost and safety."
     )
     system_message_prompt = SystemMessagePromptTemplate.from_template(sys_template)
-    _sB = """Giving the following information:
+    _sB = """
+Giving the below FAQ document on {service} :
 --------------------
 {info}
 --------------------
-Given a comprehensive FAQ document on {service}, first extract all information related to cost drivers, pricing options, performance metrics, related key concepts (if any, maybe one of 'service tier', 'compute tier', 'purchase model', 'hardware type', 'storage', 'backup storage', 'long-term retention', 'locally redundant storage', 'redundancy', etc.) and the subcategories of related key concepts.
+
+Giving some exmpale rules:
+--------------------
+1. Ultra disks can only be created as empty data disks and cannot be used as OS disks.
+2. Azure Backup and Azure Site Recovery do not support Ultra disks.
+3. Ultra disks support a 4k physical sector size by default, but a 512E sector size is also available.
+4. The only infrastructure redundancy option currently available for Ultra disks is availability zones. VMs using any other redundancy options cannot attach an Ultra disk.
+5. Ultra disks cannot be shared across availability zones.
+6. Premium SSD v2 currently only supports locally redundant storage (LRS) configurations. It does not support zone-redundant storage (ZRS) or other redundancy options.
+7. Standard SSDs only support 512E sector size.
+8. Standard HDDs only support locally redundant storage (LRS) and have a sector size of 512E.
+--------------------
+
+Based on those information, first extract all information related to cost drivers, pricing options, performance metrics, related key concepts (if any, maybe one of 'service tier', 'compute tier', 'purchase model', 'hardware type', 'storage', 'backup storage', 'long-term retention', 'locally redundant storage', 'redundancy', etc.) and the subcategories of related key concepts.
 """
     _s = """
-Furthermore, extract all detailed cases where changing available services or plans or tiers or models or options, that might lead to cost savings.
+Then, extract all possible rules that might lead, affect or limit to cost savings.
 """
 # Then, provide detailed information on how cost derivers work, and how these can contribute to cost savings.
 # Then, provide detailed information on how pricing options work, and how these can contribute to cost savings.
@@ -48,9 +62,11 @@ Furthermore, extract all detailed cases where changing available services or pla
 # Then, provide detailed information on cost-saving features of subcategories of those key concepts, and how these can contribute to cost savings.
 # Then, provide detailed information on unique features of subcategories of those key concepts, and how these can contribute to cost savings.
 # Then, provide detailed information on restrictions of cost savings.
-    _sE = """Compile all this information into a comprehensive cost optimization rule book for writing Python programs for Azure users.
+# Furthermore, extract all detailed cases where changing available services or plans or tiers or models or options, that might lead to cost savings.
+    _sE = """
+Compile all this information into a comprehensive cost optimization rule book for writing Python programs for Azure users.
 """
-    human_template = _sB + _s + _sE
+    human_template = _sB + _s
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
     rule_prompt = ChatPromptTemplate.from_messages(
         [system_message_prompt, human_message_prompt]

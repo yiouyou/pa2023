@@ -40,11 +40,11 @@ from langchain.schema import AIMessage, HumanMessage, SystemMessage
 # _dir = 'tmp_sql_1689849358'
 # _dir = 'tmp_webapps_1689850394'
 # _dir = 'tmp_sql-mi_1689936595'
-_dir = 'tmp_azure_sql_managed_instance_1690511951'
+_dir = sys.argv[1]
 _info = readF(_dir, '_ans')
-_service = 'SQL managed instance' # 'managed disk', 'SQL database', 'SQL managed instance', 'static web apps'
-_out_ans = '_rule'
-_out_step = '_rule_step'
+_service = sys.argv[2] # 'managed disk', 'SQL database', 'SQL managed instance', 'static web apps'
+_out_ans = '_rule4'
+_out_step = '_rule4_step'
 # print(_info)
 sys_template = (
     "You are a cost optimization expert, providing cost optimization suggestions for Azure cloud service customers. In order to achieve this goal, it is necessary to first construct a list of cost optimization rules (assessment criteria and outcomes across different scenarios), listing what can and cannot be done in various situations; then write python code according to the cost optimization rules, which is related to inputting the usage status of customer cloud services When using data, all feasible optimization measures can be directly calculated and recommended with priority of cost and safety."
@@ -52,13 +52,21 @@ sys_template = (
 system_message_prompt = SystemMessagePromptTemplate.from_template(sys_template)
 human_template = \
 """
+In order to recommend a more cost-effective solution, it is first necessary to screen out executable solutions by checking various conditions, then calculate the cost of each solution and sort from small to large, and finally obtain the solution that is executable and has the lowest cost.
+
 Giving the following information:
 --------------------
 {info}
 --------------------
-What are the necessary, specific, detailed, non-repetitive rules (assessment criteria and outcomes across different scenarios) you can extract to optimize the cost of using Azure {service}?""" + \
-""" In order to make the cost optimization steps easier to implement, each rule must not be too general, and the more specific the rule is, the easier it is to judge and execute, the better. For each assessment criteria and outcomes under certain scenario, output it as the format '#. rule_content' in which '#' is number of index, 'rule_content' is the rule it self. Please extract as many effective and non-repeated rules as possible. Don't talk in general terms, be specific:
+Please extract all the rules, requirements, restrictions or limitations that can be used to filter out the executable suggestions for all possible conditions.
+
+For example, the rule 'Premium SSD v2 currently only supports locally redundant storage (LRS) configurations. It does not support zone-redundant storage (ZRS) or other redundancy options.' will help to filter out the 'Premium SSD v2' disk type if the current redundany of disk is 'ZRS'.
+
+Output the results in numbered list:
 """
+# What are the necessary, specific, detailed, non-repetitive rules (assessment criteria and outcomes across different scenarios) you can extract to optimize the cost of using Azure {service}?
+# In order to make the cost optimization steps easier to implement, each rule must not be too general, and the more specific the rule is, the easier it is to judge and execute, the better. For each assessment criteria and outcomes under certain scenario, output it as the format '#. rule_content' in which '#' is number of index, 'rule_content' is the rule it self. Please extract as many effective and non-repeated rules as possible. Don't talk in general terms, be specific:
+# """
 # """ Remember to cover as many details as possible, the simpler each rule the better. Output only non-duplicative rules with numeric indices in the format '1. rule_content', nothing else:
 # """
 

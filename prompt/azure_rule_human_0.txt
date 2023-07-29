@@ -1,0 +1,16 @@
+Giving the following information about {service}:
+--------------------
+{info}
+--------------------
+Please extract ALL cost optimization related rules, preconditions, constraints, and restrictions that can be used to filter out the executable suggestions for all possible conditions.
+
+To understand how those cost optimization related rules, preconditions, constraints, and restrictions work, below are some examples:
+--------------------
+1. Assume there is a rule 'Premium SSD v2 currently only supports locally redundant storage (LRS) configurations. It does not support zone-redundant storage (ZRS) or other redundancy options.', it will help to filters out the suggestion of changing disk type to 'Premium SSD v2' when the current disk redundancy is 'ZRS'.
+
+2. Assume there is a rule 'Ultra disks can only be created as empty data disks and cannot be used as OS disks.', it will help to filters out the suggestion of changing disk type to 'Ultra disks' when the current disk is a OS disk.
+
+3. Assume there is a rule 'Ultra disks cannot be used with certain features and functionality, including disk export, changing disk type, trusted launch, VM images, availability sets, or Azure disk encryption.', it will help to filters out the suggestion of changing disk type to 'Ultra disks' when the encryption status of current disk is True.
+--------------------
+
+Now, please output the results in numbered list:

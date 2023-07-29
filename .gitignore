@@ -15,6 +15,11 @@ test/*.csv
 test/*.md
 test/tmp_*
 
+# frank
+frank/*.csv
+frank/*.md
+frank/tmp_*
+
 # tmp
 tmp/mp3/*.mp3
 tmp/project/memory/*

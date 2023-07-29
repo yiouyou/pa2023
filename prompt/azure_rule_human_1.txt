@@ -1,0 +1,9 @@
+Giving the following information about {service}:
+--------------------
+{info}
+--------------------
+Please extract ALL cost optimization related rules, preconditions, constraints, and restrictions that can be used to filter out the executable suggestions for all possible conditions.
+
+For example, assume there is a rule 'Ultra disks can only be created as empty data disks and cannot be used as OS disks.', it will help to filters out the suggestion of changing disk type to 'Ultra disks' when the current disk is a OS disk.
+
+Output the results in numbered list:
