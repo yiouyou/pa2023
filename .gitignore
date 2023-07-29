@@ -10,17 +10,17 @@ vdb/*
 !vdb/azure_vm.link
 !vdb/azure_webapps.link
 
-# test
-test/*.csv
-test/*.md
-test/tmp_*
-
 # frank
 frank/tmp_*
 
 # chainlit
 chainlit/.chainlit
 chainlit/chainlit.md
+
+# test
+test/*.csv
+test/*.md
+test/tmp_*
 
 # tmp
 tmp/mp3/*.mp3
