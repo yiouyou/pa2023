@@ -106,16 +106,21 @@ def _rule(_ans_str, _dir, _service):
     _out_rule = '_rule'
     _out_rule_step = '_rule_step'
     _rule1, _rule1_step = _chat_with_sys_human(_info, _service, _sys, _human)
+    print(len(_rule1))
     _rule2, _rule2_step = _chat_with_sys_human(_info, _service, _sys, _human)
+    print(len(_rule2))
     _rule3, _rule3_step = _chat_with_sys_human(_info, _service, _sys, _human)
+    print(len(_rule3))
     _rule1_ = _uniq(_rule1)
     _rule2_ = _uniq(_rule2)
     _rule3_ = _uniq(_rule3)
+    print('uniq done!')
     _rule_ = {}
     _rule_ = _rule1_ | _rule2_
     _rule_ |= _rule3_
     _rk = list(_rule_.keys())
     _rc = _clean(_rk)
+    print('clean done!')
     _rule_str = ""
     _n = 0
     for i in sorted(_rc):

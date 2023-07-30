@@ -1,4 +1,5 @@
-from langchain import OpenAI, LLMMathChain, SerpAPIWrapper
+from langchain import OpenAI, LLMMathChain
+from langchain.utilities import GoogleSerperAPIWrapper
 from langchain.agents import initialize_agent, Tool, AgentExecutor
 from langchain.chat_models import ChatOpenAI
 import os
@@ -12,7 +13,7 @@ load_dotenv()
 def start():
     llm = ChatOpenAI(temperature=0, streaming=True)
     llm1 = OpenAI(temperature=0, streaming=True)
-    search = SerpAPIWrapper()
+    search = GoogleSerperAPIWrapper()
     llm_math_chain = LLMMathChain.from_llm(llm=llm, verbose=True)
     tools = [
         Tool(
