@@ -1,9 +1,9 @@
-from langchain.agents import Tool
-from langchain.agents import AgentType
-from langchain.memory import ConversationBufferMemory
-from langchain.chat_models import ChatOpenAI
-from langchain.agents import initialize_agent
-from langchain.callbacks import get_openai_callback
+# from langchain.agents import Tool
+# from langchain.agents import AgentType
+# from langchain.memory import ConversationBufferMemory
+# from langchain.chat_models import ChatOpenAI
+# from langchain.agents import initialize_agent
+# from langchain.callbacks import get_openai_callback
 
 
 def convert_to_md(text):
@@ -60,6 +60,10 @@ class ChatAgent:
         self.chain = chain
 
 def create_chatopenai(seed_memory=None):
+    from langchain.agents import AgentType
+    from langchain.chat_models import ChatOpenAI
+    from langchain.memory import ConversationBufferMemory
+    from langchain.agents import initialize_agent
     from module.tools import tools_faiss_azure_googleserp_math
     memory = seed_memory if seed_memory is not None else ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     import os
@@ -73,7 +77,7 @@ def create_chatopenai(seed_memory=None):
     return ChatAgent(memory, chain)
 
 def predict(chatagent_openai, _ask, _chatbot, _history):
-    import os
+    from langchain.callbacks import get_openai_callback
     _memory = chatagent_openai.memory
     chatagent_openai = create_chatopenai(seed_memory=_memory)
     if _ask=="":
@@ -106,4 +110,57 @@ def retry_bot(chatagent_openai, _ask, _chatbot, _history):
         _ask = _history.pop()[0]
         for x in predict(chatagent_openai, _ask, _chatbot, _history):
             yield x
+
+
+def chat_predict_langchain(message, history):
+    from langchain.chat_models import ChatOpenAI
+    from langchain.schema import AIMessage, HumanMessage
+    from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+    llm_chat = ChatOpenAI(
+        temperature=0,
+        model='gpt-3.5-turbo',
+        streaming=True,
+        callbacks=[StreamingStdOutCallbackHandler()]
+    )
+    history_langchain_format = []
+    for human, ai in history:
+        history_langchain_format.append(HumanMessage(content=human))
+        history_langchain_format.append(AIMessage(content=ai))
+    history_langchain_format.append(HumanMessage(content=message))
+    gpt_response = llm_chat(history_langchain_format)
+    return gpt_response.content
+
+def chat_predict_openai(message, history):
+    import openai
+    history_openai_format = []
+    for human, assistant in history:
+        history_openai_format.append({"role": "user", "content": human })
+        history_openai_format.append({"role": "assistant", "content":assistant})
+    history_openai_format.append({"role": "user", "content": message})
+    response = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        messages= history_openai_format,         
+        temperature=0,
+        stream=True
+    )
+    partial_message = ""
+    for chunk in response:
+        if len(chunk['choices'][0]['delta']) != 0:
+            partial_message = partial_message + chunk['choices'][0]['delta']['content']
+            yield partial_message
+
+
+def listen_cmd(cmd): # cmd = 'python', '-m' 'your_langchain.py'
+    import subprocess
+    """from http://blog.kagesenshi.org/2008/02/teeing-python-subprocesspopen-output.html
+    """
+    p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    stdout = []
+    while True:
+        line = p.stdout.readline()
+        stdout.append(line)
+        # print(line)
+        if line == '' and p.poll() != None:
+            break
+    return ''.join(stdout)
 

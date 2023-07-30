@@ -10,7 +10,7 @@ import gradio as gr
 from functools import partial
 
 
-##### Auto-task
+##### Auto-Task
 from module.auto_task import run_babyagi
 from module.auto_task import run_autogpt
 from module.auto_task import run_metaprompt
@@ -163,7 +163,7 @@ def search_selected_agent_retriever(_query, _radio):
     return [_ans, _steps]
 
 
-##### Auto-Programming
+##### Auto-Code
 from module.auto_programming import auto_py
 
 
@@ -180,6 +180,8 @@ from module.chatbot import predict
 from module.chatbot import retry_bot
 from module.chatbot import create_chatopenai
 chatagent_openai = create_chatopenai()
+
+from module.chatbot import chat_predict_openai
 
 
 ##### 语音
@@ -205,7 +207,7 @@ with gr.Blocks(title=_description) as demo:
     gr.Markdown(_description)
 
 
-    # with gr.Tab(label = "Auto-task"):
+    # with gr.Tab(label = "Auto-Task"):
     #     ao_query = gr.Textbox(label="Task", placeholder="Task", lines=5, max_lines=5, interactive=True, visible=True)
     #     ao_radio = gr.Radio(
     #         ["babyagi", "autogpt", "metaprompt", "camel", "debate"],
@@ -331,7 +333,7 @@ with gr.Blocks(title=_description) as demo:
         )
 
 
-    with gr.Tab(label = "Auto-Programming"):
+    with gr.Tab(label = "Auto-Code"):
         # with gr.Row():
         #     openai_api_key = gr.Textbox(label="OpenAI API Key", placeholder="sk-**********, will much better if use gpt-4", lines=1, visible=True)
         # with gr.Row(equal_height=True):
@@ -359,6 +361,42 @@ with gr.Blocks(title=_description) as demo:
             [ap_task],
             [ap_generated, ap_steps]
         )
+
+
+    with gr.Tab(label = "Chat"):
+        # chat_user_input = gr.Textbox(placeholder="...")
+        gr.ChatInterface(
+            fn=chat_predict_openai,
+            # textbox=chat_user_input,
+            submit_btn="提交",
+            stop_btn="停止",
+            retry_btn="🔄 重试",
+            undo_btn="↩️ 撤消",
+            clear_btn="🗑️ 清除",
+        )
+        # with gr.Row(equal_height=True):
+        #     with gr.Column(scale=9):
+        #         chat_audio_microphone = gr.Audio(source="microphone", type="filepath", label="录音", format="mp3")
+        #     chat_transcribe_btn = gr.Button("转录", visible=True)
+        # chat_audio_microphone.change(
+        #     chg_btn_color_if_input,
+        #     [chat_audio_microphone],
+        #     [chat_transcribe_btn]
+        # )
+        # chat_transcribe_btn.click(
+        #     audio_transcribe,
+        #     [chat_audio_microphone],
+        #     [chat_user_input],
+        #     show_progress=True
+        # ).then(
+        #     clear_audio_microphone_if_transcribe,
+        #     [],
+        #     [chat_audio_microphone],
+        # ).then(
+        #     chg_btn_color_if_input,
+        #     [chat_audio_microphone],
+        #     [chat_transcribe_btn]
+        # )
 
 
     with gr.Tab(label = "对话"):
