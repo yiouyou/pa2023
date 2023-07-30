@@ -114,13 +114,14 @@ def _rule(_ans_str, _dir, _service):
     _rule1_ = _uniq(_rule1)
     _rule2_ = _uniq(_rule2)
     _rule3_ = _uniq(_rule3)
-    print('uniq done!')
+    print('uniq done!', len(_rule1_), len(_rule2_), len(_rule3_))
     _rule_ = {}
     _rule_ = _rule1_ | _rule2_
     _rule_ |= _rule3_
     _rk = list(_rule_.keys())
+    print('merge done!', len(_rk))
     _rc = _clean(_rk)
-    print('clean done!')
+    print('clean done!', len(_rc))
     _rule_str = ""
     _n = 0
     for i in sorted(_rc):
