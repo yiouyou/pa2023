@@ -37,10 +37,9 @@ def parse_to_item(_ans):
                 _item.append(_ms[-1].strip())
             else:
                 _item.append(_m.strip())
-    if not _item:
-        print("\n\n##############################")
-        print(_ans)
-        exit()
+    # if not _item:
+    #     print("\n\n##############################")
+    #     print(_ans)
     # print(_item)
     return _item
 
@@ -65,9 +64,9 @@ def qa_and_parse_to_item(_q, _dj, _service):
     load_dotenv()
     _vdb = _dj[_service]['vdb']
     _ans, _step = qa_faiss_multi_query(_q, _vdb)
-    # print(_ans)
+    print(_ans)
     _item = parse_to_item(_ans)
-    # print(_item)
+    print(f"\n----------\n{_q}\n{_item}\n----------\n")
     return _item
 
 
@@ -79,9 +78,9 @@ def what_and_stepbystep_explanation(_topic, _dj, _service):
     if _item:
         for i in _item:
             _qi = ""
-            if _topic in ["performance metrics", "pricing options"]:
+            if _topic in ["performance metrics"]: # "pricing options"
                 _qi = f"Can you provide a step-by-step explanation of how to use the {i} as one of {_topic}?"
-            elif _topic in ["cost drivers"]:
+            elif _topic in ["cost drivers", "pricing options"]:
                 _qi = f"What are the best practices for choosing suitable {i} based on usage to save cost?"
             if _qi:
                 _list.append(_qi)
@@ -149,4 +148,8 @@ if __name__ == "__main__":
     _qlist = qlist_from_json(_dj, _service)
     for i in _qlist:
         print(i)
+    # python 0_get_qlist_from_json.py azure_service.json "azure managed disk"
+    # python 0_get_qlist_from_json.py azure_service.json "azure sql database"
+    # python 0_get_qlist_from_json.py azure_service.json "azure sql managed instance"
+    # python 0_get_qlist_from_json.py azure_service.json "azure static web apps"
 

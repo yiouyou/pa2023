@@ -139,6 +139,7 @@ def get_ans_from_qlist(_qlist, _dir, _dj, _service):
     _vdb = _dj[_service]['vdb']
     _ans = []
     for i in _qlist:
+        print(f">>> {i}")
         _q = f"{i} Please output in concise English."
         i_ans, i_step = qa_faiss_multi_query(_q, _vdb)
         writeF(_dir, '_ans_/_ans_'+i.replace("?", ""), i_ans)
@@ -151,34 +152,36 @@ def get_ans_from_qlist(_qlist, _dir, _dj, _service):
     writeF(_dir, '_ans', _ans_str)
 
 
+def del_files(_dir):
+    import os
+    import glob
+    files = glob.glob(_dir)
+    for f in files:
+        os.remove(f)
+
+
 if __name__ == "__main__":
 
     import os, sys, json
     ##### get json
     _json = sys.argv[1]
     _service = sys.argv[2]
-    # _service = "azure sql managed instance"
-    ##### get qlist
-    with open(_json, 'r', encoding='utf-8') as jf:
-        _dj = json.loads(jf.read())
-    _qlist = qlist_from_json(_dj, _service)
-    for i in _qlist:
-        print(i)
-    ##### get ans
-    from module.util import timestamp_now
-    _ts = timestamp_now()
-    _service_str = '_'.join(_service.split(' '))
-    _dir = f"tmp_{_service_str}_{_ts}"
+    _dir = sys.argv[3]
+    _f_qlist = f"{_dir}/_qlist" 
     _dir_ans_ = f"{_dir}/_ans_"
     _dir_step_ = f"{_dir}/_step_"
-    if not os.path.exists(_dir):
-        os.makedirs(_dir)
-    if not os.path.exists(_dir_ans_):
-        os.makedirs(_dir_ans_)
-    if not os.path.exists(_dir_step_):
-        os.makedirs(_dir_step_)
+    del_files(_dir_ans_)
+    del_files(_dir_step_)
+    with open(_json, 'r', encoding='utf-8') as jf:
+        _dj = json.loads(jf.read())
+    ##### get qlist
+    with open(_f_qlist, 'r', encoding='utf-8') as qf:
+        _line = qf.readlines()
+    _qlist = [i.strip() for i in _line]
+    ##### get ans
     get_ans_from_qlist(_qlist, _dir, _dj, _service)
-    # python 1_get_ans_from_json.py azure_service.json "azure managed disk"
-    # python 1_get_ans_from_json.py azure_service.json "azure sql database"
-    # python 1_get_ans_from_json.py azure_service.json "azure sql managed instance"
-    # python 1_get_ans_from_json.py azure_service.json "azure static web apps"
+    # python 1_get_ans_from_qlist.py azure_service.json "azure managed disk" tmp_azure_managed_disk_1690529169
+    # python 1_get_ans_from_qlist.py azure_service.json "azure sql database" tmp_azure_sql_database_1690531985
+    # python 1_get_ans_from_qlist.py azure_service.json "azure sql managed instance" tmp_azure_sql_managed_instance_1690535170
+    # python 1_get_ans_from_qlist.py azure_service.json "azure static web apps" tmp_azure_static_web_apps_1690531612
+

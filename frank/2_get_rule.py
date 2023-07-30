@@ -143,15 +143,8 @@ if __name__ == "__main__":
     _service = sys.argv[2]
     _ans_f = os.path.join(_dir, '_ans')
     extract_rules(_ans_f, _dir, _service)
-    # python 2_get_rule_from_ans.py tmp_azure_managed_disk_1690529169 "azure managed disk"
-    # python 2_get_rule_from_ans.py tmp_azure_sql_database_1690531985 "azure sql database"
-    # python 2_get_rule_from_ans.py tmp_azure_sql_managed_instance_1690535170 "azure sql managed instance"
-    # python 2_get_rule_from_ans.py tmp_azure_static_web_apps_1690531612 "azure static web apps"
+    # python 2_get_rule.py tmp_azure_managed_disk_1690529169 "azure managed disk"
+    # python 2_get_rule.py tmp_azure_sql_database_1690531985 "azure sql database"
+    # python 2_get_rule.py tmp_azure_sql_managed_instance_1690535170 "azure sql managed instance"
+    # python 2_get_rule.py tmp_azure_static_web_apps_1690531612 "azure static web apps"
 
-    # with open('tmp_azure_managed_disk_1690529169/_rule', 'r') as rf:
-    #     _f = rf.readlines()
-    # print(len(_f))
-    # _cf = _clean(_f)
-    # print(len(_cf))
-    # for i in _cf:
-    #     print(i)
