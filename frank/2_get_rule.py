@@ -67,7 +67,6 @@ def _uniq(_rule):
 # print(_uniq(_rule))
 # exit()
 
-
 def _similarity(_s1, _s2):
     from sentence_transformers import SentenceTransformer
     from scipy.spatial.distance import cosine
@@ -113,30 +112,18 @@ def _rule(_ans_str, _dir, _service):
     _out_rule_step = '_rule_step'
     _rule1, _rule1_step = _chat_with_sys_human(_info, _service, _sys, _human)
     print(len(_rule1))
-    _rule2, _rule2_step = _chat_with_sys_human(_info, _service, _sys, _human)
-    print(len(_rule2))
-    _rule3, _rule3_step = _chat_with_sys_human(_info, _service, _sys, _human)
-    print(len(_rule3))
     _rule1_ = _uniq(_rule1)
-    _rule2_ = _uniq(_rule2)
-    _rule3_ = _uniq(_rule3)
-    print('uniq done!', len(_rule1_), len(_rule2_), len(_rule3_))
-    _rule_ = {}
-    _rule_ = _rule1_ | _rule2_
-    _rule_ |= _rule3_
-    _rk = list(_rule_.keys())
-    print('merge done!', len(_rk))
-    _rc = _clean(_rk)
-    print('clean done!', len(_rc))
+    print('uniq done!', len(_rule1_))
+    _rk = list(_rule1_.keys())
     _rule_str = ""
     _n = 0
-    for i in sorted(_rc):
+    for i in sorted(_rk):
         _n += 1
         # _rule_str += f"{_n}. {i}\n"
         _rule_str += f"{i}\n"
-    print(len(_rule1), len(_rule2), len(_rule3), '->' , len(_rk), '->' , len(_rc))
+    print(len(_rule1), '->' , len(_rk))
     writeF(_dir, _out_rule, _rule_str)
-    _rule_step = [_rule1_step, _rule2_step, _rule3_step]
+    _rule_step = [_rule1_step]
     writeF(_dir, _out_rule_step, "\n\n".join(_rule_step))
 
 
