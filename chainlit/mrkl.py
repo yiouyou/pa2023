@@ -11,24 +11,24 @@ load_dotenv()
 
 @cl.on_chat_start
 def start():
-    llm = ChatOpenAI(temperature=0, streaming=True)
-    llm1 = OpenAI(temperature=0, streaming=True)
-    search = GoogleSerperAPIWrapper()
-    llm_math_chain = LLMMathChain.from_llm(llm=llm, verbose=True)
+    llm = OpenAI(temperature=0, streaming=True)
+    google_serper = GoogleSerperAPIWrapper()
+    llm_chat = ChatOpenAI(temperature=0, streaming=True)
+    llm_chat_math = LLMMathChain.from_llm(llm=llm_chat, verbose=True)
     tools = [
         Tool(
             name="Search",
-            func=search.run,
+            func=google_serper.run,
             description="useful for when you need to answer questions about current events. You should ask targeted questions",
         ),
         Tool(
             name="Calculator",
-            func=llm_math_chain.run,
+            func=llm_chat_math.run,
             description="useful for when you need to answer questions about math",
         ),
     ]
     agent = initialize_agent(
-        tools, llm1, agent="chat-zero-shot-react-description", verbose=True
+        tools, llm, agent="chat-zero-shot-react-description", verbose=True
     )
     cl.user_session.set("agent", agent)
 
