@@ -99,7 +99,7 @@ def comparison_between_itmes(_c1, _c2, _dj, _service):
         _list.extend([i_q0, i_q1, i_q2])
     for i in range(len(_g)):
         for j in range(i+1, len(_g)):
-            print(_g[i], _g[j])
+            # print(_g[i], _g[j])
             _gi = f"'{_g[i]}' in {_c2}"
             _gj = f"'{_g[j]}' in {_c2}"
             j_q0 = f"What's the difference between {_gi} and {_gj}?"
@@ -122,11 +122,11 @@ def qlist_from_json(_dj, _service):
             for j in _d_kc.keys():
               # print(i, j)
               if _d_kc[j]:
-                  print(j)
+                #   print(j)
                   _compare_list = comparison_between_itmes(i, j, _dj, _service)
                   _list.extend(_compare_list)
               else:
-                  print()
+                #   print()
                   _qj = f"Can you provide a step-by-step explanation of how the {j} affect the cost of {_service}?"
                   _list.extend([_qj])
         # else:
@@ -146,6 +146,7 @@ if __name__ == "__main__":
     with open(_json, 'r', encoding='utf-8') as jf:
         _dj = json.loads(jf.read())
     _qlist = qlist_from_json(_dj, _service)
+    print(f"---------- qlist ----------\n")
     for i in _qlist:
         print(i)
     # python 0_get_qlist_from_json.py azure_service.json "azure managed disk"
