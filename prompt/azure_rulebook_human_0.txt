@@ -3,7 +3,7 @@ Giving the below FAQ document on {service}:
 {info}
 --------------------
 
-Based on those information, first extract all information related to cost drivers, pricing options and performance metrics.
+Based on those information, first extract all information related to cost drivers, pricing options, performance metrics and performance counters.
 
 Then, extract all information related to some key concepts (if any, maybe one of 'service tier', 'compute tier', 'purchase model', 'hardware type', 'storage', 'backup storage', 'long-term retention', 'locally redundant storage', 'redundancy', etc.) and the subcategories of these key concepts.
 

@@ -9,7 +9,7 @@ def pretty_print_docs(docs):
     for i, doc in enumerate(docs):
         _doc.append(f"Document {i+1}:\n\n" + str(doc.metadata) + "\n\n" + doc.page_content)
     _pretty = f"\n{'-' * 100}\n".join(_doc)
-    print(_pretty)
+    # print(_pretty)
     return _pretty
 
 def get_faiss_ST(_db_name):

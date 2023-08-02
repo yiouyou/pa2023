@@ -1,6 +1,10 @@
 {
   "azure sql managed instance": {
     "vdb": "azure_sql_mi",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/azure-sql-managed-instance/single/",
+      "https://azure.microsoft.com/en-us/pricing/details/azure-sql-managed-instance/pools/"
+    ],
     "qlist": {
       "cost drivers": {},
       "performance metrics": {},
@@ -24,6 +28,10 @@
   },
   "azure sql database": {
     "vdb": "azure_sql_db",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/azure-sql-database/single/",
+      "https://azure.microsoft.com/en-us/pricing/details/azure-sql-database/elastic/"
+    ],
     "qlist": {
       "cost drivers": {},
       "performance metrics": {},
@@ -60,6 +68,9 @@
   },
   "azure managed disk": {
     "vdb": "azure_vm",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/managed-disks"
+    ],
     "qlist": {
       "disk types": {},
       "cost drivers": {},
@@ -83,6 +94,9 @@
   },
   "azure static web apps": {
     "vdb": "azure_webapps",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/app-service/static/"
+    ],
     "qlist": {
       "cost drivers": {},
       "performance metrics": {},

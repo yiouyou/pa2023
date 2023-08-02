@@ -554,7 +554,7 @@ with gr.Blocks(title=_description) as demo:
 
 
     with gr.Tab(label = "Chainlit"):
-        CHAINLIT_MAIN_URL = "http://localhost:8000"
+        CHAINLIT_MAIN_URL = "http://137.117.215.27:8000"
         CHAINLIT_IFRAME_ID = "chainlit-iframe"
         CHAINLIT_IFRAME_HEIGHT = 768
         CHAINLIT_IFRAME_WIDTH = "100%"

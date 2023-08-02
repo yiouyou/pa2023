@@ -12,6 +12,7 @@ vdb/*
 
 # frank
 frank/tmp_*
+frank/.chroma
 
 # chainlit
 chainlit/.chainlit
