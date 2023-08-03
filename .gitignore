@@ -15,6 +15,7 @@ frank/tmp_*
 frank/.chroma
 
 # chainlit
+chainlit/.env
 chainlit/.chainlit
 chainlit/chainlit.md
 
