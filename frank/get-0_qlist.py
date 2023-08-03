@@ -21,5 +21,4 @@ if __name__ == "__main__":
     # python get-0_qlist.py "azure managed disk"
     # python get-0_qlist.py "azure sql database"
     # python get-0_qlist.py "azure sql managed instance"
-    # python get-0_qlist.py "azure static web apps"
 

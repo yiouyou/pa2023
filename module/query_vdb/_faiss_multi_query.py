@@ -78,6 +78,7 @@ def qa_faiss_multi_query(_query, _db):
     _db_name = str(_faiss_path / "vdb" / _db)
     print(f"db_name: {_db_name}")
     _ans, _steps = qa_faiss_retriever_multi_query(_query, _db_name)
+    _ans = _ans.replace("\n\n", "\n")
     return [_ans, _steps]
 
 # def qa_faiss_multi_query_azure_vm(_query):

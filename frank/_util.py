@@ -10,6 +10,7 @@ def writeF(_dir, _fn, _txt):
     if not os.path.exists(_dir):
         os.makedirs(_dir)
     wfn = os.path.join(_dir, _fn)
+    print(wfn)
     with open(wfn, 'w', encoding='utf-8') as wf:
         wf.write(_txt)
 
@@ -18,7 +19,9 @@ def readF(_dir, _fn):
     import os
     rfn = os.path.join(_dir, _fn)
     with open(rfn, 'r', encoding='utf-8') as rf:
-        return rf.read()
+        _txt = rf.read()
+    _li = _txt.split("\n")
+    return _li
 
 
 def _split_item(_str):
@@ -34,21 +37,32 @@ def parse_to_item(_ans):
         i = i.strip()
         _m = ''
         if '**' in i:
-            m2 = re.search(r"\*\*(.+)\*\*", i, re.DOTALL)
-            if m2 is not None:
-                _m = m2.group(1)
-        elif ':' in i:
-            m1 = re.search(r"^\d+\. ([^.]+)\:", i, re.DOTALL)
-            if m1 is not None:
-                _m = m1.group(1)
-        elif ']' in i:
-            m2 = re.search(r"^\d+\. \[(.+)\]", i, re.DOTALL)
-            if m2 is not None:
-                _m = m2.group(1)
+            m = re.search(r"\*\*(.+)\*\*", i, re.DOTALL)
+            if m is not None:
+                _m = m.group(1)
         else:
-            m3 = re.search(r"^\d+\. (.+)", i, re.DOTALL)
-            if m3 is not None:
-                _m = m3.group(1)
+            if ':' in i:
+                if '[' in i and ']' in i:
+                    m1 = re.search(r"^\d+\. [^\:]*\[(.+)\].*\:", i, re.DOTALL) # []在:前
+                    if m1 is not None:
+                        _m = m1.group(1)
+                    else:
+                        m2 = re.search(r"^\d+\. ([^\:]+)\:", i, re.DOTALL) # 第一个:, 第二个:可能是https:
+                        if m2 is not None:
+                            _m = m2.group(1)
+                else:
+                    m = re.search(r"^\d+\. ([^\:]+)\:", i, re.DOTALL)
+                    if m is not None:
+                        _m = m.group(1)
+            else:
+                if '[' in i and ']' in i:
+                    m = re.search(r"^\d+\. .*\[(.+)\].*", i, re.DOTALL) # []在:前
+                    if m is not None:
+                        _m = m.group(1)
+                else:
+                    m = re.search(r"^\d+\. (.+)", i, re.DOTALL)
+                    if m is not None:
+                        _m = m.group(1)
         if _m:
             if ' - ' in _m:
                 _ms = _m.split(' - ')
@@ -65,17 +79,31 @@ def parse_to_item(_ans):
     return _item
 # _ans = """1. SQL Database - Single database
 # 2. SQL Database - Elastic pool"""
+# print(_ans,"\n")
+# print(parse_to_item(_ans),"\n")
 # _ans="""1. vCore-based purchasing model: This model allows you to choose the number of vCores, the amount of memory, and the amount and speed of storage. It offers more flexibility and control over resource allocation. You can also use Azure Hybrid Benefit for SQL Server to save costs by leveraging your existing SQL Server licenses.
 # 2. DTU-based purchasing model: This model offers a blend of compute, memory, and I/O resources in three service tiers (Basic, Standard, and Premium) to support different database workloads. Each tier has different compute sizes and allows you to add additional storage resources."""
+# print(_ans,"\n")
+# print(parse_to_item(_ans),"\n")
 # _ans = """1. [SQL Managed Instance - Single instance](/en-us/pricing/details/azure-sql-managed-instance/single/)
 # 2. [SQL Managed Instance - Instance pool](/en-us/pricing/details/azure-sql-managed-instance/pools/)"""
+# print(_ans,"\n")
+# print(parse_to_item(_ans),"\n")
 # _ans = """1. **Disk IO, throughput and queue depth metrics:** These metrics allow you to see the storage performance from the perspective of a disk and a virtual machine.
 # 2. **Disk bursting metrics:** These metrics provide observability into the bursting feature on premium disks."""
+# print(_ans,"\n")
+# print(parse_to_item(_ans),"\n")
 # _ans = "1. Single Instance Pricing: This is the cost for a single SQL Managed Instance. The price varies based on the service tier and compute size you choose. For detailed pricing, you can visit the [Azure SQL Managed Instance single instance pricing page](https://azure.microsoft.com/pricing/details/azure-sql-managed-instance/single/)."
+# print(_ans,"\n")
+# print(parse_to_item(_ans),"\n")
 # _ans = """1. **Disk IO, throughput and queue depth metrics** - These metrics allow you to see the storage performance from the perspective of a disk and a virtual machine.
 # 2. **Disk bursting metrics** - These are the metrics provide observability into the bursting feature on premium disks."""
-# print(_ans)
-# print(parse_to_item(_ans))
+# print(_ans,"\n")
+# print(parse_to_item(_ans),"\n")
+# _ans = """1. [SQL Database - Single database](/en-us/pricing/details/azure-sql-database/single/): This option provides pricing for a single Azure SQL database. The cost depends on the compute tier and storage capacity you choose.
+# 2. [SQL Managed Instance - Single instance](/en-us/pricing/details/azure-sql-managed-instance/single/): This pricing option is for a single instance of SQL Managed Instance. The cost varies based on the compute tier and storage capacity you select."""
+# print(_ans,"\n")
+# print(parse_to_item(_ans),"\n")
 # exit()
 
 
@@ -121,11 +149,12 @@ def qa_weblink(_q, _weblink):
         chain = load_qa_chain(llm, chain_type="refine") # stuff/refine
         _re = chain({"input_documents": docs, "question": _q}, return_only_outputs=True)
         _ans = _re["output_text"]
+        _ans = _ans.replace("\n\n", "\n")
         _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
         _step = f"{_token_cost}\n\n" + f">>> {_q}\n" + f"<<<\n{_ans}"
     return _ans, _step
 # _service = "azure sql managed instance"
-# _q = f"What are the performance counters I can use to monitor the cost drivers of {_service}, with the intention to find a less costly resource that delivers the required actual performance or usage. Please output a result in each line of a numbered list, nothing else."
+# _q = f"Which performance counters can I use to monitor the cost drivers of {_service} and identify a more cost-effective resource that meets the required performance and usage? List the results with brief explanations in numbered format, excluding any additional content.
 # # _weblink = [
 # #     "https://azure.microsoft.com/en-us/pricing/details/managed-disks"
 # #     ]
@@ -150,9 +179,10 @@ def qa_weblink_and_parse_to_item(_q, _dj, _service):
     load_dotenv()
     _weblink = _dj[_service]['pricing']
     _ans, _step = qa_weblink(_q, _weblink)
+    _ans = _ans.replace("\n\n", "\n")
     print(_ans)
     _item = parse_to_item(_ans)
-    _item_log = f"\n----------\n{_q}\n{_ans}\n{_item}\n----------\n"
+    _item_log = f"\n----------\n{_q}\n\n{_ans}\n\n{_item}\n----------\n"
     print(_item_log)
     return _item, _item_log
 
@@ -167,9 +197,10 @@ def qa_vdb_and_parse_to_item(_q, _dj, _service):
     load_dotenv()
     _vdb = _dj[_service]['vdb']
     _ans, _step = qa_faiss_multi_query(_q, _vdb)
+    _ans = _ans.replace("\n\n", "\n")
     print(_ans)
     _item = parse_to_item(_ans)
-    _item_log = f"\n----------\n{_q}\n{_ans}\n{_item}\n----------\n"
+    _item_log = f"\n----------\n{_q}\n\n{_ans}\n\n{_item}\n----------\n"
     print(_item_log)
     return _item, _item_log
 
@@ -177,7 +208,7 @@ def qa_vdb_and_parse_to_item(_q, _dj, _service):
 def list_performance_counters(_dj, _service):
     _list = []
     _log = ""
-    _q0 = f"What are the performance counters I can use to monitor the cost drivers of {_service}, with the intention to find a less costly resource that delivers the required actual performance or usage. Please output a result and its short explanation in each line of a numbered list, nothing else."
+    _q0 = f"Which performance counters can I use to monitor the cost drivers of {_service} and identify a more cost-effective resource that meets the required performance and usage? List the results with brief explanations in numbered format, excluding any additional content."
     _list.append(_q0)
     _n = 0
     while True:
@@ -185,7 +216,7 @@ def list_performance_counters(_dj, _service):
         _item, _item_log = qa_weblink_and_parse_to_item(_q0, _dj, _service)
         if _item:
             for i in _item:
-                _qi = f"What is the {i} of {_service}?"
+                _qi = f"What is the '{i}' of {_service}?"
                 _list.append(_qi)
             _log = _item_log
             break
@@ -197,7 +228,7 @@ def list_performance_counters(_dj, _service):
 def what_topic_and_stepbystep_explanation(_topic, _dj, _service):
     _list = []
     _log = ""
-    _q0 = f"What are {_topic} of the {_service}? Please output a result and its short explanation in each line of a numbered list, nothing else."
+    _q0 = f"What are {_topic} of the {_service}? List the results with brief explanations in numbered format, excluding any additional content."
     _list.append(_q0)
     _n = 0
     _nn = 0
@@ -208,13 +239,13 @@ def what_topic_and_stepbystep_explanation(_topic, _dj, _service):
             for i in _item:
                 _qi = ""
                 if _topic in ["performance metrics"]:
-                    _qi = f"Can you provide a step-by-step explanation of how the {i} affect the cost of {_service}?"
+                    _qi = f"Can you provide a step-by-step explanation of how the '{i}' affect the cost of {_service}?"
                 elif _topic in ["pricing options"]:
-                    _qi = f"What are the best practices for choosing suitable {i} based on usage to save cost?"
+                    _qi = f"What are the best practices for choosing suitable '{i}' based on usage to save cost?"
                 elif _topic in ["cost drivers"]:
-                    _qi = f"What are the best practices for choosing suitable {i} based on usage to save cost?"
+                    _qi = f"What are the best practices for choosing suitable '{i}' based on usage to save cost?"
                 else:
-                    _qi = f"What are the best practices for choosing suitable {i} based on usage to save cost?"
+                    _qi = f"What are the best practices for choosing suitable '{i}' based on usage to save cost?"
                 if _qi:
                     _list.append(_qi)
                 else:
@@ -228,13 +259,13 @@ def what_topic_and_stepbystep_explanation(_topic, _dj, _service):
                 for i in _item:
                     _qi = ""
                     if _topic in ["performance metrics"]:
-                        _qi = f"Can you provide a step-by-step explanation of how the {i} affect the cost of {_service}?"
+                        _qi = f"Can you provide a step-by-step explanation of how the '{i}' affect the cost of {_service}?"
                     elif _topic in ["pricing options"]:
-                        _qi = f"What are the best practices for choosing suitable {i} based on usage to save cost?"
+                        _qi = f"What are the best practices for choosing suitable '{i}' based on usage to save cost?"
                     elif _topic in ["cost drivers"]:
-                        _qi = f"What are the best practices for choosing suitable {i} based on usage to save cost?"
+                        _qi = f"What are the best practices for choosing suitable '{i}' based on usage to save cost?"
                     else:
-                        _qi = f"What are the best practices for choosing suitable {i} based on usage to save cost?"
+                        _qi = f"What are the best practices for choosing suitable '{i}' based on usage to save cost?"
                     if _qi:
                         _list.append(_qi)
                     else:
@@ -306,6 +337,7 @@ def qlist_from_json(_json, _dir, _service):
 
 
 def get_ans_from_qlist(_json, _dir, _service):
+    import json
     with open(_json, 'r', encoding='utf-8') as jf:
         _dj = json.loads(jf.read())
     _qlist = readF(_dir, "_qlist")
@@ -321,10 +353,16 @@ def get_ans_from_qlist(_json, _dir, _service):
     _ans = []
     for i in _qlist:
         _q = f"{i} Please output in concise English."
+        print("\n",_q)
+        i_ans, i_step = "", ""
         i_ans, i_step = qa_faiss_multi_query(_q, _vdb)
-        writeF(os.path.join(_dir, '_ans_'), '_ans_'+i.replace("?", ""), i_ans)
-        writeF(os.path.join(_dir, '_step_'), '_step_'+i.replace("?", ""), i_step)
-        time.sleep(4)
+        _fn = i.split("?")
+        _fn0 = _fn[0].replace("/", "|")
+        _fn_ans = "_ans_"+_fn0
+        _fn_step = "_step_"+_fn0
+        writeF(os.path.join(_dir, "_ans_"), _fn_ans, i_ans)
+        writeF(os.path.join(_dir, "_step_"), _fn_step, i_step)
+        # time.sleep(4)
         _ans.append(i_ans)
     _ans_str = ""
     for i in range(len(_qlist)):
