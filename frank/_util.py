@@ -17,11 +17,11 @@ def writeF(_dir, _fn, _txt):
 
 def readF(_dir, _fn):
     import os
+    _txt = ""
     rfn = os.path.join(_dir, _fn)
     with open(rfn, 'r', encoding='utf-8') as rf:
         _txt = rf.read()
-    _li = _txt.split("\n")
-    return _li
+    return _txt
 
 
 def _split_item(_str):
@@ -340,7 +340,7 @@ def get_ans_from_qlist(_json, _dir, _service):
     import json
     with open(_json, 'r', encoding='utf-8') as jf:
         _dj = json.loads(jf.read())
-    _qlist = readF(_dir, "_qlist")
+    _qlist = readF(_dir, "_qlist").split("\n")
     from pathlib import Path
     _pwd = Path(__file__).absolute()
     _pa_path = _pwd.parent.parent
@@ -351,19 +351,32 @@ def get_ans_from_qlist(_json, _dir, _service):
     import os, time
     _vdb = _dj[_service]['vdb']
     _ans = []
+    a, b, c= 0, 0, 0
     for i in _qlist:
-        _q = f"{i} Please output in concise English."
-        print("\n",_q)
-        i_ans, i_step = "", ""
-        i_ans, i_step = qa_faiss_multi_query(_q, _vdb)
+        a +=1
         _fn = i.split("?")
         _fn0 = _fn[0].replace("/", "|")
         _fn_ans = "_ans_"+_fn0
         _fn_step = "_step_"+_fn0
-        writeF(os.path.join(_dir, "_ans_"), _fn_ans, i_ans)
-        writeF(os.path.join(_dir, "_step_"), _fn_step, i_step)
-        # time.sleep(4)
-        _ans.append(i_ans)
+        #####
+        _ans_f = os.path.join(_dir, "_ans_", _fn_ans)
+        _step_f = os.path.join(_dir, "_step_", _fn_ans)
+        if not os.path.exists(_ans_f):
+            b += 1
+            _q = f"{i} Please output in concise English."
+            print(_q)
+            i_ans, i_step = "", ""
+            i_ans, i_step = qa_faiss_multi_query(_q, _vdb)
+            writeF(os.path.join(_dir, "_ans_"), _fn_ans, i_ans)
+            writeF(os.path.join(_dir, "_step_"), _fn_step, i_step)
+            # time.sleep(4)
+            _ans.append(i_ans)
+        else:
+            c +=1
+            i_ans = readF(os.path.join(_dir, "_ans_"), _fn_ans)
+            i_step = readF(os.path.join(_dir, "_step_"), _fn_step)
+            _ans.append(i_ans)
+    print(f"total({a}) = new({b}) + old({c})")
     _ans_str = ""
     for i in range(len(_qlist)):
         _ans_str += f"## {_qlist[i]}\n\n" + f"{_ans[i]}\n\n"
@@ -426,12 +439,12 @@ def _uniq(_rule):
 # exit()
 
 
-def _similarity(_s1, _s2):
-    from sentence_transformers import SentenceTransformer
+def _similarity(_s1, _s2, _model):
+    # from sentence_transformers import SentenceTransformer
+    # model = SentenceTransformer('all-MiniLM-L12-v2')
     from scipy.spatial.distance import cosine
-    model = SentenceTransformer('all-MiniLM-L12-v2')
-    _s1_embedding = model.encode(_s1)
-    _s2_embedding = model.encode(_s2)
+    _s1_embedding = _model.encode(_s1)
+    _s2_embedding = _model.encode(_s2)
     _cosine = 1 - cosine(_s1_embedding, _s2_embedding)
     _score = _cosine
     return _score
@@ -443,7 +456,7 @@ def _similarity(_s1, _s2):
 # abc abc abc
 # abc abc abc1
 ##### 取'abc abc abc1'
-def _clean(_rm):
+def _clean(_rm, _model):
     _rc = []
     for i in range(len(_rm)):
         _n = 0
@@ -454,7 +467,7 @@ def _clean(_rm):
                 if _rmi in _rmj or _rmj in _rmi:
                     _n = 1
                 else:
-                    _s = _similarity(_rmi, _rmj)
+                    _s = _similarity(_rmi, _rmj, _model)
                     # print(f"{_rmi}\n{_rmj}\n{_s}\n\n")
                     if _s > 0.98:
                         _n = 1
@@ -482,7 +495,9 @@ def _rule(_ans_str, _dir, _service):
     _rule_ |= _rule3_
     _rm = list(_rule_.keys())
     print('merge done!', len(_rm))
-    _rc = _clean(_rm)
+    from sentence_transformers import SentenceTransformer
+    _model = SentenceTransformer('all-MiniLM-L12-v2')
+    _rc = _clean(_rm, _model)
     print('clean done!', len(_rc))
     print(len(_rule1), len(_rule2), len(_rule3), '->', len(_rule1_), len(_rule2_), len(_rule3_), '->' , len(_rm), '->' , len(_rc))
     _rule_str = ""
@@ -499,6 +514,7 @@ def _rule(_ans_str, _dir, _service):
 
 
 def extract_rule(_dir, _service):
+    import os
     _ans_f = os.path.join(_dir, '_ans')
     with open(_ans_f, 'r', encoding='utf-8') as rf:
         _ans_str = rf.read()
@@ -517,6 +533,7 @@ def _rulebook(_ans_str, _dir, _service):
 
 
 def extract_rulebook(_ans_f, _dir, _service):
+    import os
     _ans_f = os.path.join(_dir, '_ans')
     with open(_ans_f, 'r', encoding='utf-8') as rf:
         _ans_str = rf.read()

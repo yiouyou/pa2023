@@ -1,14 +1,19 @@
 # md
+module/generate_vdb/_old
 module/generate_vdb/md*
 module/generate_vdb/vm/
 
 # vdb
 vdb/*
 !vdb/.gitkeep
+!vdb/azure_app_service.link
+!vdb/azure_blob_storage.link
+!vdb/azure_cosmos_db.link
+!vdb/azure_monitor.link
 !vdb/azure_sql_db.link
 !vdb/azure_sql_mi.link
+!vdb/azure_synapse.link
 !vdb/azure_vm.link
-!vdb/azure_webapps.link
 
 # frank
 frank/tmp_*

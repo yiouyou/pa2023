@@ -92,10 +92,78 @@
       }
     }
   },
-  "azure static web apps": {
-    "vdb": "azure_webapps",
+  "azure app service": {
+    "vdb": "azure_app_service",
     "pricing": [
-      "https://azure.microsoft.com/en-us/pricing/details/app-service/static/"
+      "https://azure.microsoft.com/en-us/pricing/details/app-service/linux/",
+      "https://azure.microsoft.com/en-us/pricing/details/app-service/windows/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+        }
+      }
+    }
+  },
+  "azure monitor": {
+    "vdb": "azure_monitor",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/monitor/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "log ingestion plan": [
+            "Basic logs",
+            "Analytic logs"
+          ],
+          "Pricing model": [
+            "Pay-As-You-Go",
+            "Commitment tiers"
+          ],
+          "Legacy pricing tiers": [
+            "Standalone pricing tier",
+            "Per Node pricing tier"
+          ],
+          "Archive and Restore": "",
+          "Interactive Retention": "",
+          "Basic Log Search Queries": "",
+          "Export": "",
+          "Log Processing": "",
+          "Platform Logs": "",
+          "Native Metrics": [
+            "standard metrics",
+            "custom metrics"
+          ],
+          "Managed service for Prometheus Metrics": [
+            "Metrics ingestion",
+            "Metrics queries"
+          ],
+          "Alert rules": "",
+          "Alert Type": [
+            "Activity Log Alert",
+            "Native Metrics",
+            "Managed service for Prometheus Metrics",
+            "Log Alert (15 minute frequency)",
+            "Log Alert (10 minute frequency)",
+            "Log Alert (5 minute frequency)",
+            "Log Alert (1 minute frequency)"
+          ],
+          "Notifications": "",
+          "SMS and Voice calls": "",
+          "Web Tests": ""
+        }
+      }
+    }
+  },
+  "azure synapse": {
+    "vdb": "azure_synapse",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/synapse-analytics/"
     ],
     "qlist": {
       "cost drivers": {},
@@ -108,6 +176,7 @@
   },
   "service": {
     "vdb": "azure_service",
+    "pricing": [],
     "qlist": {
       "cost drivers": {},
       "performance metrics": {},

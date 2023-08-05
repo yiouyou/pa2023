@@ -1,3 +1,18 @@
+https://aka.ms/vm-selector
+https://azure.microsoft.com/pricing/calculator/
+https://azure.microsoft.com/pricing/details/#Linux
+https://azure.microsoft.com/regions/services/
+https://azure.microsoft.com/resources/templates/?resourceType=Microsoft.Compute&pageNumber=1&sort=Popular
+https://azure.microsoft.com/resources/templates/sig-create/
+https://azure.microsoft.com/resources/templates/sig-image-definition-create/
+https://azure.microsoft.com/resources/templates/sig-image-version-create/
+https://azure.microsoft.com/roadmap/?category=compute
+https://github.com/Azure-Samples/azure-cli-samples/tree/master/virtual-machine
+https://github.com/Azure/azure-docs-powershell-samples/tree/master/virtual-machine
+https://github.com/Azure/azure-sdk-for-java
+https://github.com/Azure/azure-sdk-for-net
+https://github.com/Azure/azure-sdk-for-python
+https://learn.microsoft.com/en-us/answers/topics/azure-virtual-machines.html
 https://learn.microsoft.com/en-us/azure/active-directory-domain-services/join-centos-linux-vm
 https://learn.microsoft.com/en-us/azure/active-directory-domain-services/join-rhel-linux-vm
 https://learn.microsoft.com/en-us/azure/active-directory-domain-services/join-ubuntu-linux-vm
@@ -87,7 +102,6 @@ https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-tutorial-fa
 https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-tutorial-migrate?toc=/azure/virtual-machines/toc.json
 https://learn.microsoft.com/en-us/azure/site-recovery/move-azure-vms-avset-azone?toc=/azure/virtual-machines/toc.json
 https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-overview?toc=/azure/virtual-machines/toc.json
-https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy
 https://learn.microsoft.com/en-us/azure/update-center/
 https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/flexible-virtual-machine-scale-sets
 https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/flexible-virtual-machine-scale-sets-cli?toc=/azure/virtual-machines/toc.json
@@ -678,6 +692,3 @@ https://learn.microsoft.com/en-us/security/zero-trust/azure-infrastructure-virtu
 https://learn.microsoft.com/en-us/training/browse/?products=azure-virtual-machines
 https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization
 https://learn.microsoft.com/en-us/visualstudio/install/using-visual-studio-vm
-https://azure.microsoft.com/en-us/pricing/details/bandwidth
-https://azure.microsoft.com/en-us/pricing/details/managed-disks
-https://azure.microsoft.com/en-us/pricing/details/storage/page-blobs
