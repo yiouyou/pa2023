@@ -73,7 +73,7 @@ def weblinks_to_link_md(_links, _dir):
         _t6 = _t5[0]
         _t7 = _t6.split("\nTheme\n\n")
         _t8 = _t7[0]
-        fn = os.path.join(_dir, f"{str(n).zfill(3)}.md")
+        fn = os.path.join(_dir, f"{str(n).zfill(4)}.md")
         print(fn)
         with open(fn, "w") as wf:
             wf.write(_t8)
@@ -121,53 +121,53 @@ if __name__ == "__main__":
     _pwd = Path(__file__).absolute()
     _faiss_path = _pwd.parent.parent.parent
 
-    # _db_azure = txt2name("Azure VM")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_vm.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_azure_vm"
-    # weblinks_to_link_md(_links, _md_dir)
-    # link_md_to_faiss(_md_dir, _azure)
+    _db_azure = txt2name("Azure VM")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_vm.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_vm"
+    weblinks_to_link_md(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
 
-    # _db_azure = txt2name("Azure SQL DB")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_sql_db.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_azure_sql_db"
-    # weblinks_to_link_md(_links, _md_dir)
-    # link_md_to_faiss(_md_dir, _azure)
+    _db_azure = txt2name("Azure SQL DB")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_sql_db.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_sql_db"
+    weblinks_to_link_md(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
 
-    # _db_azure = txt2name("Azure SQL MI")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_sql_mi.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_azure_sql_mi"
-    # weblinks_to_link_md(_links, _md_dir)
-    # link_md_to_faiss(_md_dir, _azure)
+    _db_azure = txt2name("Azure SQL MI")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_sql_mi.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_sql_mi"
+    weblinks_to_link_md(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
 
-    # _db_azure = txt2name("Azure App Service")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_app_service.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_azure_app_service"
-    # weblinks_to_link_md(_links, _md_dir)
-    # link_md_to_faiss(_md_dir, _azure)
+    _db_azure = txt2name("Azure App Service")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_app_service.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_app_service"
+    weblinks_to_link_md(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
 
-    # _db_azure = txt2name("Azure Monitor")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_monitor.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_azure_monitor"
-    # weblinks_to_link_md(_links, _md_dir)
-    # link_md_to_faiss(_md_dir, _azure)
+    _db_azure = txt2name("Azure Monitor")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_monitor.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_monitor"
+    weblinks_to_link_md(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
 
-    # _db_azure = txt2name("Azure Synapse")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "azure_synapse.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_azure_synapse"
-    # weblinks_to_link_md(_links, _md_dir)
-    # link_md_to_faiss(_md_dir, _azure)
+    _db_azure = txt2name("Azure Synapse")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_synapse.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_synapse"
+    weblinks_to_link_md(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
 
     _db_azure = txt2name("Azure Blob Storage")
     print(_db_azure)

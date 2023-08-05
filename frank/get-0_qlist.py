@@ -18,12 +18,15 @@ if __name__ == "__main__":
     print(f"---------- qlist ----------\n")
     for i in _qlist:
         print(i)
-    # python get-0_qlist.py "azure managed disk"
-    # python get-0_qlist.py "azure sql database"
     # python get-0_qlist.py "azure sql managed instance"
-    # python get-0_qlist.py "azure app service"
+    # python get-0_qlist.py "azure sql database"
+    # python get-0_qlist.py "azure cosmos db"
     # python get-0_qlist.py "azure monitor"
     # python get-0_qlist.py "azure synapse"
+    # python get-0_qlist.py "azure app service"
+    # python get-0_qlist.py "azure linux virtual machines"
+    # python get-0_qlist.py "azure managed disk"
     # python get-0_qlist.py "azure blob storage"
-    # python get-0_qlist.py "azure cosmos db"
+    # python get-0_qlist.py "azure page blobs"
+    # python get-0_qlist.py "azure data lake"
 

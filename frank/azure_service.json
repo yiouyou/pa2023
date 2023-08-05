@@ -66,43 +66,42 @@
       }
     }
   },
-  "azure managed disk": {
-    "vdb": "azure_vm",
+  "azure cosmos db": {
+    "vdb": "azure_cosmos_db",
     "pricing": [
-      "https://azure.microsoft.com/en-us/pricing/details/managed-disks"
+      "https://azure.microsoft.com/en-us/pricing/details/cosmos-db/autoscale-provisioned/"
     ],
     "qlist": {
-      "disk types": {},
       "cost drivers": {},
       "performance metrics": {},
       "pricing options": {
         "key_concept": {
-          "redundancy": [
-            "LRS",
-            "ZRS"
+          "": "",
+          "Database Operations": [
+            "Provisioned Throughput",
+            "Serverless",
+            "vCores/Nodes"
           ],
-          "disk types": [
-            "Ultra Disk",
-            "Premium SSD v2",
-            "Premium SSD",
-            "Standard SSD",
-            "Standard HDD"
-          ]
-        }
-      }
-    }
-  },
-  "azure app service": {
-    "vdb": "azure_app_service",
-    "pricing": [
-      "https://azure.microsoft.com/en-us/pricing/details/app-service/linux/",
-      "https://azure.microsoft.com/en-us/pricing/details/app-service/windows/"
-    ],
-    "qlist": {
-      "cost drivers": {},
-      "performance metrics": {},
-      "pricing options": {
-        "key_concept": {
+          "Regional data distribution": [
+            "Autoscale provisioned throughput",
+            "Standard provisioned throughput",
+            "Serverless",
+            "PostgreSQL vCore/Node",
+            "MongoDB vCore"
+          ],
+          "Consumed Storage": [
+            "Transactional storage (row-oriented)",
+            "Analytical storage (column-oriented)"
+          ],
+          "Backup storage": [
+            "Continuous backup",
+            "Periodic backup"
+          ],
+          "Analytical storage (Azure Synapse Link) transactions": "",
+          "Dedicated Gateway": "",
+          "Integrated cache": "",
+          "Materialized View": "",
+          "Availability zones": ""
         }
       }
     }
@@ -170,6 +169,350 @@
       "performance metrics": {},
       "pricing options": {
         "key_concept": {
+          "Category": [
+            "Pre-Purchase Plans",
+            "Data Integration",
+            "Data Warehousing",
+            "Big Data Analytics",
+            "Log and Telemetry Analytics",
+            "Dedicated SQL pool",
+            "Azure Synapse Link"
+          ]
+        }
+      }
+    }
+  },
+  "azure app service": {
+    "vdb": "azure_app_service",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/app-service/linux/",
+      "https://azure.microsoft.com/en-us/pricing/details/app-service/windows/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "Usage Tiers": [
+            "Free",
+            "Basic",
+            "Standard",
+            "Premium",
+            "Isolated"
+          ],
+          "Free Plan": "",
+          "Basic Service Plan": "",
+          "Standard Service Plan": "",
+          "Premium v2 Service Plan": "",
+          "Premium v3 Service Plan": "",
+          "Isolated Service Plan": "",
+          "Isolated v2 Service Plan": "",
+          "Web Apps on Kubernetes": "",
+          "Dev/Test pricing available": "",
+          "App Service Domain": "",
+          "Azure App Service Certificates": "",
+          "SSL Connections": "",
+          "Red Hat JBoss EAP on App Service": ""
+        }
+      }
+    }
+  },
+  "azure linux virtual machines": {
+    "vdb": "azure_vm",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "Pricing model": [
+            "Pay as you go",
+            "Spot",
+            "1 year reserved",
+            "3 year reserved",
+            "1 year savings plan",
+            "3 year savings plan"
+          ],
+          "Category": [
+            "General purpose",
+            "Compute optimized",
+            "Memory optimized",
+            "Storage optimized",
+            "GPU",
+            "High performance compute"
+          ],
+          "General purpose": [
+            "Bps v2-series",
+            "Bs v2-series",
+            "Bas v2-series",
+            "Bs-series",
+            "Av2 Standard",
+            "D2as – D96as v5",
+            "D2ads – D96ads v5",
+            "D2a – D96a v4",
+            "D2as – D96as v4",
+            "D2ps – D64ps v5",
+            "D2pds – D64pds v5",
+            "D2pls – D64pls v5",
+            "D2plds – D64plds v5",
+            "D2d – D96d v5",
+            "D2ds – D96ds v5",
+            "D2 – D96 v5",
+            "D2s – D96s v5",
+            "D2ls – D96ls v5",
+            "D2lds – D96lds v5",
+            "DCadsv5-series",
+            "DCasv5-series",
+            "D2d – D64d v4",
+            "D2ds – D64ds v4",
+            "D2 – D64 v4",
+            "D2s – D64s v4",
+            "D2-64 v3",
+            "D2s-64s v3",
+            "DCsv3-series",
+            "DCdsv3-series",
+            "D1-5 v2",
+            "D1s-5s v2",
+            "DCsv2-series"
+          ],
+          "Compute optimized": [
+            "Fsv2-series",
+            "F-series",
+            "Fs-series",
+            "FX-series"
+          ],
+          "Memory optimized": [
+            "E2as – E96as v5",
+            "E2ads – E96ads v5",
+            "E2a – E96a v4",
+            "E2as – E96as v4",
+            "E2ps – E32ps v5",
+            "E2pds – E32pds v5",
+            "E2d – E104d v5",
+            "E2ds – E104ds v5",
+            "E2 – E104 v5",
+            "E2s – E104s v5",
+            "E2bds – E64bds v5",
+            "E2bs – E64bs v5",
+            "E2d – E64d v4",
+            "E2ds – E64ds v4",
+            "ECadsv5-series",
+            "ECasv5-series",
+            "E2 – E64 v4",
+            "E2s – E64s v4",
+            "E2-64 v3",
+            "E2s-64s v3",
+            "D11-15 v2",
+            "D11S-15S v2",
+            "G-series",
+            "Gs-series",
+            "M-series",
+            "Mdsv2 Medium Memory Series",
+            "Msv2 Medium Memory Series",
+            "Mv2-series",
+            "BareMetal Infrastructure",
+            "BareMetal Infrastructure (second generation)",
+            "Constrained vCPUs capable"
+          ],
+          "Storage optimized": [
+            "L8as – L80as v3",
+            "Lsv2-series",
+            "L8s – L80s v3",
+            "Ls-series"
+          ],
+          "GPU": [
+            "NC-series",
+            "NCsv2-series",
+            "NCsv3-series",
+            "NCas_T4_v3 Series",
+            "NC A100 v4 series",
+            "NCads A10 v4 series",
+            "NGads V620 series",
+            "NP-Series",
+            "NV-series",
+            "NVv3-series",
+            "NVads A10 v5 series",
+            "NDs-series",
+            "NDv2 series",
+            "ND A100 v4 series",
+            "NDm A100 v4 series"
+          ],
+          "High performance compute": [
+            "H-series",
+            "HB-series",
+            "HB-series Constrained vCPUs capable",
+            "HBv2-series",
+            "HBv2-series Constrained vCPUs capable",
+            "HBv3-series",
+            "HBv3-series Constrained vCPUs capable",
+            "HBv4-series",
+            "HBv4-series Constrained vCPUs capable",
+            "HX-series",
+            "HX-series Constrained vCPUs capable",
+            "HC-series",
+            "HC-series Constrained vCPUs capable"
+          ]
+        }
+      }
+    }
+  },
+  "azure windows virtual machines": {
+    "vdb": "azure_vm",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+        }
+      }
+    }
+  },
+  "azure linux virtual machine scale sets": {
+    "vdb": "azure_vm",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/virtual-machine-scale-sets/linux/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+        }
+      }
+    }
+  },
+  "azure managed disk": {
+    "vdb": "azure_vm",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/managed-disks"
+    ],
+    "qlist": {
+      "disk types": {},
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "Redundancy": [
+            "LRS",
+            "ZRS"
+          ],
+          "disk types": [
+            "Ultra Disk",
+            "Premium SSD v2",
+            "Premium SSD",
+            "Standard SSD",
+            "Standard HDD"
+          ],
+          "Snapshots": "",
+          "Bursting": "",
+          "Reservation": ""
+        }
+      }
+    }
+  },
+  "azure blob storage": {
+    "vdb": "azure_blob_storage",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/storage/blobs/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "File Structure": [
+            "Hierarchical Namespace",
+            "Flat Namespace"
+          ],
+          "Redundancy": [
+            "LRS",
+            "ZRS",
+            "GRS",
+            "RA GRS",
+            "GZRS",
+            "RA GZRS"
+          ],
+          "Storage Tiers": [
+            "Standard storage",
+            "Premium storage"
+          ],
+          "Data storage prices pay-as-you-go": "",
+          "Azure Storage Reserved Capacity": "",
+          "Cool, Cold (preview) and Archive early deletion": "",
+          "Operations and data transfer": "",
+          "SSH File Transfer Protocol (SFTP)": "",
+          "Blob Index": "",
+          "Data transfer prices for block blobs (per GB)": "",
+          "Blob inventory": "",
+          "Data storage": ""
+        }
+      }
+    }
+  },
+  "azure page blobs": {
+    "vdb": "azure_blob_storage",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/storage/page-blobs/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "Category": [
+            "Premium Page Blobs",
+            "Standard Page Blob"  
+          ],
+          "PremiumPage Blob Types": [
+            "P10",
+            "P20",
+            "P30",
+            "P40",
+            "P50",
+            "P60",
+            "P4",
+            "P6",
+            "P15"
+          ],
+          "Data storage for Standard Page Blobs": "",
+          "Data transfer for Disks and Page Blobs": "",
+          "Operations for Page Blobs used as Unmanaged Disks": "",
+          "Operations for Page Blobs (Non-disks)": ""
+        }
+      }
+    }
+  },
+  "azure data lake": {
+    "vdb": "azure_blob_storage",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/storage/data-lake/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "File Structure": [
+            "Hierarchical Namespace",
+            "Flat Namespace"
+          ],
+          "Redundancy": [
+            "LRS",
+            "ZRS",
+            "GRS",
+            "RA GRS"
+          ],
+          "Data storage": "",
+          "Storage Capacity Reservations": "",
+          "Transaction": "",
+          "Cool, Cold (preview) and Archive early deletion": "",
+          "Other Operations and Meta data Storage meters": "",
+          "Data transfer prices for ADLS": ""
         }
       }
     }

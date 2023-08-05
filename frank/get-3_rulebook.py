@@ -12,7 +12,16 @@ if __name__ == "__main__":
     print(_service)
     ##### get rules
     extract_rulebook(_dir, _service)
-    # python get-3_rule.py tmp_azure_managed_disk_1691034212
-    # python get-3_rule.py tmp_azure_sql_database_1691030267
-    # python get-3_rule.py tmp_azure_sql_managed_instance_1691029071
+    # python get-3_rulebook.py tmp_azure_app_service_1691242530
+    # python get-3_rulebook.py tmp_azure_blob_storage_1691243666
+    # python get-3_rulebook.py tmp_azure_cosmos_db_1691240362
+    # python get-3_rulebook.py tmp_azure_data_lake_1691244691
+    # python get-3_rulebook.py tmp_azure_linux_virtual_machines_1691243001
+    # python get-3_rulebook.py tmp_azure_managed_disk_1691243309
+    # python get-3_rulebook.py tmp_azure_monitor_1691240700
+    # python get-3_rulebook.py tmp_azure_page_blobs_1691244086
+    # python get-3_rulebook.py tmp_azure_sql_database_1691239657
+    # python get-3_rulebook.py tmp_azure_sql_managed_instance_1691239129
+    # python get-3_rulebook.py tmp_azure_synapse_1691241703
+
 

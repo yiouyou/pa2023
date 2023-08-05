@@ -9,6 +9,7 @@ https://azure.microsoft.com/resources/templates/sig-image-version-create/
 https://azure.microsoft.com/roadmap/?category=compute
 https://github.com/Azure-Samples/azure-cli-samples/tree/master/virtual-machine
 https://github.com/Azure/azure-docs-powershell-samples/tree/master/virtual-machine
+https://github.com/Azure/azure-sdk-for-go
 https://github.com/Azure/azure-sdk-for-java
 https://github.com/Azure/azure-sdk-for-net
 https://github.com/Azure/azure-sdk-for-python
@@ -77,6 +78,7 @@ https://learn.microsoft.com/en-us/azure/ddos-protection/manage-ddos-protection-p
 https://learn.microsoft.com/en-us/azure/ddos-protection/manage-ddos-protection-template?toc=/azure/virtual-machines/toc.json
 https://learn.microsoft.com/en-us/azure/ddos-protection/manage-ddos-protection?toc=/azure/virtual-machines/toc.json
 https://learn.microsoft.com/en-us/azure/developer/ansible/
+https://learn.microsoft.com/en-us/azure/developer/go/azure-sdk-qs-vm
 https://learn.microsoft.com/en-us/azure/developer/jenkins/
 https://learn.microsoft.com/en-us/azure/developer/terraform/
 https://learn.microsoft.com/en-us/azure/governance/policy/assign-policy-azurecli?toc=/azure/virtual-machines/toc.json
@@ -92,6 +94,7 @@ https://learn.microsoft.com/en-us/azure/governance/policy/assign-policy-terrafor
 https://learn.microsoft.com/en-us/azure/load-balancer/quickstart-load-balancer-standard-public-cli?toc=/azure/virtual-machines/toc.json
 https://learn.microsoft.com/en-us/azure/load-balancer/quickstart-load-balancer-standard-public-powershell?toc=/azure/virtual-machines/toc.json
 https://learn.microsoft.com/en-us/azure/migrate/tutorial-migrate-aws-virtual-machines
+https://learn.microsoft.com/en-us/azure/reliability/reliability-virtual-machines?toc=/azure/virtual-machines/toc.json&bc=/azure/virtual-machines/breadcrumb/toc.json
 https://learn.microsoft.com/en-us/azure/role-based-access-control/overview
 https://learn.microsoft.com/en-us/azure/sap/
 https://learn.microsoft.com/en-us/azure/security-center/security-center-introduction?toc=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fazure%2Fvirtual-machines%2Ftoc.json&bc=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json
@@ -130,8 +133,11 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/azure-compute-gallery
 https://learn.microsoft.com/en-us/azure/virtual-machines/azure-vms-no-temp-disk
 https://learn.microsoft.com/en-us/azure/virtual-machines/backup-and-disaster-recovery-for-azure-iaas-disks
 https://learn.microsoft.com/en-us/azure/virtual-machines/backup-recovery
+https://learn.microsoft.com/en-us/azure/virtual-machines/basv2
 https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics
 https://learn.microsoft.com/en-us/azure/virtual-machines/boot-integrity-monitoring-overview
+https://learn.microsoft.com/en-us/azure/virtual-machines/bpsv2-arm
+https://learn.microsoft.com/en-us/azure/virtual-machines/bsv2-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-virtual-machine-scale-set
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-virtual-machine-scale-set-flex
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-vm
@@ -159,6 +165,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/custom-data
 https://learn.microsoft.com/en-us/azure/virtual-machines/custom-domain
 https://learn.microsoft.com/en-us/azure/virtual-machines/dasv5-dadsv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/dav4-dasv4-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/dcasccv5-dcadsccv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/dcasv5-dcadsv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/dcv2-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/dcv3-series
@@ -200,6 +207,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance-tiers
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance-tiers-portal
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-redundancy
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-reserved-capacity
+https://learn.microsoft.com/en-us/azure/virtual-machines/disks-restrict-import-export-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-scalability-targets
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable
@@ -216,6 +224,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/dv5-dsv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/easv5-eadsv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/eav4-easv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/ebdsv5-ebsv5-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/ecasccv5-ecadsccv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/ecasv5-ecadsv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/edv4-edsv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/edv5-edsv5-series
@@ -268,6 +277,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/oms-linux
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/oms-windows
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/stackify-retrace-linux
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/tenable
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/troubleshoot
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/update-linux-agent
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/vmaccess
@@ -302,7 +312,6 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/hx-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/hx-series-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/image-builder-api-update-release-notes
 https://learn.microsoft.com/en-us/azure/virtual-machines/image-builder-overview
-https://learn.microsoft.com/en-us/azure/virtual-machines/image-builder-prefetch
 https://learn.microsoft.com/en-us/azure/virtual-machines/image-builder-reliability
 https://learn.microsoft.com/en-us/azure/virtual-machines/image-builder-triggers-how-to
 https://learn.microsoft.com/en-us/azure/virtual-machines/image-version
@@ -395,6 +404,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/linux/oracle-create-upl
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/os-disk-swap
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/provisioning
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/proximity-placement-groups
+https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-cluster-create-terraform
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-bicep
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal
@@ -470,6 +480,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/nd-series-retirement
 https://learn.microsoft.com/en-us/azure/virtual-machines/nda100-v4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/ndm-a100-v4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/ndv2-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/network-security-group-test
 https://learn.microsoft.com/en-us/azure/virtual-machines/ngads-v-620-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/np-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/nv-series
@@ -553,9 +564,9 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points-portal
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points-powershell
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-disaster-recovery-guidance
-https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-reliability
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications-how-to
+https://learn.microsoft.com/en-us/azure/virtual-machines/vm-boot-optimization
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-generalized-image-version
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-naming-conventions
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-specialized-image-version
@@ -621,6 +632,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/windows/proximity-place
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/ps-common-network-ref
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/ps-common-ref
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/ps-template
+https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-cluster-create-terraform
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-bicep
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-cli
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal
