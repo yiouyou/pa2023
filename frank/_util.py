@@ -476,49 +476,52 @@ def _clean(_rm, _model):
     return _rc
 
 
-def _rule(_ans_str, _dir, _service):
+def _rule(_ans_str, _dir, _service, _out_rule):
+    _out_rule_step = _out_rule + '_step'
     _sys = 'azure_rule_sys.txt'
     _human = 'azure_rule_human_0.txt'
     _info = _ans_str
-    _rule1, _rule1_step = _chat_with_sys_human(_info, _service, _sys, _human)
-    print(len(_rule1))
-    _rule2, _rule2_step = _chat_with_sys_human(_info, _service, _sys, _human)
-    print(len(_rule2))
-    _rule3, _rule3_step = _chat_with_sys_human(_info, _service, _sys, _human)
-    print(len(_rule3))
-    _rule1_ = _uniq(_rule1)
-    _rule2_ = _uniq(_rule2)
-    _rule3_ = _uniq(_rule3)
-    print('uniq done!', len(_rule1_), len(_rule2_), len(_rule3_))
+    _RUN = 1
+    _rule = []
+    _rule_step = []
+    for i in range(_RUN):
+        i_r, i_r_step = _chat_with_sys_human(_info, _service, _sys, _human)
+        print(len(i_r))
+        print(i_r)
+        i_r_ = _uniq(i_r)
+        print('uniq done!', len(i_r), '->', len(i_r_))
+        _rule.append(i_r_)
+        _rule_step.append(i_r_step)
     _rule_ = {}
-    _rule_ = _rule1_ | _rule2_
-    _rule_ |= _rule3_
+    for i in _rule:
+        _rule_ |= i
     _rm = list(_rule_.keys())
     print('merge done!', len(_rm))
-    from sentence_transformers import SentenceTransformer
-    _model = SentenceTransformer('all-MiniLM-L12-v2')
-    _rc = _clean(_rm, _model)
-    print('clean done!', len(_rc))
-    print(len(_rule1), len(_rule2), len(_rule3), '->', len(_rule1_), len(_rule2_), len(_rule3_), '->' , len(_rm), '->' , len(_rc))
-    _rule_str = ""
-    _n = 0
-    for i in sorted(_rc):
-        _n += 1
-        # _rule_str += f"{_n}. {i}\n"
-        _rule_str += f"{i}\n"
-    _rule_step = [_rule1_step, _rule2_step, _rule3_step]
-    _out_rule = '_rule'
-    _out_rule_step = '_rule_step'
-    writeF(_dir, _out_rule, _rule_str)
-    writeF(_dir, _out_rule_step, "\n\n".join(_rule_step))
+    # from sentence_transformers import SentenceTransformer
+    # _model = SentenceTransformer('all-MiniLM-L12-v2')
+    # _rc = _clean(_rm, _model)
+    # print('clean done!', len(_rm), '->' , len(_rc))
+    _rlist = _rm
+    _r_str = "\n".join(sorted(_rlist)) + "\n"
+    _r_step_str = "\n\n".join(_rule_step) + "\n\n"
+    writeF(_dir, _out_rule, _r_str)
+    writeF(_dir, _out_rule_step, _r_step_str)
+    return _r_str, _r_step_str 
 
 
 def extract_rule(_dir, _service):
     import os
     _ans_f = os.path.join(_dir, '_ans')
-    with open(_ans_f, 'r', encoding='utf-8') as rf:
-        _ans_str = rf.read()
-    _rule(_ans_str, _dir, _service)
+    max_length = 16 * 768
+    pieces = split_txt_file(_ans_f, max_length)
+    _rs = ""
+    for i, piece in enumerate(pieces, start=1):
+        _piece_str = piece.strip()
+        print(f"Piece {i}: {len(_piece_str)}")
+        _out_rule = f"_rule{i-1}"
+        _r, _r_step = _rule(_piece_str, _dir, _service, _out_rule)
+        _rs += _r
+    writeF(_dir, "_rule", _rs)
 
 
 def _rulebook(_ans_str, _dir, _service):
@@ -539,3 +542,45 @@ def extract_rulebook(_ans_f, _dir, _service):
         _ans_str = rf.read()
     _rulebook(_ans_str, _dir, _service)
 
+
+def split_txt_file(file_path, max_length=16 * 1024):
+    """
+    Splits a long text file with the format "## question\nanswer\n\n" into multiple pieces, ensuring each piece is not
+    longer than the specified max_length, and the question-answer pairs are not cut off.
+
+    Parameters:
+        file_path (str): The path to the input text file.
+        max_length (int): The maximum length of each piece in bytes. Default is 16K (16 * 1024).
+
+    Returns:
+        list: A list of strings, each representing a piece with the format "## question\nanswer\n\n".
+    """
+    pieces = []
+    with open(file_path, "r") as file:
+        content = file.read()
+    current_piece = ""
+    current_length = 0
+    lines = content.splitlines(keepends=True)
+    for line in lines:
+        line_length = len(line.encode())
+        if current_length + line_length <= max_length:
+            current_piece += line
+            current_length += line_length
+        else:
+            pieces.append(current_piece)
+            current_piece = line
+            current_length = line_length
+    # Add the last piece
+    if current_piece:
+        pieces.append(current_piece)
+    return pieces
+# # Example usage
+# file_path = "tmp_azure_monitor_1691240700/_ans"
+# max_length = 16 * 768
+# pieces = split_txt_file(file_path, max_length)
+# # Print the pieces
+# for i, piece in enumerate(pieces, start=1):
+#     print(f"Piece {i}:")
+#     # print(piece.strip())
+#     print(len(piece.strip()))
+#     print()
