@@ -379,7 +379,7 @@ def get_ans_from_qlist(_json, _dir, _service):
     print(f"total({a}) = new({b}) + old({c})")
     _ans_str = ""
     for i in range(len(_qlist)):
-        _ans_str += f"## {_qlist[i]}\n\n" + f"{_ans[i]}\n\n"
+        _ans_str += f"## {_qlist[i]}\n" + f"{_ans[i]}\n\n"
     writeF(_dir, '_ans', _ans_str)
 
 

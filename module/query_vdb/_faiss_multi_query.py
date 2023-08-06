@@ -32,7 +32,7 @@ Provide these alternative questions seperated by newlines.
 Original question: {question}""",
     )
     llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
-    llm_chain = LLMChain(llm=llm,prompt=QUERY_PROMPT,output_parser=output_parser)
+    llm_chain = LLMChain(llm=llm, prompt=QUERY_PROMPT, output_parser=output_parser)
     _db = get_faiss_ST(_db_name)
     _base_retriever = _db.as_retriever()
     _multi_retriever = MultiQueryRetriever(
@@ -63,6 +63,7 @@ def qa_faiss_retriever_multi_query(_query, _db_name):
         pprint(_generated_queries)
         _docs = _retriever.get_relevant_documents(_query)
         _pretty = pretty_print_docs(_docs)
+        # print(_pretty)
         _qa_chain = RetrievalQA.from_chain_type(llm, retriever=_retriever)
         _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
         print(_token_cost)

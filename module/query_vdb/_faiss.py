@@ -6,10 +6,14 @@ def name2txt(_name):
 def pretty_print_docs(docs):
     # _pretty = f"\n{'-' * 100}\n".join([f"Document {i+1}:\n\n" + d.page_content for i, d in enumerate(docs)])
     _doc = []
+    _doc_meta = []
     for i, doc in enumerate(docs):
         _doc.append(f"Document {i+1}:\n\n" + str(doc.metadata) + "\n\n" + doc.page_content)
+        _doc_meta.append(f"Document {i+1}:\n\n" + str(doc.metadata)+ "\n" + str(len(doc.page_content)))
     _pretty = f"\n{'-' * 100}\n".join(_doc)
     # print(_pretty)
+    _meta = f"\n{'-' * 100}\n".join(_doc_meta)
+    print(_meta)
     return _pretty
 
 def get_faiss_ST(_db_name):
