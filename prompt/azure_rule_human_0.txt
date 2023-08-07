@@ -13,4 +13,4 @@ To understand how those cost optimization related rules, preconditions, constrai
 3. Assume there is a rule 'Ultra disks cannot be used with certain features and functionality, including disk export, changing disk type, trusted launch, VM images, availability sets, or Azure disk encryption.', it will help to filters out the suggestion of changing disk type to 'Ultra disks' when the encryption status of current disk is True.
 --------------------
 
-Output the results in a numbered list without sub items; nothing else:
+Output the results in a numbered list without sub items and sub multilevel list; nothing else:

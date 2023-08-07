@@ -502,11 +502,14 @@ def _rule(_ans_str, _dir, _service, _out_rule):
     # _rc = _clean(_rm, _model)
     # print('clean done!', len(_rm), '->' , len(_rc))
     _rlist = _rm
-    _r_str = "\n".join(sorted(_rlist)) + "\n"
-    _r_step_str = "\n\n".join(_rule_step) + "\n\n"
+    _r_str = ""
+    _r_step_str = ""
+    if _rlist:
+        _r_str = "\n".join(sorted(_rlist)) + "\n"
     writeF(_dir, _out_rule, _r_str)
+    _r_step_str = "\n\n".join(_rule_step) + "\n\n"
     writeF(_dir, _out_rule_step, _r_step_str)
-    return _r_str, _r_step_str 
+    return _r_str, _r_step_str
 
 
 def extract_rule(_dir, _service):
@@ -519,8 +522,15 @@ def extract_rule(_dir, _service):
         _piece_str = piece.strip()
         print(f"Piece {i}: {len(_piece_str)}")
         _out_rule = f"_rule{i-1}"
-        _r, _r_step = _rule(_piece_str, _dir, _service, _out_rule)
-        _rs += _r
+        _n = 0
+        while True:
+            _n += 1
+            _r, _r_step = _rule(_piece_str, _dir, _service, _out_rule)
+            if _r:
+                _rs += _r
+                break
+            if _n > 3:
+                break
     writeF(_dir, "_rule", _rs)
 
 
