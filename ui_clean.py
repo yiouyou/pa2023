@@ -24,8 +24,17 @@ def azure_selected_vdb(_query, _radio):
     from pathlib import Path
     _pwd = Path(__file__).absolute()
     _pa_path = _pwd.parent
-    if _radio == "vm_disk":
-        _db_name = str(_pa_path / "vdb" / "azure_vm")
+    if _radio == "app_service":
+        _db_name = str(_pa_path / "vdb" / "azure_app_service")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "blob_storage":
+        _db_name = str(_pa_path / "vdb" / "azure_blob_storage")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "cosmos_db":
+        _db_name = str(_pa_path / "vdb" / "azure_cosmos_db")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "monitor":
+        _db_name = str(_pa_path / "vdb" / "azure_monitor")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     elif _radio == "sql_db":
         _db_name = str(_pa_path / "vdb" / "azure_sql_db")
@@ -33,8 +42,14 @@ def azure_selected_vdb(_query, _radio):
     elif _radio == "sql_mi":
         _db_name = str(_pa_path / "vdb" / "azure_sql_mi")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
-    elif _radio == "web_apps":
-        _db_name = str(_pa_path / "vdb" / "azure_webapps")
+    elif _radio == "synapse":
+        _db_name = str(_pa_path / "vdb" / "azure_synapse")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "vm":
+        _db_name = str(_pa_path / "vdb" / "azure_vm")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "managed_disk":
+        _db_name = str(_pa_path / "vdb" / "azure_vm")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     else:
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
@@ -155,7 +170,7 @@ with gr.Blocks(title=_description) as demo:
     with gr.Tab(label = "Azure Doc"):
         az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
         az_radio = gr.Radio(
-            ["vm_disk", "sql_db", "sql_mi", "web_apps"],
+            ["vm", "app_service", "managed_disk", "blob_storage", "cosmos_db", "sql_db", "sql_mi", "monitor", "synapse"],
             label="Which Azure cloud service do you want to know about?",
             info="",
             type="value",
