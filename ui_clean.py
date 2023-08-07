@@ -141,6 +141,29 @@ with gr.Blocks(title=_description) as demo:
     dh_user_question = gr.State("")
     gr.Markdown(_description)
 
+    with gr.Tab(label = "Azure Doc"):
+        az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
+        az_radio = gr.Radio(
+            ["vm", "app_service", "managed_disk", "blob_storage", "cosmos_db", "sql_db", "sql_mi", "monitor", "synapse"],
+            label="Which Azure cloud service do you want to know about?",
+            info="",
+            type="value",
+            value="vm_disk"
+        )
+        az_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_query.change(
+            chg_btn_color_if_input,
+            [az_query],
+            [az_start_btn]
+        )
+        az_start_btn.click(
+            azure_selected_vdb,
+            [az_query, az_radio],
+            [az_ans, az_steps]
+        )
+
     with gr.Tab(label = "Chat"):
         gr.ChatInterface(
             fn=chat_predict_openai,
@@ -166,29 +189,6 @@ with gr.Blocks(title=_description) as demo:
                 height = "{CHAINLIT_IFRAME_HEIGHT}"
                 onload = "{CHAINLIT_IFRAME_LOADED_EVENT}(this)">"""
             )
-
-    with gr.Tab(label = "Azure Doc"):
-        az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
-        az_radio = gr.Radio(
-            ["vm", "app_service", "managed_disk", "blob_storage", "cosmos_db", "sql_db", "sql_mi", "monitor", "synapse"],
-            label="Which Azure cloud service do you want to know about?",
-            info="",
-            type="value",
-            value="vm_disk"
-        )
-        az_start_btn = gr.Button("Start", variant="secondary", visible=True)
-        az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        az_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        az_query.change(
-            chg_btn_color_if_input,
-            [az_query],
-            [az_start_btn]
-        )
-        az_start_btn.click(
-            azure_selected_vdb,
-            [az_query, az_radio],
-            [az_ans, az_steps]
-        )
 
     with gr.Tab(label = "Search"):
         sh_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
