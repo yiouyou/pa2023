@@ -1,4 +1,4 @@
-from ._web import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
+from _web import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
 
 def embedding_to_faiss_ST(_docs, _db_name):
     from langchain.vectorstores import FAISS
@@ -158,7 +158,7 @@ if __name__ == "__main__":
     _links = str(_faiss_path / "vdb" / "azure_monitor.link")
     _azure = str(_faiss_path / "vdb" / _db_azure)
     _md_dir = "./md_azure_monitor"
-    # weblinks_to_link_md(_links, _md_dir)
+    weblinks_to_link_md(_links, _md_dir)
     link_md_to_faiss(_md_dir, _azure)
 
     # _db_azure = txt2name("Azure Synapse")
