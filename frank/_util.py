@@ -383,7 +383,7 @@ def get_ans_from_qlist(_json, _dir, _service):
     writeF(_dir, '_ans', _ans_str)
 
 
-def _chat_with_sys_human(_info, _service, _sys, _human):
+def _chat_with_sys_human_about_rule(_info, _service, _sys, _human):
     import os
     from dotenv import load_dotenv
     load_dotenv()
@@ -421,6 +421,46 @@ def _chat_with_sys_human(_info, _service, _sys, _human):
         _rule = _re.strip().split("\n")
         _rule_step = f"{_token_cost}\n\n" + "="*20+" prompt "+"="*20+"\n" + rule_prompt.format(info=_info, service=_service) + "="*20+" prompt "+"="*20+"\n" + f"extracted rules:\n\n" + "\n".join(_rule)
     return _rule, _rule_step
+
+
+def _chat_with_sys_human_about_sku(_info, _sys, _human):
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+    from langchain.callbacks import get_openai_callback
+    from langchain.chat_models import ChatOpenAI
+    from langchain import LLMChain
+    from langchain.prompts.chat import (
+        ChatPromptTemplate,
+        SystemMessagePromptTemplate,
+        HumanMessagePromptTemplate,
+    )
+    from langchain.prompts import load_prompt
+    from pathlib import Path
+    _pwd = Path(__file__).absolute()
+    _prompt_path = os.path.join(_pwd.parent.parent, 'prompt')
+    sys_file = os.path.join(_prompt_path, _sys)
+    human_file = os.path.join(_prompt_path, _human)
+    system_message_prompt = SystemMessagePromptTemplate.from_template_file(
+        sys_file,
+        input_variables=[]
+    )
+    human_message_prompt = HumanMessagePromptTemplate.from_template_file(
+        human_file,
+        input_variables=["info"]
+    )
+    rule_prompt = ChatPromptTemplate.from_messages(
+        [system_message_prompt, human_message_prompt]
+    )
+    with get_openai_callback() as cb:
+        # llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
+        llm = ChatOpenAI(model_name="gpt-4", temperature=0)
+        chain = LLMChain(llm=llm, prompt=rule_prompt)
+        _re = chain.run(info=_info)
+        _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
+        _sku = _re.strip().split("\n")
+        _sku_step = f"{_token_cost}\n\n" + "="*20+" prompt "+"="*20+"\n" + rule_prompt.format(info=_info) + "="*20+" prompt "+"="*20+"\n" + f"generated sku:\n\n" + "\n".join(_sku)
+    return _sku, _sku_step
 
 
 def _uniq(_rule):
@@ -485,7 +525,7 @@ def _rule(_ans_str, _dir, _service, _out_rule):
     _rule = []
     _rule_step = []
     for i in range(_RUN):
-        i_r, i_r_step = _chat_with_sys_human(_info, _service, _sys, _human)
+        i_r, i_r_step = _chat_with_sys_human_about_rule(_info, _service, _sys, _human)
         print(len(i_r))
         print(i_r)
         i_r_ = _uniq(i_r)
@@ -538,7 +578,7 @@ def _rulebook(_ans_str, _dir, _service):
     _sys = 'azure_rulebook_sys.txt'
     _human = 'azure_rulebook_human_0.txt'
     _info = _ans_str
-    _rulebook, _rulebook_step = _chat_with_sys_human(_info, _service, _sys, _human)
+    _rulebook, _rulebook_step = _chat_with_sys_human_about_rule(_info, _service, _sys, _human)
     _out_rule = '_rulebook'
     _out_rule_step = '_rulebook_step'
     writeF(_dir, _out_rule, _rulebook)
@@ -557,11 +597,9 @@ def split_txt_file(file_path, max_length=16 * 1024):
     """
     Splits a long text file with the format "## question\nanswer\n\n" into multiple pieces, ensuring each piece is not
     longer than the specified max_length, and the question-answer pairs are not cut off.
-
     Parameters:
         file_path (str): The path to the input text file.
         max_length (int): The maximum length of each piece in bytes. Default is 16K (16 * 1024).
-
     Returns:
         list: A list of strings, each representing a piece with the format "## question\nanswer\n\n".
     """
@@ -594,3 +632,15 @@ def split_txt_file(file_path, max_length=16 * 1024):
 #     # print(piece.strip())
 #     print(len(piece.strip()))
 #     print()
+
+
+def generate_sku(_info, _dir, _fn):
+    _sys = 'azure_sku_sys.txt'
+    _human = 'azure_sku_human.txt'
+    _sku, _sku_step = _chat_with_sys_human_about_sku(_info, _sys, _human)
+    _sku_str = "\n".join(_sku)
+    _out_sku = f"_sku_{_fn}"
+    _out_sku_step = f"_sku_{_fn}_step"
+    writeF(_dir, _out_sku, _sku_str)
+    writeF(_dir, _out_sku_step, _sku_step)
+

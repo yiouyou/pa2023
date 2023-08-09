@@ -1,0 +1,4 @@
+{info}
+
+Use the up information, regenerate a sku table, in which the 1st column is the sku name, the rest columns are attributes. Ignore the footnotes.
+
