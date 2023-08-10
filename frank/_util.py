@@ -644,3 +644,58 @@ def generate_sku(_info, _dir, _fn):
     writeF(_dir, _out_sku, _sku_str)
     writeF(_dir, _out_sku_step, _sku_step)
 
+
+def extract_table_from_md(_out_dir, _in_fin):
+    from pprint import pprint
+    import re
+    with open(_in_fin, 'r', encoding='utf-8') as rf:
+        _md = rf.readlines()
+    _md_0 = []
+    for i in _md:
+        if re.match(r'^##', i) or re.match(r'^\|', i):
+            _md_0.append(i.strip())
+    # print(_md_0)
+    _md_1 = []
+    for i in range(0, len(_md_0)-1):
+        if re.match(r'^\|', _md_0[i]):
+            _md_1.append(_md_0[i])
+        else:
+            if re.match(r'^\|', _md_0[i+1]):
+                _md_1.append(_md_0[i])
+    # pprint(_md_1)
+    _md_2 = {}
+    _i0 = []
+    for i in _md_1:
+        if re.match(r'^\|', i):
+            # print(i)
+            _i0.append(i)
+        else:
+            # print(f"\n\n{i}\n")
+            _md_2[i] = []
+            _i0 = _md_2[i]
+    # pprint(_md_2)
+    _t0 = sorted(_md_2.keys())
+    # pprint(_t0)
+    _t1 = {}
+    for i in _t0:
+        m = re.match(r'^(.*) \(.+\)$', i)
+        if m:
+            _t1[m.group(1)] = []
+    for i in _t1.keys():
+        _i = _t1[i]
+        for j in _t0:
+            if i in j:
+                _i.append(j)
+    # pprint(_t1)
+    ##### _md_2, _t1
+    # pprint(_t1.keys())
+    # pprint(_md_2)
+    for i in _t1:
+        _txt = ""
+        for j in _t1[i]:
+            # print(i, j)
+            _txt += f"{j}\n" + "\n".join(_md_2[j]) + "\n\n"
+        _wfn = i.replace("#", "").replace(":", "").strip().replace(" ", "_")
+        print(_txt)
+        writeF(_out_dir, _wfn, _txt)
+
