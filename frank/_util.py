@@ -678,15 +678,18 @@ def extract_table_from_md(_out_dir, _in_fin):
     # pprint(_t0)
     _t1 = {}
     for i in _t0:
-        m = re.match(r'^(.*) \(.+\)$', i)
-        if m:
-            _t1[m.group(1)] = []
+        if '(' in i:
+            m = re.match(r'^(.*) \(.+\)$', i)
+            if m:
+                _t1[m.group(1)] = []
+        else:
+            _t1[i] = []
     for i in _t1.keys():
         _i = _t1[i]
         for j in _t0:
             if i in j:
                 _i.append(j)
-    # pprint(_t1)
+    pprint(_t1)
     ##### _md_2, _t1
     # pprint(_t1.keys())
     # pprint(_md_2)
