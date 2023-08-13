@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 _pwd = Path(__file__).absolute()
 _pa_path = _pwd.parent.parent.parent
-print(_pa_path)
+# print(_pa_path)
 sys.path.append(str(_pa_path))
 
 
