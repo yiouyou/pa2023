@@ -1,0 +1,353 @@
+## meterName
+vCore
+P11 Secondary DTU
+Backup RA-GZRS Data Stored
+Backup LRS Data Stored
+RA-GRS Data Stored
+P6 DTU
+P1 Secondary DTU
+PRS2 DTU
+Business Critical IO Rate Operations
+PRS6 Secondary Active DTU
+PRS1 Secondary Active DTU
+S0 Secondary Active DTUs
+Backup - ZRS Data Stored
+Backup RA-GRS Data Stored
+S2 DTUs
+P2 Secondary DTU
+eDTUs
+8 vCore - Free
+Backup ZRS Data Stored
+1 vCore - Free
+Hyperscale Data Stored
+S1 Secondary DTUs
+P1 DTU
+B DTU
+S1 Secondary Active DTUs
+Data Stored
+80 vCore - Free
+P4 DTU
+Backup - RA-GZRS Data Stored
+48 vCore - Free
+S2 Secondary DTUs
+P15 Secondary Active DTU
+32 vCore - Free
+P2 DTU
+P11 DTU
+S0 Secondary DTUs
+General Purpose Zone Redundancy Data Stored
+Backup - RA-GRS Data Stored
+Zone Redundancy vCore
+4 vCore - Free
+S0 DTUs
+10 DTUs
+P1 Secondary Active DTU
+Free DTU
+Backup - LRS Data Stored
+ZRS Data Stored
+LRS Data Stored
+S3 Secondary DTUs
+RA-GZRS Data Stored
+General Purpose IO Rate Operations
+P11 Secondary Active DTU
+2 vCore - Free
+Hyperscale IO Rate Operations
+24 vCore - Free
+P2 Secondary Active DTU
+S3 DTUs
+PRS6 DTU
+P4 Secondary DTU
+Data Stored - Free
+General Purpose Data Stored
+P15 DTU
+General Purpose Zone Redundancy IO Rate Operations
+PRS1 Secondary DTU
+Business Critical Data Stored
+P6 Secondary Active DTU
+P4 Secondary Active DTU
+PRS4 Secondary Active DTU
+S1 DTUs
+S2 Secondary Active DTUs
+B Secondary Active DTU
+S3 Secondary Active DTUs
+PRS2 Secondary Active DTU
+PRS1 DTU
+P15 Secondary DTU
+General Purpose Data Stored - Free
+16 vCore - Free
+PRS4 DTU
+P6 Secondary DTU
+
+
+## productName
+SQL Database Single/Elastic Pool General Purpose - Compute DC-Series
+SQL Database Single Premium
+SQL Database - LTR Backup Storage
+SQL Database Single/Elastic Pool PITR Backup Storage
+SQL Database SingleDB/Elastic Pool Hyperscale - Compute Gen5
+SQL Database Single Premium RS
+SQL Database Single/Elastic Pool Business Critical - Storage
+SQL Database Single/Elastic Pool General Purpose - Compute Gen5
+SQL Database Single Standard
+SQL Database SingleDB Hyperscale - Storage
+SQL Database Elastic Pool - Basic
+SQL Database Single General Purpose - Serverless - Compute Gen5
+SQL Database SingleDB Hyperscale – Serverless – Compute Gen5
+SQL Database Single Basic
+SQL Database Standard - Storage
+SQL Database Elastic Pool - Standard
+SQL Database Single General Purpose - Serverless - Compute DC-Series
+SQL Database Single/Elastic Pool Business Critical - Compute Gen5
+SQL Database SingleDB Hyperscale - LTR Backup Storage
+SQL Database SingleDB Hyperscale - Serverless - Read Repl - Compute Gen5
+SQL Database Single/Elastic Pool General Purpose - Storage
+SQL Database Elastic Pool - Premium RS
+SQL Database Premium - Storage
+SQL Database Single Free
+SQL Database SingleDB Hyperscale - Premium Series Compute
+SQL Database Single/Elastic Pool General Purpose - Compute FSv2 Series
+SQL Database Single/Elastic Pool Business Critical - Compute DC-Series
+SQL Database Single/Elastic Pool Business Critical - Compute M Series
+SQL Database SingleDB Hyperscale - Compute DC-Series
+SQL Database SingleDB Hyperscale - Premium Series Memory Optimized Compute
+SQL Database Elastic Pool - Premium
+
+
+## skuName
+1 vCore
+P11 Secondary
+Backup RA-GZRS
+Backup LRS
+Backup RA-GRS
+P6
+P1 Secondary
+6 vCore
+18 vCore
+4 vCore
+10 vCore
+12 vCore
+16 vCore
+vCore
+48 vCore
+32 vCore
+40 vCore
+2 vCore
+24 vCore
+20 vCore
+80 vCore
+8 vCore
+14 vCore
+PRS2
+Business Critical
+PRS6 Secondary Active
+PRS1 Secondary Active
+S0 Secondary Active
+Backup - ZRS
+S2
+P2 Secondary
+400 DTU Pack
+800 DTU Pack
+300 DTU Pack
+200 DTU Pack
+100 DTU Pack
+1200 DTU Pack
+1 DTU
+1600 DTU Pack
+50 DTU Pack
+Backup ZRS
+Hyperscale
+S1 Secondary
+P1
+B
+S1 Secondary Active
+Standard
+3000 DTU Pack
+2500 DTU Pack
+2000 DTU Pack
+P4
+Backup - RA-GZRS
+S2 Secondary
+P15 Secondary Active
+P2
+P11
+S0 Secondary
+General Purpose Zone Redundancy
+Backup - RA-GRS
+80 vCore Zone Redundancy
+24 vCore Zone Redundancy
+1 vCore Zone Redundancy
+8 vCore Zone Redundancy
+48 vCore Zone Redundancy
+16 vCore Zone Redundancy
+2 vCore Zone Redundancy
+32 vCore Zone Redundancy
+4 vCore Zone Redundancy
+S0
+4000 DTU Pack
+500 DTU Pack
+1500 DTU Pack
+1000 DTU Pack
+3500 DTU Pack
+125 DTU Pack
+250 DTU Pack
+10 DTU
+S6
+S12
+S7
+S9
+S4
+Premium
+P1 Secondary Active
+Free
+Backup - LRS
+S3 Secondary
+36 vCore
+72 vCore
+General Purpose
+P11 Secondary Active
+P2 Secondary Active
+S3
+PRS6
+P4 Secondary
+128 vCore
+64 vCore
+Backup
+P15
+PRS1 Secondary
+P6 Secondary Active
+P4 Secondary Active
+PRS4 Secondary Active
+S1
+S2 Secondary Active
+B Secondary Active
+S3 Secondary Active
+PRS2 Secondary Active
+20 vCore Zone Redundancy
+6 vCore Zone Redundancy
+12 vCore Zone Redundancy
+18 vCore Zone Redundancy
+40 vCore Zone Redundancy
+10 vCore Zone Redundancy
+14 vCore Zone Redundancy
+PRS1
+P15 Secondary
+PRS4
+P6 Secondary
+
+
+## serviceName
+SQL Database
+
+
+## serviceFamily
+Databases
+
+
+## unitOfMeasure
+1 Hour
+1/Day
+1 GB/Month
+1M
+
+
+## type
+Consumption
+Reservation
+
+
+## isPrimaryMeterRegion
+True
+False
+
+
+## armSkuName
+nan
+SQLDB_HS_Compute_Gen5_6
+SQLDB_HS_Compute_Gen5_18
+SQLDB_HS_Compute_Gen5_4
+SQLDB_HS_Compute_Gen5_10
+SQLDB_HS_Compute_Gen5_12
+SQLDB_HS_Compute_Gen5_1
+SQLDB_HS_Compute_Gen5_16
+SQLDB_HyperScale_Compute_Gen5
+SQLDB_HS_Compute_Gen5_48
+SQLDB_HS_Compute_Gen5_32
+SQLDB_HS_Compute_Gen5_40
+SQLDB_HS_Compute_Gen5_2
+SQLDB_HS_Compute_Gen5_24
+SQLDB_HS_Compute_Gen5_20
+SQLDB_HS_Compute_Gen5_80
+SQLDB_HS_Compute_Gen5_8
+SQLDB_HS_Compute_Gen5_14
+SQLDB_GP_Compute_Gen5_48
+SQLDB_GP_Compute_Gen5_10
+SQLDB_GP_Compute_Gen5_1
+SQLDB_GP_Compute_Gen5_20
+SQLDB_GP_Compute_Gen5_8
+SQLDB_GP_Compute_Gen5_80
+SQLDB_GP_Compute_Gen5_32
+SQLDB_GP_Compute_Gen5_12
+SQLDB_GP_Compute_Gen5_6
+SQLDB_GP_Compute_Gen5_2
+SQLDB_GP_Compute_Gen5_18
+SQLDB_GP_Compute_Gen5_40
+SQLDB_GP_Compute_Gen5_14
+SQLDB_GP_Compute_Gen5_24
+SQLDB_GP_Compute_Gen5
+SQLDB_GP_Compute_Gen5_4
+SQLDB_GP_Compute_Gen5_16
+48 vCore
+80 vCore
+1 vCore
+16 vCore
+4 vCore
+8 vCore
+24 vCore
+2 vCore
+32 vCore
+SQLDB_BC_Compute_Gen5_80
+SQLDB_BC_Compute_Gen5_8
+SQLDB_BC_Compute_Gen5
+SQLDB_BC_Compute_Gen5_32
+SQLDB_BC_Compute_Gen5_4
+SQLDB_BC_Compute_Gen5_2
+SQLDB_BC_Compute_Gen5_48
+SQLDB_BC_Compute_Gen5_24
+SQLDB_BC_Compute_Gen5_16
+SQLDB_HS_Premium Compute_1
+14 vCore
+18 vCore
+10 vCore
+36 vCore
+20 vCore
+12 vCore
+FSv2Series_vCore
+SQL_Database_Single_Elastic_Pool_General_Purpose_Compute_DC-Series_vCore
+ComputeMSeries_vCore
+64 vCore
+SQL_Database_SingleDB_Hyperscale_Compute_DC-Series_vCore
+SQL_Database_Single_Elastic_Pool_Business_Critical_Compute_DC-Series_vCore
+SQLDB_HS_Premium Memory Optimized Compute_1
+
+
+## reservationTerm
+nan
+3 Years
+1 Year
+
+
+## term
+nan
+
+
+['armSkuName',
+ 'isPrimaryMeterRegion',
+ 'meterName',
+ 'productName',
+ 'reservationTerm',
+ 'serviceFamily',
+ 'serviceName',
+ 'skuName',
+ 'term',
+ 'type',
+ 'unitOfMeasure']

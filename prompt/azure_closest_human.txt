@@ -1,0 +1,4 @@
+{query}
+Which of the following sentences is closest in meaning to the sentence above:
+{sentences}
+Please report the index only, nothing else:

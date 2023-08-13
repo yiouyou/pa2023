@@ -463,6 +463,46 @@ def _chat_with_sys_human_about_sku(_info, _sys, _human):
     return _sku, _sku_step
 
 
+def _chat_with_sys_human_about_closest(_query, _sentences, _sys, _human):
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+    from langchain.callbacks import get_openai_callback
+    from langchain.chat_models import ChatOpenAI
+    from langchain import LLMChain
+    from langchain.prompts.chat import (
+        ChatPromptTemplate,
+        SystemMessagePromptTemplate,
+        HumanMessagePromptTemplate,
+    )
+    from langchain.prompts import load_prompt
+    from pathlib import Path
+    _pwd = Path(__file__).absolute()
+    _prompt_path = os.path.join(_pwd.parent.parent, 'prompt')
+    sys_file = os.path.join(_prompt_path, _sys)
+    human_file = os.path.join(_prompt_path, _human)
+    system_message_prompt = SystemMessagePromptTemplate.from_template_file(
+        sys_file,
+        input_variables=[]
+    )
+    human_message_prompt = HumanMessagePromptTemplate.from_template_file(
+        human_file,
+        input_variables=["query", "sentences"]
+    )
+    _prompt = ChatPromptTemplate.from_messages(
+        [system_message_prompt, human_message_prompt]
+    )
+    with get_openai_callback() as cb:
+        # llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
+        llm = ChatOpenAI(model_name="gpt-4", temperature=0)
+        chain = LLMChain(llm=llm, prompt=_prompt)
+        _re = chain.run(query=_query, sentences=_sentences)
+        _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
+        _closest = _re.strip().split("\n")
+        _closest_step = f"{_token_cost}\n\n" + "="*20+" prompt "+"="*20+"\n" + _prompt.format(query=_query, sentences=_sentences) + "="*20+" prompt "+"="*20+"\n" + f"closest:\n\n" + "\n".join(_closest)
+    return _closest, _closest_step
+
+
 def _uniq(_rule):
     _rule_ = {}
     import re
@@ -634,17 +674,6 @@ def split_txt_file(file_path, max_length=16 * 1024):
 #     print()
 
 
-def generate_sku(_info, _dir, _fn):
-    _sys = 'azure_sku_sys.txt'
-    _human = 'azure_sku_human.txt'
-    _sku, _sku_step = _chat_with_sys_human_about_sku(_info, _sys, _human)
-    _sku_str = "\n".join(_sku)
-    _out_sku = f"_sku_{_fn}"
-    _out_sku_step = f"_sku_{_fn}_step"
-    writeF(_dir, _out_sku, _sku_str)
-    writeF(_dir, _out_sku_step, _sku_step)
-
-
 def extract_table_from_md(_out_dir, _in_fin):
     from pprint import pprint
     import re
@@ -701,4 +730,96 @@ def extract_table_from_md(_out_dir, _in_fin):
         _wfn = i.replace("#", "").replace(":", "").strip().replace(" ", "_")
         print(_txt)
         writeF(_out_dir, _wfn, _txt)
+
+
+def generate_sku(_info, _dir, _fn):
+    _sys = 'azure_sku_sys.txt'
+    _human = 'azure_sku_human.txt'
+    _sku, _sku_step = _chat_with_sys_human_about_sku(_info, _sys, _human)
+    _sku_str = "\n".join(_sku)
+    _out_sku = f"_sku_{_fn}"
+    _out_sku_step = f"_sku_{_fn}_step"
+    writeF(_dir, _out_sku, _sku_str)
+    writeF(_dir, _out_sku_step, _sku_step)
+
+
+def _top_df_info(_df, _query):
+    from sentence_transformers import SentenceTransformer
+    _model = SentenceTransformer('all-MiniLM-L12-v2')
+    _closest = ""
+    _score = []
+    _skuName_meterName = []
+    for index, row in _df.iterrows():
+        _row = row['_info']
+        _s = _row.split(", ")
+        # print(len(_s), _s)
+        if _s[1] in _s[2]:
+            _s[1] = _s[2]
+            _s.pop(2)
+        elif _s[2] in _s[1]:
+            _s.pop(2)
+        else:
+            _s12 = f"{_s[1]} {_s[2]}"
+            _w12 = _s12.split(" ")
+            _w12 = list(set(_w12))
+            # print(_w12)
+            # _s[1] = f"{_s[1]}|{_s[2]}"
+            _s[1] = " ".join(_w12)
+            _s.pop(2)
+        # print(len(_s), _s)
+        _row = ", ".join(_s)
+        _s = _similarity(_query.lower(), _row.lower(), _model)
+        # print(_s, _row)
+        _score.append(_s)
+        _skuName_meterName.append(_row)
+    _df['_score'] = _score
+    _df['_skuName_meterName'] = _skuName_meterName
+    # _df['_score'] = _df['_score'].round(4)
+    # _max = _df['_score'].idxmax()
+    # print(_max)
+    _top = _df.nlargest(3, '_score')
+    _top = _top[['_info', 'unitPrice', '_score', '_skuName_meterName']]
+    # print(_top)
+    return _top
+
+def _get_df_value(_df, _str):
+    # _values = _df.loc[_df['_info'] == _str, ['_info', 'unitPrice']]
+    _values = _df.loc[_df['_info'] == _str, 'unitPrice']
+    # print(_values)
+    return _values.tolist()
+
+
+def get_sku_price(_query):
+    import pandas as pd
+    # _fn = "info_unitPrice_0813.csv"
+    _fn = "info_unitPrice_all.csv"
+    # _fn = "info_unitPrice_noArmSKU.csv"
+    _df = pd.read_csv(_fn)
+    _top = _top_df_info(_df, _query)
+    # print(_top)
+    _top_info = []
+    _price = {}
+    # print(f"\n'{_query}'\n")
+    for index, row in _top.iterrows():
+        _s = "{:.5f}".format(row['_score'])
+        # print(f"{index}_{_s}> ${row['unitPrice']}\norgi: '{row['_info']}'\nmerg: '{row['_skuName_meterName']}'\n")
+        _info = f"{row['_info']}"
+        _top_info.append(_info)
+        _price[_info] = row['unitPrice']
+    # print(_top['_info'])
+    # print(_top['_score'])
+    # print(_top['unitPrice'])
+    return _top_info, _price
+
+
+def get_closest(_query, _top_info):
+    _sys = 'azure_closest_sys.txt'
+    _human = 'azure_closest_human.txt'
+    _sentences = []
+    _n = 0
+    for i in _top_info:
+        _n += 1
+        _sentences.append(f"{_n}. {i}")
+    _r, _r_step = _chat_with_sys_human_about_closest(_query, "\n".join(_sentences), _sys, _human)
+    return _r, _r_step
 
