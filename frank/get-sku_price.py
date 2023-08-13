@@ -20,17 +20,6 @@ if __name__ == "__main__":
     print(f"\n${_price[_s]}, '{_s}'")
 
 
-# python get-sku_price.py tmp_sku_sql_pool 'General_Purpose_service_tier_standard-series_(Gen5)'
-# python get-sku_price.py tmp_sku_sql_pool GP_DC-series_hardware
-# python get-sku_price.py tmp_sku_sql_pool Fsv2-series_hardware
-# python get-sku_price.py tmp_sku_sql_pool 'Business_Critical_service_tier_standard-series_(Gen5)'
-# python get-sku_price.py tmp_sku_sql_pool M-series_hardware
-# python get-sku_price.py tmp_sku_sql_pool BC_DC-series_hardware
-# python get-sku_price.py tmp_sku_sql_pool Gen5_compute_generation
-
-# python get-sku_price.py tmp_sku_sql_pool Basic_elastic_pool_limits
-# python get-sku_price.py tmp_sku_sql_pool Premium_elastic_pool_limits
-# python get-sku_price.py tmp_sku_sql_pool Standard_elastic_pool_limits
-# python get-sku_price.py tmp_sku_sql_pool Database_properties_for_pooled_databases
-# python get-sku_price.py tmp_sku_sql_pool Tempdb_sizes
-
+# python get-sku_price.py "General Purpose Serverless Standard-series (Gen5) compute, 8 vCore"
+# python get-sku_price.py "Business critical, DC-series, Hour, 4 vCore"
+# python get-sku_price.py "General Purpose Fsv2-series hardware, 18 vCore"

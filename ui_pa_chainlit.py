@@ -35,8 +35,8 @@ def auto_selected_agent(_task, _radio):
 
 
 ##### Azure Rules/Code
-from module.azure_rules_code import chat_azure_rules
-from module.azure_rules_code import llm_azure_code
+from module.azure_related import chat_azure_rules
+from module.azure_related import llm_azure_code
 
 
 ##### Azure VM +

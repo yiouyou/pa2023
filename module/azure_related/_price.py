@@ -1,7 +1,8 @@
 import sys
 from pathlib import Path
 _pwd = Path(__file__).absolute()
-_pa_path = _pwd.parent.parent
+_pa_path = _pwd.parent.parent.parent
+print(_pa_path)
 sys.path.append(str(_pa_path))
 
 
@@ -398,7 +399,7 @@ def _chat_with_sys_human_about_rule(_info, _service, _sys, _human):
     from langchain.prompts import load_prompt
     from pathlib import Path
     _pwd = Path(__file__).absolute()
-    _prompt_path = os.path.join(_pwd.parent.parent, 'prompt')
+    _prompt_path = os.path.join(_pwd.parent.parent.parent, 'prompt')
     sys_file = os.path.join(_prompt_path, _sys)
     human_file = os.path.join(_prompt_path, _human)
     system_message_prompt = SystemMessagePromptTemplate.from_template_file(
@@ -438,7 +439,7 @@ def _chat_with_sys_human_about_sku(_info, _sys, _human):
     from langchain.prompts import load_prompt
     from pathlib import Path
     _pwd = Path(__file__).absolute()
-    _prompt_path = os.path.join(_pwd.parent.parent, 'prompt')
+    _prompt_path = os.path.join(_pwd.parent.parent.parent, 'prompt')
     sys_file = os.path.join(_prompt_path, _sys)
     human_file = os.path.join(_prompt_path, _human)
     system_message_prompt = SystemMessagePromptTemplate.from_template_file(
@@ -478,7 +479,7 @@ def _chat_with_sys_human_about_closest(_query, _sentences, _sys, _human):
     from langchain.prompts import load_prompt
     from pathlib import Path
     _pwd = Path(__file__).absolute()
-    _prompt_path = os.path.join(_pwd.parent.parent, 'prompt')
+    _prompt_path = os.path.join(_pwd.parent.parent.parent, 'prompt')
     sys_file = os.path.join(_prompt_path, _sys)
     human_file = os.path.join(_prompt_path, _human)
     system_message_prompt = SystemMessagePromptTemplate.from_template_file(
@@ -743,13 +744,6 @@ def generate_sku(_info, _dir, _fn):
     writeF(_dir, _out_sku_step, _sku_step)
 
 
-def _get_df_value(_df, _str):
-    # _values = _df.loc[_df['_info'] == _str, ['_info', 'unitPrice']]
-    _values = _df.loc[_df['_info'] == _str, 'unitPrice']
-    # print(_values)
-    return _values.tolist()
-
-
 def _top_df_info(_df, _query):
     from sentence_transformers import SentenceTransformer
     _model = SentenceTransformer('all-MiniLM-L12-v2')
@@ -789,10 +783,20 @@ def _top_df_info(_df, _query):
     # print(_top)
     return _top
 
+def _get_df_value(_df, _str):
+    # _values = _df.loc[_df['_info'] == _str, ['_info', 'unitPrice']]
+    _values = _df.loc[_df['_info'] == _str, 'unitPrice']
+    # print(_values)
+    return _values.tolist()
+
+
 def get_sku_price(_query):
+    import os
     import pandas as pd
+    from pathlib import Path
+    _pwd = Path(__file__).absolute().parent
     # _fn = "info_unitPrice_0813.csv"
-    _fn = "info_unitPrice_all.csv"
+    _fn = os.path.join(_pwd, "info_unitPrice_all.csv")
     # _fn = "info_unitPrice_noArmSKU.csv"
     _df = pd.read_csv(_fn)
     _top = _top_df_info(_df, _query)

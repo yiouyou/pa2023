@@ -10,6 +10,22 @@ import gradio as gr
 from functools import partial
 
 
+##### Azure price
+from module.azure_related import get_sku_price, get_closest
+def azure_sku_price(_query):
+    _ans, _steps = "", ""
+    _top_info, _price = get_sku_price(_query)
+    _steps += f"\n{_query}\n"
+    _n = 0
+    for i in _top_info:
+        _n += 1
+        _steps += f"{_n}. {i}"
+    _r, _r_step = get_closest(_query, _top_info)
+    _steps += f"\n{_r}\n{_r_step}\n"
+    _s = _top_info[int(_r[0].strip())-1]
+    _ans = f"\n${_price[_s]}, '{_s}'"
+    return [_ans, _steps]
+
 ##### Chat
 from module.gradio_func import chg_btn_color_if_input
 from module.chatbot import chat_predict_openai
@@ -140,6 +156,22 @@ with gr.Blocks(title=_description) as demo:
     dh_history = gr.State([])
     dh_user_question = gr.State("")
     gr.Markdown(_description)
+
+    with gr.Tab(label = "Azure Price"):
+        ap_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
+        ap_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        ap_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        ap_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        ap_query.change(
+            chg_btn_color_if_input,
+            [ap_query],
+            [ap_start_btn]
+        )
+        ap_start_btn.click(
+            azure_sku_price,
+            [ap_query],
+            [ap_ans, ap_steps]
+        )
 
     with gr.Tab(label = "Azure Doc"):
         az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
