@@ -12,6 +12,7 @@ from functools import partial
 
 ##### Azure price
 from module.azure_related import get_sku_price, get_closest
+
 def azure_sku_price(_query):
     _ans, _steps = "", ""
     _top_info, _price = get_sku_price(_query)
@@ -19,7 +20,7 @@ def azure_sku_price(_query):
     _n = 0
     for i in _top_info:
         _n += 1
-        _steps += f"{_n}. {i}"
+        _steps += f"{_n}. {i}\n"
     _r, _r_step = get_closest(_query, _top_info)
     _steps += f"\n{_r}\n{_r_step}\n"
     _s = _top_info[int(_r[0].strip())-1]
