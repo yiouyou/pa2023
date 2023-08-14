@@ -1,4 +1,4 @@
-from ._web import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
+from _web import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
 
 def embedding_to_chroma_ST(_docs, _db_name):
     from langchain.vectorstores import Chroma

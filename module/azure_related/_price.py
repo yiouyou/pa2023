@@ -827,3 +827,28 @@ def get_closest(_query, _top_info):
     _r, _r_step = _chat_with_sys_human_about_closest(_query, "\n".join(_sentences), _sys, _human)
     return _r, _r_step
 
+
+def azure_sku_price(_query):
+    _ans, _steps = "", ""
+    _top_info, _price = get_sku_price(_query)
+
+    _steps += f"\n{_query}\n"
+    _n = 0
+    for i in _top_info:
+        _n += 1
+        _steps += f"{_n}. {i}\n"
+    _r, _r_step = get_closest(_query, _top_info)
+    _steps += f"\n{_r}\n{_r_step}\n"
+    import re
+    if re.match(r'^\d', _r[0]):
+        _s = _top_info[int(_r[0].strip())-1]
+        _ans = f"\n${_price[_s]}, '{_s}'"
+    else:
+        _top = []
+        _n = 0
+        for i in _top_info:
+            _n += 1
+            _top.append(f"{_n}. {i}")
+        _ans = "No match.\n\ntop 3:\n" + "\n".join(_top)
+    return [_ans, _steps]
+

@@ -1,4 +1,4 @@
-from ._md import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
+from _md import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
 
 def embedding_to_faiss_ST(_docs, _db_name):
     from langchain.vectorstores import FAISS

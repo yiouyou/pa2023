@@ -1,4 +1,4 @@
-from ._web import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
+from _web import txt2name, clean_txt, get_docs_from_links, split_docs_recursive
 
 def embedding_to_faiss_ST(_docs, _db_name):
     from langchain.vectorstores import FAISS
@@ -94,7 +94,6 @@ def weblinks_to_link_md_gmzy(_links, _dir):
     n = 0
     link_md = {}
     for i in _list:
-        n += 1
         print(i)
         _r = requests.get(i)
         _r_text = _r.text.encode('latin1').decode('utf-8')
@@ -103,11 +102,16 @@ def weblinks_to_link_md_gmzy(_links, _dir):
         _t3 = _t2[0]
         _t4 = re.sub(r'\n\s*\n', '\n\n', _t3)
         _t5 = re.sub(r'\n\:root.+\n\n\\_\\_md.+\nwindow.+\n', '', _t4)
-        fn = os.path.join(_dir, f"{str(n).zfill(4)}.md")
-        print(fn)
-        with open(fn, "w") as wf:
-            wf.write(_t5)
-        link_md[fn] = i
+        _t6 = _t5.split("\n# ")
+        if len(_t6) > 1:
+            if _t6[1]:
+                n += 1
+                _t7 = "# " + _t6[1]
+                fn = os.path.join(_dir, f"{str(n).zfill(4)}.md")
+                print(fn)
+                with open(fn, "w") as wf:
+                    wf.write(_t7)
+                link_md[fn] = i
     # print(link_md)
     fn = os.path.join(_dir, "_link_md.json")
     with open(fn, "w", encoding="utf-8") as wf:
@@ -161,12 +165,12 @@ if __name__ == "__main__":
     _pwd = Path(__file__).absolute()
     _faiss_path = _pwd.parent.parent.parent
 
-    _db_azure = txt2name("gmzy")
-    print(_db_azure)
-    _links = str(_faiss_path / "vdb" / "gmzy.link")
-    _azure = str(_faiss_path / "vdb" / _db_azure)
-    _md_dir = "./md_gmzy"
-    weblinks_to_link_md_gmzy(_links, _md_dir)
+    # _db_azure = txt2name("gmzy")
+    # print(_db_azure)
+    # _links = str(_faiss_path / "vdb" / "gmzy.link")
+    # _azure = str(_faiss_path / "vdb" / _db_azure)
+    # _md_dir = "./md_gmzy"
+    # weblinks_to_link_md_gmzy(_links, _md_dir)
     # link_md_to_faiss(_md_dir, _azure)
 
     # _db_azure = txt2name("Azure VM")

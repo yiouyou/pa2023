@@ -11,31 +11,7 @@ from functools import partial
 
 
 ##### Azure price
-from module.azure_related import get_sku_price, get_closest
-
-def azure_sku_price(_query):
-    _ans, _steps = "", ""
-    _top_info, _price = get_sku_price(_query)
-
-    _steps += f"\n{_query}\n"
-    _n = 0
-    for i in _top_info:
-        _n += 1
-        _steps += f"{_n}. {i}\n"
-    _r, _r_step = get_closest(_query, _top_info)
-    _steps += f"\n{_r}\n{_r_step}\n"
-    import re
-    if re.match(r'^\d', _r[0]):
-        _s = _top_info[int(_r[0].strip())-1]
-        _ans = f"\n${_price[_s]}, '{_s}'"
-    else:
-        _top = []
-        _n = 0
-        for i in _top_info:
-            _n += 1
-            _top.append(f"{_n}. {i}")
-        _ans = "No match.\n\ntop 3:\n" + "\n".join(_top)
-    return [_ans, _steps]
+from module.azure_related import azure_sku_price
 
 ##### Chat
 from module.gradio_func import chg_btn_color_if_input
@@ -77,6 +53,21 @@ def azure_selected_vdb(_query, _radio):
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     elif _radio == "managed_disk":
         _db_name = str(_pa_path / "vdb" / "azure_vm")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    else:
+        _ans = f"ERROR: not supported agent or retriever: {_radio}"
+    return [_ans, _steps]
+
+##### GMZY Doc
+from module.query_vdb import qa_faiss_multi_query
+
+def gmzy_selected_vdb(_query, _radio):
+    _ans, _steps = "", ""
+    from pathlib import Path
+    _pwd = Path(__file__).absolute()
+    _pa_path = _pwd.parent
+    if _radio == "gmzy":
+        _db_name = str(_pa_path / "vdb" / "gmzy")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     else:
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
@@ -191,7 +182,7 @@ with gr.Blocks(title=_description) as demo:
             label="Which Azure cloud service do you want to know about?",
             info="",
             type="value",
-            value="vm_disk"
+            value="monitor"
         )
         az_start_btn = gr.Button("Start", variant="secondary", visible=True)
         az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
@@ -203,6 +194,29 @@ with gr.Blocks(title=_description) as demo:
         )
         az_start_btn.click(
             azure_selected_vdb,
+            [az_query, az_radio],
+            [az_ans, az_steps]
+        )
+
+    with gr.Tab(label = "光明中医"):
+        az_query = gr.Textbox(label="提问", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
+        az_radio = gr.Radio(
+            ["gmzy"],
+            label="https://www.gmzyjc.com/site/",
+            info="",
+            type="value",
+            value="gmzy"
+        )
+        az_start_btn = gr.Button("Start", variant="secondary", visible=True)
+        az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_query.change(
+            chg_btn_color_if_input,
+            [az_query],
+            [az_start_btn]
+        )
+        az_start_btn.click(
+            gmzy_selected_vdb,
             [az_query, az_radio],
             [az_ans, az_steps]
         )
