@@ -831,7 +831,6 @@ def get_closest(_query, _top_info):
 def azure_sku_price(_query):
     _ans, _steps = "", ""
     _top_info, _price = get_sku_price(_query)
-
     _steps += f"\n{_query}\n"
     _n = 0
     for i in _top_info:

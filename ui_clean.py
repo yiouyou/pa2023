@@ -207,9 +207,9 @@ with gr.Blocks(title=_description) as demo:
             type="value",
             value="gmzy"
         )
-        az_start_btn = gr.Button("Start", variant="secondary", visible=True)
-        az_ans = gr.Textbox(label="Ans", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        az_steps = gr.Textbox(label="Steps", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_start_btn = gr.Button("开始", variant="secondary", visible=True)
+        az_ans = gr.Textbox(label="回答", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_steps = gr.Textbox(label="参考信息", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
         az_query.change(
             chg_btn_color_if_input,
             [az_query],

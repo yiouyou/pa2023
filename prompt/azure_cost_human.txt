@@ -1,0 +1,7 @@
+Known facts:
+{info}
+---
+Given the metrics table:
+{metrics}
+---
+Among the above metrics, which ones have the greatest impact on cost and are most helpful for monitoring and saving costs, please list the name and a short reason for selection, nothing else:

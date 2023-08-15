@@ -503,6 +503,46 @@ def _chat_with_sys_human_about_closest(_query, _sentences, _sys, _human):
     return _closest, _closest_step
 
 
+def _chat_with_sys_human_about_cost(_info, _metrics, _sys, _human):
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+    from langchain.callbacks import get_openai_callback
+    from langchain.chat_models import ChatOpenAI
+    from langchain import LLMChain
+    from langchain.prompts.chat import (
+        ChatPromptTemplate,
+        SystemMessagePromptTemplate,
+        HumanMessagePromptTemplate,
+    )
+    from langchain.prompts import load_prompt
+    from pathlib import Path
+    _pwd = Path(__file__).absolute()
+    _prompt_path = os.path.join(_pwd.parent.parent, 'prompt')
+    sys_file = os.path.join(_prompt_path, _sys)
+    human_file = os.path.join(_prompt_path, _human)
+    system_message_prompt = SystemMessagePromptTemplate.from_template_file(
+        sys_file,
+        input_variables=[]
+    )
+    human_message_prompt = HumanMessagePromptTemplate.from_template_file(
+        human_file,
+        input_variables=["info", "metrics"]
+    )
+    _prompt = ChatPromptTemplate.from_messages(
+        [system_message_prompt, human_message_prompt]
+    )
+    with get_openai_callback() as cb:
+        # llm = ChatOpenAI(model_name=os.getenv('OPENAI_MODEL'), temperature=0)
+        llm = ChatOpenAI(model_name="gpt-4", temperature=0)
+        chain = LLMChain(llm=llm, prompt=_prompt)
+        _re = chain.run(info=_info, metrics=_metrics)
+        _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
+        _cost = _re.strip().split("\n")
+        _cost_step = f"{_token_cost}\n\n" + "="*20+" prompt "+"="*20+"\n" + _prompt.format(info=_info, metrics=_metrics) + "="*20+" prompt "+"="*20+"\n" + f"cost drivers:\n\n" + "\n".join(_cost)
+    return _cost, _cost_step
+
+
 def _uniq(_rule):
     _rule_ = {}
     import re
@@ -821,5 +861,36 @@ def get_closest(_query, _top_info):
         _n += 1
         _sentences.append(f"{_n}. {i}")
     _r, _r_step = _chat_with_sys_human_about_closest(_query, "\n".join(_sentences), _sys, _human)
+    return _r, _r_step
+
+
+def azure_sku_price(_query):
+    _ans, _steps = "", ""
+    _top_info, _price = get_sku_price(_query)
+    _steps += f"\n{_query}\n"
+    _n = 0
+    for i in _top_info:
+        _n += 1
+        _steps += f"{_n}. {i}\n"
+    _r, _r_step = get_closest(_query, _top_info)
+    _steps += f"\n{_r}\n{_r_step}\n"
+    import re
+    if re.match(r'^\d', _r[0]):
+        _s = _top_info[int(_r[0].strip())-1]
+        _ans = f"\n${_price[_s]}, '{_s}'"
+    else:
+        _top = []
+        _n = 0
+        for i in _top_info:
+            _n += 1
+            _top.append(f"{_n}. {i}")
+        _ans = "No match.\n\ntop 3:\n" + "\n".join(_top)
+    return [_ans, _steps]
+
+
+def get_cost_metrics(_info, _metrics):
+    _sys = 'azure_cost_sys.txt'
+    _human = 'azure_cost_human.txt'
+    _r, _r_step = _chat_with_sys_human_about_cost(_info, _metrics, _sys, _human)
     return _r, _r_step
 
