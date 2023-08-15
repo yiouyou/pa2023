@@ -173,6 +173,14 @@ if __name__ == "__main__":
     # weblinks_to_link_md_gmzy(_links, _md_dir)
     # link_md_to_faiss(_md_dir, _azure)
 
+    _db_azure = txt2name("Azure Well-Architected Framework")
+    print(_db_azure)
+    _links = str(_faiss_path / "vdb" / "azure_well-architected-framework.link")
+    _azure = str(_faiss_path / "vdb" / _db_azure)
+    _md_dir = "./md_azure_well-architected_framework"
+    weblinks_to_link_md_azure(_links, _md_dir)
+    link_md_to_faiss(_md_dir, _azure)
+
     # _db_azure = txt2name("Azure VM")
     # print(_db_azure)
     # _links = str(_faiss_path / "vdb" / "azure_vm.link")

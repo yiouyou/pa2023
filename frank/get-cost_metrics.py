@@ -23,3 +23,8 @@ if __name__ == "__main__":
 # python get-cost_metrics.py "databaseaccounts1"
 # python get-cost_metrics.py "mongoclusters"
 
+# python get-cost_metrics.py "apimanagement"
+# python get-cost_metrics.py "bigdatapools"
+# python get-cost_metrics.py "eventhubclusters"
+# python get-cost_metrics.py "eventhubnamespace"
+

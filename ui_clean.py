@@ -48,6 +48,9 @@ def azure_selected_vdb(_query, _radio):
     elif _radio == "synapse":
         _db_name = str(_pa_path / "vdb" / "azure_synapse")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "well-architected_framework":
+        _db_name = str(_pa_path / "vdb" / "azure_well-architected_framework")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     elif _radio == "vm":
         _db_name = str(_pa_path / "vdb" / "azure_vm")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
@@ -178,7 +181,7 @@ with gr.Blocks(title=_description) as demo:
     with gr.Tab(label = "Azure Doc"):
         az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
         az_radio = gr.Radio(
-            ["vm", "app_service", "managed_disk", "blob_storage", "cosmos_db", "sql_db", "sql_mi", "monitor", "synapse"],
+            ["vm", "app_service", "managed_disk", "blob_storage", "cosmos_db", "sql_db", "sql_mi", "monitor", "synapse", "well-architected_framework"],
             label="Which Azure cloud service do you want to know about?",
             info="",
             type="value",
