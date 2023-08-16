@@ -157,6 +157,36 @@ def link_md_to_faiss(_dir, _db_name):
     print(f"docs: {len(_docs)}")
     embedding_to_faiss_ST(_docs, _db_name)
 
+def link_md_to_faiss_gmzy(_dir, _db_name):
+    import os, json
+    from langchain.text_splitter import MarkdownHeaderTextSplitter
+    headers_to_split_on = [
+        ("#", "Header 1"),
+        ("##", "Header 2"),
+        ("###", "Header 3"),
+        ("####", "Header 4"),
+    ]
+    markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+    _docs = []
+    fn = os.path.join(_dir, "_link_md.json")
+    with open(fn, "r", encoding="utf-8") as rf:
+        link_md = json.loads(rf.read())
+    # print(link_md)
+    for i in link_md:
+        print(i)
+        with open(i, "r", encoding="utf-8") as rf:
+            _t = rf.read()
+            _md = markdown_splitter.split_text(_t)
+            for j in _md:
+                _m1 = j.metadata
+                _headers = _m1.values()
+                _m1['description'] = ', '.join(_headers)
+                _m1['source'] = link_md[i]
+                j.metadata = _m1
+            _docs += _md
+    print(f"docs: {len(_docs)}")
+    embedding_to_faiss_ST(_docs, _db_name)
+
 
 if __name__ == "__main__":
 
@@ -165,21 +195,21 @@ if __name__ == "__main__":
     _pwd = Path(__file__).absolute()
     _faiss_path = _pwd.parent.parent.parent
 
-    # _db_azure = txt2name("gmzy")
-    # print(_db_azure)
-    # _links = str(_faiss_path / "vdb" / "gmzy.link")
-    # _azure = str(_faiss_path / "vdb" / _db_azure)
-    # _md_dir = "./md_gmzy"
+    _db_gmzy = txt2name("gmzy")
+    print(_db_gmzy)
+    _links = str(_faiss_path / "vdb" / "gmzy.link")
+    _gmzy = str(_faiss_path / "vdb" / _db_gmzy)
+    _md_dir = "./md_gmzy"
     # weblinks_to_link_md_gmzy(_links, _md_dir)
-    # link_md_to_faiss(_md_dir, _azure)
+    link_md_to_faiss_gmzy(_md_dir, _gmzy)
 
-    _db_azure = txt2name("Azure Well-Architected Framework")
-    print(_db_azure)
-    _links = str(_faiss_path / "vdb" / "azure_well-architected-framework.link")
-    _azure = str(_faiss_path / "vdb" / _db_azure)
-    _md_dir = "./md_azure_well-architected_framework"
-    weblinks_to_link_md_azure(_links, _md_dir)
-    link_md_to_faiss(_md_dir, _azure)
+    # _db_azure = txt2name("Azure Well-Architected Framework")
+    # print(_db_azure)
+    # _links = str(_faiss_path / "vdb" / "azure_well-architected-framework.link")
+    # _azure = str(_faiss_path / "vdb" / _db_azure)
+    # _md_dir = "./md_azure_well-architected_framework"
+    # weblinks_to_link_md_azure(_links, _md_dir)
+    # link_md_to_faiss(_md_dir, _azure)
 
     # _db_azure = txt2name("Azure VM")
     # print(_db_azure)

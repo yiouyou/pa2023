@@ -50,6 +50,9 @@ def qa_faiss_retriever_multi_query(_query, _db_name):
         AsyncCallbackManagerForRetrieverRun,
         CallbackManagerForRetrieverRun,
     )
+    from langchain.document_transformers import (
+        LongContextReorder,
+    )
     from langchain.chains import RetrievalQA
     from langchain.chat_models import ChatOpenAI
     from dotenv import load_dotenv
@@ -61,14 +64,21 @@ def qa_faiss_retriever_multi_query(_query, _db_name):
         _run_manager = CallbackManagerForRetrieverRun.get_noop_manager()
         _generated_queries = _retriever.generate_queries(_query, _run_manager)
         pprint(_generated_queries)
+        ##### _docs, _reordered_docs
         _docs = _retriever.get_relevant_documents(_query)
-        _pretty = pretty_print_docs(_docs)
-        # print(_pretty)
+        _reordering = LongContextReorder()
+        _reordered_docs = _reordering.transform_documents(_docs)
+        _pretty_docs = pretty_print_docs(_docs)
+        _pretty_reordered_docs = pretty_print_docs(_reordered_docs)
+        #####
         _qa_chain = RetrievalQA.from_chain_type(llm, retriever=_retriever)
+        _ans = _qa_chain.run(query=_query, input_documents=_reordered_docs)
+        #####
         _token_cost = f"Tokens: {cb.total_tokens} = (Prompt {cb.prompt_tokens} + Completion {cb.completion_tokens}) Cost: ${format(cb.total_cost, '.5f')}"
         print(_token_cost)
-        _ans = _qa_chain.run(_query)
-        _steps = f"{_token_cost}\n\n"+ "\n".join(_retriever.generate_queries(_query, _run_manager)) + f"\n\n{'-' * 100}\n" + _pretty
+        _steps = f"{_token_cost}\n\n"+ "\n".join(_retriever.generate_queries(_query, _run_manager))
+        # _steps += f"\n\n{'=' * 100}docs\n" + _pretty_docs
+        _steps += f"\n\n{'=' * 100}reordered_docs\n" + _pretty_reordered_docs
     return [_ans, _steps]
 
 def qa_faiss_multi_query(_query, _db):
