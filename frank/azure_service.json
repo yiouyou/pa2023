@@ -517,6 +517,36 @@
       }
     }
   },
+  "azure databricks": {
+    "vdb": "azure_databricks",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/databricks"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "Workload": [
+            "All-Purpose Compute",
+            "All-Purpose Compute with Photon",
+            "Jobs Compute",
+            "Jobs Compute with Photon",
+            "Jobs Light Compute",
+            "SQL Compute",
+            "Delta Live Tables (DLT)",
+            "Serverless SQL",
+            "SQL Pro Compute",
+            "Serverless Real-Time Inference"
+          ],
+          "Tier": [
+            "Standard",
+            "Premium"
+          ]
+        }
+      }
+    }
+  },
   "service": {
     "vdb": "azure_service",
     "pricing": [],

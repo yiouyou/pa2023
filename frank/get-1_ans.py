@@ -23,4 +23,5 @@ if __name__ == "__main__":
     # python get-1_ans.py tmp_azure_sql_database_1691239657
     # python get-1_ans.py tmp_azure_sql_managed_instance_1691239129
     # python get-1_ans.py tmp_azure_synapse_1691241703
+    # python get-1_ans.py tmp_azure_databricks_1692241737
 

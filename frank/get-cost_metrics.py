@@ -24,7 +24,11 @@ if __name__ == "__main__":
 # python get-cost_metrics.py "mongoclusters"
 
 # python get-cost_metrics.py "apimanagement"
-# python get-cost_metrics.py "bigdatapools"
 # python get-cost_metrics.py "eventhubclusters"
 # python get-cost_metrics.py "eventhubnamespace"
 
+# python get-cost_metrics.py "synapse-bigdatapools"
+# python get-cost_metrics.py "synapse-kustopools"
+# python get-cost_metrics.py "synapse-scopepools"
+# python get-cost_metrics.py "synapse-sqlpools"
+# python get-cost_metrics.py "synapse-workspace"
