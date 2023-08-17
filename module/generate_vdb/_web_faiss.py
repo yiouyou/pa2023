@@ -195,21 +195,21 @@ if __name__ == "__main__":
     _pwd = Path(__file__).absolute()
     _faiss_path = _pwd.parent.parent.parent
 
-    # _db_gmzy = txt2name("gmzy")
-    # print(_db_gmzy)
-    # _links = str(_faiss_path / "vdb" / "gmzy.link")
-    # _gmzy = str(_faiss_path / "vdb" / _db_gmzy)
-    # _md_dir = "./md_gmzy"
+    _db_gmzy = txt2name("gmzy_bak")
+    print(_db_gmzy)
+    _links = str(_faiss_path / "vdb" / "gmzy.link")
+    _gmzy = str(_faiss_path / "vdb" / _db_gmzy)
+    _md_dir = "./md_gmzy_bak"
     # weblinks_to_link_md_gmzy(_links, _md_dir)
-    # link_md_to_faiss_gmzy(_md_dir, _gmzy)
+    link_md_to_faiss_gmzy(_md_dir, _gmzy)
 
-    _db_azure = txt2name("Azure Databricks")
-    print(_db_azure)
-    _links = str(_faiss_path / "vdb" / "azure_databricks.link")
-    _azure = str(_faiss_path / "vdb" / _db_azure)
-    _md_dir = "./md_azure_databricks"
-    weblinks_to_link_md_azure(_links, _md_dir)
-    link_md_to_faiss(_md_dir, _azure)
+    # _db_azure = txt2name("Azure Databricks")
+    # print(_db_azure)
+    # _links = str(_faiss_path / "vdb" / "azure_databricks.link")
+    # _azure = str(_faiss_path / "vdb" / _db_azure)
+    # _md_dir = "./md_azure_databricks"
+    # weblinks_to_link_md_azure(_links, _md_dir)
+    # link_md_to_faiss(_md_dir, _azure)
 
     # _db_azure = txt2name("Azure Well-Architected Framework")
     # print(_db_azure)

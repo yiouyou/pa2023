@@ -73,7 +73,7 @@ def gmzy_selected_vdb(_query, _radio):
     _pwd = Path(__file__).absolute()
     _pa_path = _pwd.parent
     if _radio == "gmzy":
-        _db_name = str(_pa_path / "vdb" / "gmzy")
+        _db_name = str(_pa_path / "vdb" / "gmzy_bak")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     else:
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
