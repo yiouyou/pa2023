@@ -14,11 +14,11 @@ lxml
 markdownify
 nest_asyncio
 openai
+openpyxl
 path
 petals
 pydantic==1.10.8
 pyowm
-python-dotenv
 python-dotenv
 sentence_transformers
 tabulate
@@ -30,4 +30,3 @@ uvicorn
 wikipedia
 wolframalpha
 youtube_search
-openpyxl
