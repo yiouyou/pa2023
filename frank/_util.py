@@ -353,29 +353,30 @@ def get_ans_from_qlist(_json, _dir, _service):
     _ans = []
     a, b, c= 0, 0, 0
     for i in _qlist:
-        a +=1
-        _fn = i.split("?")
-        _fn0 = _fn[0].replace("/", "|")
-        _fn_ans = "_ans_"+_fn0
-        _fn_step = "_step_"+_fn0
-        #####
-        _ans_f = os.path.join(_dir, "_ans_", _fn_ans)
-        _step_f = os.path.join(_dir, "_step_", _fn_ans)
-        if not os.path.exists(_ans_f):
-            b += 1
-            _q = f"{i} Please output in concise English."
-            print(_q)
-            i_ans, i_step = "", ""
-            i_ans, i_step = qa_faiss_multi_query(_q, _vdb)
-            writeF(os.path.join(_dir, "_ans_"), _fn_ans, i_ans)
-            writeF(os.path.join(_dir, "_step_"), _fn_step, i_step)
-            # time.sleep(4)
-            _ans.append(i_ans)
-        else:
-            c +=1
-            i_ans = readF(os.path.join(_dir, "_ans_"), _fn_ans)
-            i_step = readF(os.path.join(_dir, "_step_"), _fn_step)
-            _ans.append(i_ans)
+        if i:
+            a +=1
+            _fn = i.split("?")
+            _fn0 = _fn[0].replace("/", "|")
+            _fn_ans = "_ans_"+_fn0
+            _fn_step = "_step_"+_fn0
+            #####
+            _ans_f = os.path.join(_dir, "_ans_", _fn_ans)
+            _step_f = os.path.join(_dir, "_step_", _fn_ans)
+            if not os.path.exists(_ans_f):
+                b += 1
+                _q = f"{i} Please output in concise English."
+                print(_q)
+                i_ans, i_step = "", ""
+                i_ans, i_step = qa_faiss_multi_query(_q, _vdb)
+                writeF(os.path.join(_dir, "_ans_"), _fn_ans, i_ans)
+                writeF(os.path.join(_dir, "_step_"), _fn_step, i_step)
+                # time.sleep(4)
+                _ans.append(i_ans)
+            else:
+                c +=1
+                i_ans = readF(os.path.join(_dir, "_ans_"), _fn_ans)
+                i_step = readF(os.path.join(_dir, "_step_"), _fn_step)
+                _ans.append(i_ans)
     print(f"total({a}) = new({b}) + old({c})")
     _ans_str = ""
     for i in range(len(_qlist)):
@@ -661,11 +662,11 @@ def _rulebook(_ans_str, _dir, _service):
     _rulebook, _rulebook_step = _chat_with_sys_human_about_rule(_info, _service, _sys, _human)
     _out_rule = '_rulebook'
     _out_rule_step = '_rulebook_step'
-    writeF(_dir, _out_rule, _rulebook)
+    writeF(_dir, _out_rule, "\n".join(_rulebook))
     writeF(_dir, _out_rule_step, _rulebook_step)
 
 
-def extract_rulebook(_ans_f, _dir, _service):
+def extract_rulebook(_dir, _service):
     import os
     _ans_f = os.path.join(_dir, '_ans')
     with open(_ans_f, 'r', encoding='utf-8') as rf:
