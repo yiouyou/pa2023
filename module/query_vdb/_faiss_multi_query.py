@@ -78,7 +78,7 @@ def qa_faiss_retriever_multi_query(_query, _db_name):
         print(_token_cost)
         _steps = f"{_token_cost}\n\n"+ "\n".join(_retriever.generate_queries(_query, _run_manager))
         # _steps += f"\n\n{'=' * 100}docs\n" + _pretty_docs
-        _steps += f"\n\n{'=' * 100}reordered_docs\n" + _pretty_reordered_docs
+        _steps += f"\n\n{'=' * 60} reordered_docs\n" + _pretty_reordered_docs
     return [_ans, _steps]
 
 def qa_faiss_multi_query(_query, _db):
