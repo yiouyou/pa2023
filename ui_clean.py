@@ -60,6 +60,9 @@ def azure_selected_vdb(_query, _radio):
     elif _radio == "well-architected_framework":
         _db_name = str(_pa_path / "vdb" / "azure_well-architected_framework")
         _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    elif _radio == "cache_redis":
+        _db_name = str(_pa_path / "vdb" / "azure_cache_redis")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
     else:
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
     return [_ans, _steps]
@@ -184,7 +187,7 @@ with gr.Blocks(title=_description) as demo:
     with gr.Tab(label = "Azure Doc"):
         az_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
         az_radio = gr.Radio(
-            ["vm", "app_service", "managed_disk", "blob_storage", "databricks", "cosmos_db", "sql_db", "sql_mi", "monitor", "synapse", "well-architected_framework"],
+            ["vm", "app_service", "managed_disk", "blob_storage", "databricks", "cosmos_db", "sql_db", "sql_mi", "monitor", "synapse", "well-architected_framework", "cache_redis"],
             label="Which Azure cloud service do you want to know about?",
             info="",
             type="value",

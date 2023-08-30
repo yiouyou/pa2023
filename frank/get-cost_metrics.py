@@ -52,3 +52,10 @@ if __name__ == "__main__":
 # python get-cost_metrics.py "virtualmachineScaleSets0"
 # python get-cost_metrics.py "virtualmachineScaleSets1"
 
+# python get-cost_metrics.py "cacheredisEnterprise"
+# python get-cost_metrics.py "cacheredis0"
+# python get-cost_metrics.py "cacheredis1"
+# python get-cost_metrics.py "cacheredis2"
+# python get-cost_metrics.py "cacheredis3"
+# python get-cost_metrics.py "cacheredis4"
+

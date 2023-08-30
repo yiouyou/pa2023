@@ -24,4 +24,5 @@ if __name__ == "__main__":
     # python get-2_rule.py tmp_azure_sql_managed_instance_1691239129
     # python get-2_rule.py tmp_azure_synapse_1691241703
     # python get-2_rule.py tmp_azure_databricks_1692241737
+    # python get-2_rule.py tmp_azure_cache_redis_1693361019
 

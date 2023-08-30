@@ -547,6 +547,29 @@
       }
     }
   },
+  "azure cache redis": {
+    "vdb": "azure_cache_redis",
+    "pricing": [
+      "https://azure.microsoft.com/en-us/pricing/details/cache/"
+    ],
+    "qlist": {
+      "cost drivers": {},
+      "performance metrics": {},
+      "pricing options": {
+        "key_concept": {
+          "Tier": [
+            "Basic",
+            "Standard",
+            "Premium",
+            "Enterprise",
+            "Enterprise Flash"
+          ],
+          "Zone Redundancy": "",
+          "Geo-replication": ""
+        }
+      }
+    }
+  },
   "service": {
     "vdb": "azure_service",
     "pricing": [],

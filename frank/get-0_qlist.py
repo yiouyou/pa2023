@@ -30,4 +30,5 @@ if __name__ == "__main__":
     # python get-0_qlist.py "azure page blobs"
     # python get-0_qlist.py "azure data lake"
     # python get-0_qlist.py "azure databricks"
+    # python get-0_qlist.py "azure cache redis"
 
