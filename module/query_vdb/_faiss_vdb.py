@@ -21,7 +21,7 @@ def qa_faiss_retriever_vdb(_query, _db_name):
     # _ans = _qa_chain.run(_query)
     ##### RetrievalQAWithSourcesChain
     from langchain.chains import RetrievalQAWithSourcesChain
-    _qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=_retriever)
+    _qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=_retriever, reduce_k_below_max_tokens=True)
     _ans = _qa_chain({"question": _query}, return_only_outputs=True)
     _ans = f"{_ans['answer'].strip()} ({_ans['sources']})"
     return _ans
