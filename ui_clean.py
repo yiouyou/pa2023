@@ -67,21 +67,6 @@ def azure_selected_vdb(_query, _radio):
         _ans = f"ERROR: not supported agent or retriever: {_radio}"
     return [_ans, _steps]
 
-##### GMZY Doc
-from module.query_vdb import qa_faiss_multi_query
-
-def gmzy_selected_vdb(_query, _radio):
-    _ans, _steps = "", ""
-    from pathlib import Path
-    _pwd = Path(__file__).absolute()
-    _pa_path = _pwd.parent
-    if _radio == "gmzy":
-        _db_name = str(_pa_path / "vdb" / "gmzy_bak")
-        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
-    else:
-        _ans = f"ERROR: not supported agent or retriever: {_radio}"
-    return [_ans, _steps]
-
 ##### Search
 from module.query_vdb import qa_faiss_multi_query
 from module.agents import agent_react_zeroshot
@@ -203,29 +188,6 @@ with gr.Blocks(title=_description) as demo:
         )
         az_start_btn.click(
             azure_selected_vdb,
-            [az_query, az_radio],
-            [az_ans, az_steps]
-        )
-
-    with gr.Tab(label = "光明中医"):
-        az_query = gr.Textbox(label="提问", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
-        az_radio = gr.Radio(
-            ["gmzy"],
-            label="https://www.gmzyjc.com/site/",
-            info="",
-            type="value",
-            value="gmzy"
-        )
-        az_start_btn = gr.Button("开始", variant="secondary", visible=True)
-        az_ans = gr.Textbox(label="回答", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        az_steps = gr.Textbox(label="参考信息", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
-        az_query.change(
-            chg_btn_color_if_input,
-            [az_query],
-            [az_start_btn]
-        )
-        az_start_btn.click(
-            gmzy_selected_vdb,
             [az_query, az_radio],
             [az_ans, az_steps]
         )
