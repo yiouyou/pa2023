@@ -51,6 +51,6 @@ df["_info"] = _info_d
 df["r_u"] = df["retailPrice"] - df["unitPrice"]
 print(df["r_u"].sum())
 
-out = df[["_info", "unitPrice"]]
+out = df[["_info", "unitPrice", "skuId", "meterId"]]
 out.to_csv('_info_unitPrice_all.csv', index=False)
 # out.to_csv('_info_unitPrice_noArmSKU.csv', index=False)

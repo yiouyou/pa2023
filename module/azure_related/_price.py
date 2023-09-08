@@ -779,7 +779,7 @@ def _top_df_info(_df, _query):
     # _max = _df['_score'].idxmax()
     # print(_max)
     _top = _df.nlargest(3, '_score')
-    _top = _top[['_info', 'unitPrice', '_score', '_skuName_meterName']]
+    _top = _top[['_info', 'unitPrice', '_score', '_skuName_meterName', 'skuId', 'meterId']]
     # print(_top)
     return _top
 
@@ -795,14 +795,17 @@ def get_sku_price(_query):
     import pandas as pd
     from pathlib import Path
     _pwd = Path(__file__).absolute().parent
+    _fn = os.path.join(_pwd, "_info_unitPrice_all.csv")
+    # _fn = os.path.join(_pwd, "info_unitPrice_all.csv")
     # _fn = "info_unitPrice_0813.csv"
-    _fn = os.path.join(_pwd, "info_unitPrice_all.csv")
     # _fn = "info_unitPrice_noArmSKU.csv"
     _df = pd.read_csv(_fn)
     _top = _top_df_info(_df, _query)
     # print(_top)
     _top_info = []
     _price = {}
+    _skuId = {}
+    _meterId = {}
     # print(f"\n'{_query}'\n")
     for index, row in _top.iterrows():
         _s = "{:.5f}".format(row['_score'])
@@ -810,10 +813,12 @@ def get_sku_price(_query):
         _info = f"{row['_info']}"
         _top_info.append(_info)
         _price[_info] = row['unitPrice']
+        _skuId[_info] = row['skuId']
+        _meterId[_info] = row['meterId']
     # print(_top['_info'])
     # print(_top['_score'])
     # print(_top['unitPrice'])
-    return _top_info, _price
+    return _top_info, _price, _skuId, _meterId
 
 
 def get_closest(_query, _top_info):
@@ -830,7 +835,7 @@ def get_closest(_query, _top_info):
 
 def azure_sku_price(_query):
     _ans, _steps = "", ""
-    _top_info, _price = get_sku_price(_query)
+    _top_info, _price, _skuId, _meterId = get_sku_price(_query)
     _steps += f"\n{_query}\n"
     _n = 0
     for i in _top_info:
@@ -841,7 +846,9 @@ def azure_sku_price(_query):
     import re
     if re.match(r'^\d', _r[0]):
         _s = _top_info[int(_r[0].strip())-1]
-        _ans = f"\n${_price[_s]}, '{_s}'"
+        # print(_skuId[_s])
+        # print(_meterId[_s])
+        _ans = f"\n${_price[_s]}, {_skuId[_s]}, {_meterId[_s]}, '{_s}'"
     else:
         _top = []
         _n = 0
