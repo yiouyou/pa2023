@@ -143,6 +143,20 @@ from module.voice import txt_to_mp3
 def get_photopea_url_params():
     return "#%7B%22resources%22:%5B%22data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIAAQMAAADOtka5AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF////p8QbyAAAADZJREFUeJztwQEBAAAAgiD/r25IQAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfBuCAAAB0niJ8AAAAABJRU5ErkJggg==%22%5D%7D"
 
+##### GMZY Doc
+from module.query_vdb import qa_faiss_multi_query
+
+def gmzy_selected_vdb(_query, _radio):
+    _ans, _steps = "", ""
+    from pathlib import Path
+    _pwd = Path(__file__).absolute()
+    _pa_path = _pwd.parent
+    if _radio == "gmzy":
+        _db_name = str(_pa_path / "vdb" / "gmzy_bak")
+        _ans, _steps = qa_faiss_multi_query(_query, _db_name)
+    else:
+        _ans = f"ERROR: not supported agent or retriever: {_radio}"
+    return [_ans, _steps]
 
 ##### UI
 _description = """
@@ -192,31 +206,21 @@ with gr.Blocks(title=_description) as demo:
             [az_ans, az_steps]
         )
 
-    with gr.Tab(label = "Chat"):
-        gr.ChatInterface(
-            fn=chat_predict_openai,
-            submit_btn="提交",
-            stop_btn="停止",
-            retry_btn="🔄 重试",
-            undo_btn="↩️ 撤消",
-            clear_btn="🗑️ 清除",
-        )
-
-    with gr.Tab(label = "Chainlit"):
-        CHAINLIT_MAIN_URL = "http://137.117.215.27:8000"
-        CHAINLIT_IFRAME_ID = "chainlit-iframe"
-        CHAINLIT_IFRAME_HEIGHT = 768
-        CHAINLIT_IFRAME_WIDTH = "100%"
-        CHAINLIT_IFRAME_LOADED_EVENT = "onChainlitLoaded"
-        with gr.Row():
-            # Add an iframe directly in the tab.
-            gr.HTML(
-                f"""<iframe id="{CHAINLIT_IFRAME_ID}" 
-                src = "{CHAINLIT_MAIN_URL}"
-                width = "{CHAINLIT_IFRAME_WIDTH}" 
-                height = "{CHAINLIT_IFRAME_HEIGHT}"
-                onload = "{CHAINLIT_IFRAME_LOADED_EVENT}(this)">"""
-            )
+    # with gr.Tab(label = "Chainlit"):
+    #     CHAINLIT_MAIN_URL = "http://137.117.215.27:8000"
+    #     CHAINLIT_IFRAME_ID = "chainlit-iframe"
+    #     CHAINLIT_IFRAME_HEIGHT = 768
+    #     CHAINLIT_IFRAME_WIDTH = "100%"
+    #     CHAINLIT_IFRAME_LOADED_EVENT = "onChainlitLoaded"
+    #     with gr.Row():
+    #         # Add an iframe directly in the tab.
+    #         gr.HTML(
+    #             f"""<iframe id="{CHAINLIT_IFRAME_ID}" 
+    #             src = "{CHAINLIT_MAIN_URL}"
+    #             width = "{CHAINLIT_IFRAME_WIDTH}" 
+    #             height = "{CHAINLIT_IFRAME_HEIGHT}"
+    #             onload = "{CHAINLIT_IFRAME_LOADED_EVENT}(this)">"""
+    #         )
 
     with gr.Tab(label = "Search"):
         sh_query = gr.Textbox(label="Query", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
@@ -280,41 +284,72 @@ with gr.Blocks(title=_description) as demo:
             [ap_generated, ap_steps]
         )
 
-    with gr.Tab(label = "转语音"):
-        with gr.Row(equal_height=True):
-            with gr.Column(scale=6):
-                yy_txt = gr.Textbox(label="输入文字", placeholder="input text", lines=5, max_lines=5, interactive=True, visible=True)
-            yy_btn = gr.Button("转换", variant="secondary", visible=True)
-            with gr.Column(scale=3):
-                yy_mp3 = gr.Audio(label="生成语音", visible=True)
-        yy_txt.change(
+    # with gr.Tab(label = "转语音"):
+    #     with gr.Row(equal_height=True):
+    #         with gr.Column(scale=6):
+    #             yy_txt = gr.Textbox(label="输入文字", placeholder="input text", lines=5, max_lines=5, interactive=True, visible=True)
+    #         yy_btn = gr.Button("转换", variant="secondary", visible=True)
+    #         with gr.Column(scale=3):
+    #             yy_mp3 = gr.Audio(label="生成语音", visible=True)
+    #     yy_txt.change(
+    #         chg_btn_color_if_input,
+    #         [yy_txt],
+    #         [yy_btn]
+    #     )
+    #     yy_btn.click(
+    #         txt_to_mp3,
+    #         [yy_txt],
+    #         [yy_mp3]
+    #     )
+
+    # with gr.Tab(label = "Photopea"):
+    #     PHOTOPEA_MAIN_URL = "https://www.photopea.com/"
+    #     PHOTOPEA_IFRAME_ID = "photopea-iframe"
+    #     PHOTOPEA_IFRAME_HEIGHT = 768
+    #     PHOTOPEA_IFRAME_WIDTH = "100%"
+    #     PHOTOPEA_IFRAME_LOADED_EVENT = "onPhotopeaLoaded"
+    #     with gr.Row():
+    #         # Add an iframe directly in the tab.
+    #         gr.HTML(
+    #             f"""<iframe id="{PHOTOPEA_IFRAME_ID}" 
+    #             src = "{PHOTOPEA_MAIN_URL}{get_photopea_url_params()}" 
+    #             width = "{PHOTOPEA_IFRAME_WIDTH}" 
+    #             height = "{PHOTOPEA_IFRAME_HEIGHT}"
+    #             onload = "{PHOTOPEA_IFRAME_LOADED_EVENT}(this)">"""
+    #         )
+
+    with gr.Tab(label = "Chat3.5"):
+        gr.ChatInterface(
+            fn=chat_predict_openai,
+            submit_btn="提交",
+            stop_btn="停止",
+            retry_btn="🔄 重试",
+            undo_btn="↩️ 撤消",
+            clear_btn="🗑️ 清除",
+        )
+
+    with gr.Tab(label = "光明中医"):
+        az_query = gr.Textbox(label="提问", placeholder="Query", lines=10, max_lines=10, interactive=True, visible=True)
+        az_radio = gr.Radio(
+            ["gmzy"],
+            label="https://www.gmzyjc.com/site/",
+            info="",
+            type="value",
+            value="gmzy"
+        )
+        az_start_btn = gr.Button("开始", variant="secondary", visible=True)
+        az_ans = gr.Textbox(label="回答", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_steps = gr.Textbox(label="参考信息", placeholder="...", lines=15, max_lines=15, interactive=False, visible=True)
+        az_query.change(
             chg_btn_color_if_input,
-            [yy_txt],
-            [yy_btn]
+            [az_query],
+            [az_start_btn]
         )
-        yy_btn.click(
-            txt_to_mp3,
-            [yy_txt],
-            [yy_mp3]
+        az_start_btn.click(
+            gmzy_selected_vdb,
+            [az_query, az_radio],
+            [az_ans, az_steps]
         )
-
-    with gr.Tab(label = "Photopea"):
-        PHOTOPEA_MAIN_URL = "https://www.photopea.com/"
-        PHOTOPEA_IFRAME_ID = "photopea-iframe"
-        PHOTOPEA_IFRAME_HEIGHT = 768
-        PHOTOPEA_IFRAME_WIDTH = "100%"
-        PHOTOPEA_IFRAME_LOADED_EVENT = "onPhotopeaLoaded"
-        with gr.Row():
-            # Add an iframe directly in the tab.
-            gr.HTML(
-                f"""<iframe id="{PHOTOPEA_IFRAME_ID}" 
-                src = "{PHOTOPEA_MAIN_URL}{get_photopea_url_params()}" 
-                width = "{PHOTOPEA_IFRAME_WIDTH}" 
-                height = "{PHOTOPEA_IFRAME_HEIGHT}"
-                onload = "{PHOTOPEA_IFRAME_LOADED_EVENT}(this)">"""
-            )
-
-
 
 
 # from fastapi import FastAPI, Response
