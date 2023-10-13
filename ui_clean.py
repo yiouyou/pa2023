@@ -318,7 +318,7 @@ with gr.Blocks(title=_description) as demo:
     #             onload = "{PHOTOPEA_IFRAME_LOADED_EVENT}(this)">"""
     #         )
 
-    with gr.Tab(label = "Chat3.5"):
+    with gr.Tab(label = "Chat4"):
         gr.ChatInterface(
             fn=chat_predict_openai,
             submit_btn="提交",
