@@ -1,7 +1,7 @@
 arxiv
 azure-cognitiveservices-speech
 chainlit
-chromadb==0.3.26
+chromadb
 duckduckgo-search
 faiss-cpu
 fastapi
