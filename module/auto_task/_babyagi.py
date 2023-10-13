@@ -1,6 +1,8 @@
 def babyagi():
     import os
-    from langchain import LLMChain, OpenAI, PromptTemplate
+    from langchain.chains import LLMChain
+    from langchain.llms import OpenAI
+    from langchain.prompts import PromptTemplate
     from langchain.experimental import BabyAGI
     from langchain.agents import ZeroShotAgent, Tool, AgentExecutor
     from langchain import OpenAI, LLMChain

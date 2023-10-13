@@ -45,7 +45,7 @@ from langchain.callbacks import get_openai_callback
 from langchain.prompts.prompt import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
-from langchain import LLMChain
+from langchain.chains import LLMChain
 qlist_template = \
 """
 If there are two types of A/B/C, you should generate the question list as below:

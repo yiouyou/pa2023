@@ -13,6 +13,7 @@ lark
 lxml
 markdownify
 nest_asyncio
+numexpr
 openai
 openpyxl
 path

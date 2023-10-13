@@ -5,7 +5,7 @@ def get_faiss_multi_query_retriever(_db_name):
     from langchain.retrievers.multi_query import MultiQueryRetriever
     from typing import List
     from pydantic import BaseModel, Field
-    from langchain import LLMChain
+    from langchain.chains import LLMChain
     from langchain.prompts import PromptTemplate
     from langchain.output_parsers import PydanticOutputParser
     import os

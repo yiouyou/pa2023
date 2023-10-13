@@ -6,7 +6,7 @@ def llm_azure_code(_text):
     from langchain.prompts.pipeline import PipelinePromptTemplate
     from langchain.prompts.prompt import PromptTemplate
     from langchain.llms import OpenAI
-    from langchain import LLMChain
+    from langchain.chains import LLMChain
     import os
     full_template = """{introduction}
 
@@ -66,7 +66,7 @@ def chat_azure_code(_text):
         SystemMessage
     )
     from langchain.chat_models import ChatOpenAI
-    from langchain import LLMChain
+    from langchain.chains import LLMChain
     import os
     sys_template="""
 You are a helpful assistant that translates {input_language} to {output_language}.

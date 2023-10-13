@@ -6,7 +6,7 @@ def llm_azure_rules(_text):
     from langchain.prompts.pipeline import PipelinePromptTemplate
     from langchain.prompts.prompt import PromptTemplate
     from langchain.llms import OpenAI
-    from langchain import LLMChain
+    from langchain.chains import LLMChain
     import os
     full_template = \
     """
@@ -56,7 +56,7 @@ def chat_azure_rules(_text):
     _ans, _steps = "", ""
     from langchain.callbacks import get_openai_callback
     from langchain.chat_models import ChatOpenAI
-    from langchain import LLMChain
+    from langchain.chains import LLMChain
     from langchain.prompts.chat import (
         ChatPromptTemplate,
         SystemMessagePromptTemplate,

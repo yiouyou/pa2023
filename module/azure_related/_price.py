@@ -390,7 +390,7 @@ def _chat_with_sys_human_about_rule(_info, _service, _sys, _human):
     load_dotenv()
     from langchain.callbacks import get_openai_callback
     from langchain.chat_models import ChatOpenAI
-    from langchain import LLMChain
+    from langchain.chains import LLMChain
     from langchain.prompts.chat import (
         ChatPromptTemplate,
         SystemMessagePromptTemplate,
@@ -430,7 +430,7 @@ def _chat_with_sys_human_about_sku(_info, _sys, _human):
     load_dotenv()
     from langchain.callbacks import get_openai_callback
     from langchain.chat_models import ChatOpenAI
-    from langchain import LLMChain
+    from langchain.chains import LLMChain
     from langchain.prompts.chat import (
         ChatPromptTemplate,
         SystemMessagePromptTemplate,
@@ -470,7 +470,7 @@ def _chat_with_sys_human_about_closest(_query, _sentences, _sys, _human):
     load_dotenv()
     from langchain.callbacks import get_openai_callback
     from langchain.chat_models import ChatOpenAI
-    from langchain import LLMChain
+    from langchain.chains import LLMChain
     from langchain.prompts.chat import (
         ChatPromptTemplate,
         SystemMessagePromptTemplate,

@@ -1,4 +1,5 @@
-from langchain import OpenAI, LLMMathChain
+from langchain.llms import OpenAI
+from langchain.chains import LLMMathChain
 from langchain.utilities import GoogleSerperAPIWrapper
 from langchain.agents import initialize_agent, Tool, AgentExecutor
 from langchain.chat_models import ChatOpenAI

@@ -2,7 +2,7 @@
 from langchain.utilities import GoogleSerperAPIWrapper
 search_google_serp = GoogleSerperAPIWrapper()
 
-from langchain import SerpAPIWrapper
+from langchain.utilities import SerpAPIWrapper
 search_serp = SerpAPIWrapper()
 
 from langchain.utilities import GoogleSearchAPIWrapper
@@ -13,7 +13,7 @@ search_duck = DuckDuckGoSearchRun()
 
 
 ##### wiki
-from langchain import Wikipedia
+from langchain.docstore import Wikipedia
 from langchain.agents.react.base import DocstoreExplorer
 docstore_wiki = DocstoreExplorer(Wikipedia())
 
@@ -33,7 +33,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from langchain.llms import OpenAI
-from langchain import LLMMathChain
+from langchain.chains import LLMMathChain
 llm_math = LLMMathChain.from_llm(
     llm=OpenAI(temperature=0),
     verbose=True

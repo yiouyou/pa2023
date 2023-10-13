@@ -35,7 +35,7 @@ from langchain.callbacks import get_openai_callback
 from langchain.prompts.prompt import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
-from langchain import LLMChain
+from langchain.chains import LLMChain
 _dir = 'tmp_1689564655'
 # _dir = 'tmp_1689566000'
 _original_rules = readF(_dir, '_ans4').split("\n")
