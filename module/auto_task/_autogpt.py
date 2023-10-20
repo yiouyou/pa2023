@@ -14,7 +14,7 @@ def autogpt():
     import faiss
     embedding_size = 1536
     index = faiss.IndexFlatL2(embedding_size)
-    _vectorstore = FAISS(embeddings_model.embed_query, index, InMemoryDocstore   ({}), {})
+    _vectorstore = FAISS(embeddings_model.embed_query, index, InMemoryDocstore({}), {})
     from langchain.experimental import AutoGPT
     from langchain.chat_models import ChatOpenAI
     from langchain.memory.chat_message_histories import FileChatMessageHistory
